@@ -1,13 +1,15 @@
-import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, View, FlatList} from 'react-native';
+import React, { useState } from 'react';
+import {StyleSheet,SafeAreaView, TouchableOpacity, Text, View, FlatList, ScrollView} from 'react-native';
 import TotalReports from '../components/TotalReports';
 import SafetyIndex from '../components/SafetyIndex';
-import {BarChart, LineChart, PieChart} from 'react-native-gifted-charts';
+import {BarChart} from 'react-native-gifted-charts';
 import { Header } from '../components/Header';
 import { AppText } from '../components/AppText';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Dashboard = ({navigation}) => {
+
+  const [showDetails, setShowDetails] = useState(false)
+
   const industryIndex = [
     {
       id: 0,
@@ -42,35 +44,39 @@ const Dashboard = ({navigation}) => {
   ];
 
   const data = [
-    {value: 50},
-    {value: 80},
-    {value: 90},
-    {value: 70},
-    {value: 50},
-    {value: 80},
-    {value: 90},
-    {value: 70},
-    {value: 70},
+    {value: 250, label: 'M'},
+        {value: 500, label: 'T',},
+        {value: 745, label: 'W'},
+        {value: 320, label: 'T'},
+        {value: 600, label: 'F'},
+        {value: 256, label: 'S'},
+        {value: 300, label: 'S'},
+        {value: 600, label: 'F'},
+        {value: 256, label: 'S'},
+        {value: 300, label: 'S'},
+        {value: 300, label: 'S'},
+        {value: 600, label: 'F'},
+        {value: 256, label: 'S'},
+        {value: 300, label: 'S'},
   
   ];
 
   return (
     <SafeAreaView style={styles.container}>
         <Header dashboard={true} navigation={navigation}/>
+        <ScrollView style={{paddingHorizontal:15, marginBottom:'25%'}}>
         <Text style={styles.title}>{'Dashboard'}</Text>
       <View style={styles.graphContainer}>
         <View style={styles.subTitle}>
-          <Text>{'Reported Safety Issues By Industry'}</Text>
-          <TouchableOpacity>
-            <Text>{'Show Details'}</Text>
-          </TouchableOpacity>
+          <AppText text={'Reported Safety Issues By Industry'}/>
+          <AppText disabled={false} text={'Show Details'} color={showDetails === true? "red": "black"} onPress={()=>setShowDetails(!showDetails)}/>
         </View>
         <View style={{marginLeft:"-21%"}}>
         <BarChart
           data={data}
           barWidth={20}
           noOfSections={3}
-          barBorderRadius={3}
+          barBorderRadius={2}
           frontColor="green"
           yAxisThickness={0}
           xAxisThickness={0}
@@ -79,6 +85,9 @@ const Dashboard = ({navigation}) => {
           hideYAxisText
           height={140}
          hideYAxisText
+         spacing={8}
+         isAnimated
+         
         //   style={{marginLeft:-20}}
         />
         </View>
@@ -144,6 +153,7 @@ const Dashboard = ({navigation}) => {
           />
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

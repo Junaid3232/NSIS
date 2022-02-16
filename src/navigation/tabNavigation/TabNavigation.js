@@ -6,6 +6,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../../screens/dashboard';
 import Drawer from '../drawerNavigation/Drawer';
 import colors from '../../config/colors';
+import ReportIssue from '../../screens/reportIssue'
+import TermsOfUse from '../../screens/termsOfUse'
+import AboutNISCN from '../../screens/aboutNISCN'
 
 const Tab = createBottomTabNavigator();
 const dashboard = require('../../assets/icons/tabs/dashboard.png');
@@ -73,7 +76,7 @@ const TabNavigation = () => {
         />
         <Tab.Screen
           name="About NISCN"
-          component={Dashboard}
+          component={AboutNISCN}
           options={{icon: dashboard}}
           options={{
             tabBarIcon: ({focused, color, size, icon}) => (
@@ -106,7 +109,7 @@ const TabNavigation = () => {
         />
         <Tab.Screen
           name="Report Issue"
-          component={Dashboard}
+          component={ReportIssue}
           options={{icon: dashboard}}
           options={{
             tabBarIcon: ({focused, color, size, icon}) => (
@@ -139,7 +142,7 @@ const TabNavigation = () => {
         />
         <Tab.Screen
           name="Terms of Use"
-          component={Dashboard}
+          component={TermsOfUse}
           options={{icon: dashboard}}
           options={{
             tabBarIcon: ({focused, color, size, icon}) => (
