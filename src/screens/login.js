@@ -6,11 +6,12 @@ import {AppTextBox} from '../components/AppTextBox';
 import {AppText} from '../components/AppText';
 import { AppButton } from '../components/AppButton';
 import { screens } from '../config/constants';
+import colors from '../config/colors';
 
 const Login=({navigation})=> {
   
   return (
-    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:20}}>
+    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:20,backgroundColor:colors.white}}>
     <View style={{flex:1}}>
       <View style={{height:400}}>
    <AppCarousel/>

@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     textAlign: 'center',
     backgroundColor:colors.lightGray,
-    fontSize:12
+    fontSize:12,
+    
   },
 });
 
