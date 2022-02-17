@@ -10,6 +10,10 @@ import Register3 from '../screens/register3';
 import ForgotPassword from '../screens/forgotPassword';
 import DrawerNavigation from './DrawerNavigation';
 import Drawer from './drawerNavigation/Drawer';
+import Compliance from '../screens/compliance'
+import NotificationDetail from '../screens/notificationDetail'
+import NationalSafety from '../screens/nationalSafety'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,10 @@ const StackNavigator=()=>{
         <Stack.Screen name="Register3" component={Register3 } options={{headerShown:false}}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword } options={{headerShown:false}}/>
         <Stack.Screen name="Dashboard" component={Drawer } options={{headerShown:false}} />
+        <Stack.Screen name="Compliance" component={Compliance } options={{headerShown:false}} />
+        <Stack.Screen name="NotificationDetail" component={NotificationDetail } options={{headerShown:false}} />
+        <Stack.Screen name="NationalSafety" component={NationalSafety } options={{headerShown:false}} />
+
       </Stack.Navigator>
   );
 }

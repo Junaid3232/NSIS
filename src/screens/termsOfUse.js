@@ -4,7 +4,7 @@ import { StyleSheet, SafeAreaView ,Text, View , Image} from 'react-native'
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
 
-const TermsOfUse = () => {
+const TermsOfUse = ({navigation}) => {
     const image = require('../assets/images/4.jpg');
     return (
         <SafeAreaView style={{flex:1}}>
@@ -18,8 +18,8 @@ const TermsOfUse = () => {
                 <AppText text={"The Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related he Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related …The Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related he Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related …"}/>
                 </View>
             </View>
-            <TouchableOpacity style={styles.btn} onPress={() => setSubmit(!submit)}>
-        <AppText color={'#fff'} text={'SUBMIT'} />
+            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Compliance")}>
+        <AppText bold={"bold"} color={'#fff'} text={'NDPR / GDPR COMPLIANCE'} />
       </TouchableOpacity>
         </SafeAreaView>
     )

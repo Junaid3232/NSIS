@@ -10,27 +10,37 @@ import {
 import {Header} from '../components/Header';
 import {AppText} from '../components/AppText';
 import {ScrollView} from 'react-native';
+import colors from '../config/colors';
 
-const ReportIssue = () => {
+const statusConfirmation = () => {
   const [submit, setSubmit] = useState(true);
   const [extendView, setExtendView] = useState(false);
   const [existingIssue, setExistingIssue] = useState(false);
   const [softCity, setSoftCity] = useState(false);
   const [input, setInput] = useState(false);
-
+  const [statusConfirmation,setStatusConfirmation]=useState({
+    freshIssue:false,
+    existingIssue:false,
+    softCityGroup:false,
+    auditTech:false,
+    resolved:false,
+    pending:false,
+  })
+  const [showIndustryInfo, setShowIndustryInfo]=useState(false)
   return (
+
     <SafeAreaView style={styles.mainContainer}>
+      
       <Header />
+   
       <ScrollView style={{marginBottom:'35%'}}>
         <View style={{paddingVertical: 10, paddingHorizontal: 22}}>
           <AppText bold={'bold'} text={'Report Safety Issue'} />
         </View>
 
-        <TouchableOpacity
-          style={[styles.container, {manHeight: 100}]}
-          onPress={() => {
-            setExtendView(!extendView);
-          }}>
+        <View
+          style={[styles.container, {manHeight: 100}]}>
+       
           {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'1'} />
@@ -40,12 +50,20 @@ const ReportIssue = () => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
+          <TouchableOpacity    onPress={() => {
+            setExtendView(!extendView);
+          }}>
+            <View style={{padding:5}}>
           <AppText bold={'bold'} text={'Report Safety Issue'} />
           <AppText
             text={
               "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
             }
+            size={12}
+            
           />
+          </View>
+          </TouchableOpacity>
           {extendView && (
             <View
               style={{
@@ -56,34 +74,35 @@ const ReportIssue = () => {
               }}>
               <View style={{flex: 0.5, marginEnd: 8}}>
                 <TouchableOpacity
-                  style={[styles.button, {backgroundColor: 'green'}]}
-                  onPress={() => {}}>
-                  <AppText bold={'bold'} color={'#fff'} text={'Fresh Issue'} />
+                disabled={statusConfirmation.existingIssue&& true}
+                  style={[styles.button,                  {backgroundColor:statusConfirmation.freshIssue? 'red' : !statusConfirmation.existingIssue && !statusConfirmation.freshIssue?colors.primary:colors.primary+50}]}
+                  onPress={() => setStatusConfirmation({...statusConfirmation,freshIssue:!statusConfirmation.freshIssue,existingIssue:false})}>
+                  <AppText bold={'bold'} size={12} color={'white'} text={'Fresh Issue'} />
                 </TouchableOpacity>
               </View>
               <View style={{flex: 0.5}}>
                 <TouchableOpacity
-                  style={[
-                    styles.button,
-                    {backgroundColor: existingIssue === true ? 'red' : 'green'},
-                  ]}
-                  onPress={() => setExistingIssue(!existingIssue)}>
+                 disabled={statusConfirmation.freshIssue&& true}
+                 style={[styles.button,                  {backgroundColor:statusConfirmation.existingIssue? 'red' : !statusConfirmation.existingIssue && !statusConfirmation.freshIssue?colors.primary:colors.primary+50}]}
+                  onPress={() => setStatusConfirmation({...statusConfirmation,existingIssue:!statusConfirmation.existingIssue,freshIssue:false})}>
                   <AppText
                     bold={'bold'}
                     color={'#fff'}
                     text={'Existing Issue'}
+                    size={12} 
                   />
                 </TouchableOpacity>
               </View>
             </View>
           )}
 
-          {existingIssue && (
+          {(statusConfirmation.existingIssue) ||(statusConfirmation.freshIssue) ? (
             <>
               <AppText
                 text={
                   "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
                 }
+              
               />
               <View
                 style={{
@@ -94,31 +113,30 @@ const ReportIssue = () => {
                 }}>
                 <View style={{flex: 0.5, marginEnd: 8}}>
                   <TouchableOpacity
-                    style={[
-                      styles.button,
-                      {backgroundColor: softCity == true ? 'red' : 'green'},
-                    ]}
-                    onPress={() => {
-                      setSoftCity(!softCity);
-                    }}>
+                  disabled={statusConfirmation.auditTech&& true}
+                                  style={[styles.button,{backgroundColor:statusConfirmation.softCityGroup? 'red' : !statusConfirmation.auditTech && !statusConfirmation.softCityGroup?colors.primary:colors.primary+50}]}
+                    onPress={() => setStatusConfirmation({...statusConfirmation, auditTech:false,softCityGroup:!statusConfirmation.softCityGroup})}>
                     <AppText
                       bold={'bold'}
                       color={'#fff'}
                       text={'Softcity Group'}
+                     
                     />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 0.5}}>
                   <TouchableOpacity
-                    style={[styles.button, {backgroundColor: 'green'}]}
-                    onPress={() => {}}>
+                  disabled={statusConfirmation.softCityGroup&& true}
+                   style={[styles.button,{backgroundColor:statusConfirmation.auditTech? 'red' : !statusConfirmation.auditTech && !statusConfirmation.softCityGroup?colors.primary:colors.primary+50}]}
+
+                    onPress={() => setStatusConfirmation({...statusConfirmation, auditTech:!statusConfirmation.auditTech,softCityGroup:false})}>
                     <AppText bold={'bold'} color={'#fff'} text={'Audit Tech'} />
                   </TouchableOpacity>
                 </View>
               </View>
             </>
-          )}
-          {softCity && (
+          ):null}
+          {(statusConfirmation.softCityGroup) ||(statusConfirmation.auditTech) ?(
             <>
               <AppText
                 text={'Here this issue being resolved or it is still pending'}
@@ -132,8 +150,10 @@ const ReportIssue = () => {
                 }}>
                 <View style={{flex: 0.5, marginEnd: 8}}>
                   <TouchableOpacity
-                    style={[styles.button, {backgroundColor: 'green'}]}
-                    onPress={() => setInput(!input)}>
+                  disabled={statusConfirmation.pending&& true}
+                    style={[styles.button,{backgroundColor:statusConfirmation.resolved? 'red' : !statusConfirmation.resolved && !statusConfirmation.pending?colors.primary:colors.primary+50}]}
+
+                    onPress={() => setStatusConfirmation({...statusConfirmation, resolved:!statusConfirmation.resolved,pending:false})}>
                     <AppText
                       bold={'bold'}
                       color={'#fff'}
@@ -143,8 +163,9 @@ const ReportIssue = () => {
                 </View>
                 <View style={{flex: 0.5}}>
                   <TouchableOpacity
-                    style={[styles.button, {backgroundColor: 'green'}]}
-                    onPress={() => {}}>
+                  disabled={statusConfirmation.resolved&& true}
+                   style={[styles.button,{backgroundColor:statusConfirmation.pending? 'red' : !statusConfirmation.resolved && !statusConfirmation.pending?colors.primary:colors.primary+50}]}
+                    onPress={() => setStatusConfirmation({...statusConfirmation, pending:!statusConfirmation.pending,resolved:false})}>
                     <AppText
                       bold={'bold'}
                       color={'#fff'}
@@ -154,8 +175,8 @@ const ReportIssue = () => {
                 </View>
               </View>
             </>
-          )}
-         { input &&
+          ):null}
+         {(statusConfirmation.resolved) ||(statusConfirmation.pending) ?
           <>
           <View style={{paddingBottom: 10}}>
             <AppText
@@ -165,13 +186,16 @@ const ReportIssue = () => {
             />
           </View>
           <View style={styles.textInput}>
-                  <Text style={styles.lineCounter}>{"0/100"}</Text>
+            <View  style={styles.lineCounter}>
+                  <AppText text={"0/100"}/>
+                  </View>
             <TextInput
               multiline
               numberOfLines={100}
+      
               
             />
-          </View></>}
+          </View></>: null}
           {extendView && (
             <View
               style={{
@@ -199,9 +223,11 @@ const ReportIssue = () => {
               <View style={styles.waitingDot3} />
             </View>
           )}
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity
+        onPress={()=>setShowIndustryInfo(!showIndustryInfo)} 
+         style={styles.container}>
           {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'2'} />
@@ -211,12 +237,26 @@ const ReportIssue = () => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText bold={'bold'} text={'Report Safety Issue'} />
+          {showIndustryInfo?<>
+            <AppText bold={'bold'} text={'Industry Information'} />
+            <AppText
+            text={
+               'Select the industry of the organization you are reporting'
+            } />
+            <View style={{width:'90%',padding:8,backgroundColor:colors.primary,borderRadius:10,marginTop:10}}>
+            <AppText 
+            color={'white'}
+            text={
+               'Telecomunication'
+            } />
+            </View>
+            </>:
+          <>
+          <AppText bold={'bold'} text={'Industry Information'} />
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
-            }
-          />
+               'We will like to know the industry the organization you are reporting operators'
+            } /></>}
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
           {submit == false ? (
@@ -303,26 +343,35 @@ const ReportIssue = () => {
             }
           />
           
-        </TouchableOpacity>
+          </TouchableOpacity>
+       
       </ScrollView>
       <TouchableOpacity style={styles.btn} onPress={() => setSubmit(!submit)}>
         <AppText color={'#fff'} text={'SUBMIT'} />
       </TouchableOpacity>
+
+   
     </SafeAreaView>
+    
+
+   
   );
+
 };
 
-export default ReportIssue;
+export default statusConfirmation;
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor:colors.white
     // paddingHorizontal: 15,
   },
   container: {
     // height: 120,
     width: '90%',
-    borderWidth: 1,
+    backgroundColor:colors.lightGray,
+    borderWidth: 0,
     borderColor: 'green',
     marginVertical: 8,
     borderRadius: 15,
@@ -330,6 +379,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
+    shadowColor: "#000",
+   
+shadowOffset: {
+	width: 0,
+	height: 4,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
   },
   counterSticker: {
     backgroundColor: 'green',
@@ -342,25 +400,49 @@ const styles = StyleSheet.create({
     left: -15,
     top: 25,
     zIndex: 999,
+        shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 4,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
   },
   btn: {
     height: 40,
-    backgroundColor: 'green',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
     position: 'absolute',
     left: 20,
     right: 20,
-    bottom: "13%",
+    bottom: 110,
     zIndex: 999,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   button: {
     height: 30,
     marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   waitingDot: {height: 10, width: 10, backgroundColor: 'grey', marginLeft: 10},
   waitingDot2: {
@@ -377,8 +459,9 @@ const styles = StyleSheet.create({
   },
   textInput:{
     height: 60,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: 'green',
     borderRadius: 10,
+    
   }
 });

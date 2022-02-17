@@ -9,6 +9,7 @@ import colors from '../../config/colors';
 import ReportIssue from '../../screens/reportIssue'
 import TermsOfUse from '../../screens/termsOfUse'
 import AboutNISCN from '../../screens/aboutNISCN'
+import Notification from '../../screens/notification'
 
 const Tab = createBottomTabNavigator();
 const dashboard = require('../../assets/icons/tabs/dashboard.png');
@@ -67,6 +68,8 @@ const TabNavigation = () => {
                     color: focused ? colors.primary : 'gray',
                     fontSize: 10,
                     marginTop: 10,
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600'
                   }}>
                   Dashboard
                 </Text>
@@ -92,6 +95,8 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600'
                   }}
                   resizeMode={'contain'}
                 />
@@ -100,6 +105,8 @@ const TabNavigation = () => {
                     color: focused ? colors.primary : 'gray',
                     fontSize: 10,
                     marginTop: 10,
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600'
                   }}>
                   About NISCN
                 </Text>
@@ -125,12 +132,16 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600'
                   }}
                   resizeMode={'contain'}
                 />
                 <Text
                   style={{
                     color: focused ? colors.primary : 'gray',
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600',
                     fontSize: 10,
                     marginTop: 10,
                   }}>
@@ -158,12 +169,16 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600'
                   }}
                   resizeMode={'contain'}
                 />
                 <Text
                   style={{
                     color: focused ? colors.primary : 'gray',
+                    fontFamily:'Raleway-Black',
+                    fontWeight:'600',
                     fontSize: 10,
                     marginTop: 10,
                   }}>
@@ -176,7 +191,7 @@ const TabNavigation = () => {
 
         <Tab.Screen
           name="Notifications"
-          component={Dashboard}
+          component={Notification}
           options={{icon: dashboard}}
           options={{
             tabBarIcon: ({focused, color, size, icon}) => (

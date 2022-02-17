@@ -62,7 +62,7 @@ const DrawerSideBarMenu = props => {
                 <DrawerItem
                     label={({ focused, color }) =>
                         <DrawerSection focused={focused} color={color} icon='trophy-variant-outline' title='National Safety Index' />}
-                    onPress={() => { alert('Challenges Pressed') }}
+                    onPress={() => props.navigation.navigate('NationalSafety')}
                 />
                 <DrawerItem
                     label={({ focused, color }) =>
@@ -121,9 +121,9 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         marginLeft: 10,
-        fontFamily: 'Nunito-Light',
         fontWeight: '400',
-        color: 'white'
+        color: 'white',
+        fontFamily:'Raleway-Black',
     },
     safe: {
         flex: 1,

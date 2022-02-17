@@ -5,7 +5,7 @@ import colors from '../config/colors';
 export const AppText = (
   {text, 
     disabled=true,
-    size=size,
+    size=12,
     bold,
     onPress,
     color,
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.black,
     fontWeight: 'bold',
+    fontFamily:'Raleway-Black'
     
   },
 });
