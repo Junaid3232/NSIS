@@ -43,7 +43,9 @@ const ForgotPassword=({navigation})=> {
      <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
    </View>
    <View style={{marginTop:10}}>
-     <AppText text={'Reset Password'} size={17}  bold={true}/>
+     <View style={{alignItems:'center'}}>
+     <AppText text={'Reset Password'} size={16}  bold={true}/>
+     </View>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Enter Ner Password"}/>
      <AppTextBox placeholder={"Confirm Your Password"}/>
@@ -62,8 +64,8 @@ const ForgotPassword=({navigation})=> {
 
    </View>
    </View>
-   <View style={{justifyContent:'flex-end'}}>
-     <AppText text={'Powerd By Softcity Group'} size={8}/>
+   <View style={{justifyContent:'flex-end',alignItems:'center'}}>
+     <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>
      </View>
   </SafeAreaView>
   )

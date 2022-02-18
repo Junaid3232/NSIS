@@ -20,7 +20,9 @@ const Login=({navigation})=> {
      <Image source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
    </View>
    <View style={{marginTop:10}}>
-     <AppText text={'Report Safety Issue'} size={17}  bold={true}/>
+     <View style={{alignItems:'center'}}>
+     <AppText text={'Report Safety Issue'} size={16}  bold={true}/>
+     </View>
      <AppTextBox placeholder={"Email or Username"}/>
      <AppTextBox placeholder={"Password"}/>
      <View style={{marginTop:10}}>
@@ -48,8 +50,9 @@ const Login=({navigation})=> {
      </View>
    </View>
    </View>
-   <View style={{justifyContent:'flex-end'}}>
-     <AppText text={'Powerd By Softcity Group'} size={12}/>
+
+   <View style={{justifyContent:'flex-end',alignItems:'center'}}>
+     <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>
      </View>
   </SafeAreaView>
   )

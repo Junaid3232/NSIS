@@ -19,7 +19,9 @@ const Register=({navigation})=> {
      <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
    </View>
    <View style={{}}>
-     <AppText text={'Create Account'} size={17}  bold={true}/>
+     <View style={{alignItems:'center'}}>
+     <AppText text={'Create Account'} size={16}  bold={true}/>
+     </View>
      <AppTextBox placeholder={"First Name"}/>
      <AppTextBox placeholder={"Last Name"}/>
      <AppTextBox placeholder={"Valid Email Address"}/>
@@ -39,8 +41,8 @@ const Register=({navigation})=> {
 
    </View>
    </View>
-   <View style={{justifyContent:'flex-end'}}>
-     <AppText text={'Powerd By Softcity Group'} size={8}/>
+   <View style={{justifyContent:'flex-end',alignItems:'center'}}>
+     <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>
      </View>
   </SafeAreaView>
   )

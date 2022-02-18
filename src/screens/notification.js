@@ -78,13 +78,13 @@ const Notification = ({navigation}) => {
       {showFilter  &&
         <View style={styles.filter}>
         <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-        <AppText color={"#fff"}  size={16} text={'Last 7 Days'}/>         
+        <AppText color={"#fff"}  size={14} text={'Last 7 Days'}/>         
          </TouchableOpacity>
           <TouchableOpacity style={{padding:3}} onPress={() => {}}>
-          <AppText color={"#fff"}  size={16} text={'Last Month'}/>
+          <AppText color={"#fff"}  size={14} text={'Last Month'}/>
           </TouchableOpacity>
           <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-          <AppText color={"#fff"} size={16} text={'Calender Range'}/>
+          <AppText color={"#fff"} size={14} text={'Calender Range'}/>
           </TouchableOpacity>
         </View>}
         </View>
@@ -94,14 +94,15 @@ const Notification = ({navigation}) => {
           renderItem={({item}) => {
             return (
               <TouchableOpacity onPress={()=>navigation.navigate("NotificationDetail")} style={styles.notification}>
-                <AppText size={14} bold={'bold'} text={item.title} />
+                <AppText size={13} bold={'bold'} text={item.title} />
                 <View style={{paddingVertical: 5, paddingBottom: 10, zIndex:-1}}>
-                  <AppText size={12} text={item.description} />
+                  <AppText size={11} text={item.description} />
                 </View>
                 <AppText size={10} bold={'bold'} text={item.date} />
               </TouchableOpacity>
             );
           }}
+          keyExtractor={(item)=>item.index}
         />
               <TouchableOpacity style={styles.btn} onPress={() => {}}>
         <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />

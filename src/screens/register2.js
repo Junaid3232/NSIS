@@ -19,7 +19,9 @@ const Register2=({navigation})=> {
      <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
    </View>
    <View style={{marginTop:10}}>
+     <View style={{alignItems:'center'}}>
      <AppText text={'Complete Account Creation'} size={17}  bold={true}/>
+     </View>
      <AppTextBox placeholder={"Email or Username"}/>
      <View style={{marginTop:8}}>
      <AppButton title={'SUBMIT'} onPress={()=>navigation.navigate(screens.Register3)}/>
@@ -40,7 +42,9 @@ const Register2=({navigation})=> {
        <View style={{paddingBottom:15}}>
        <AppText text={'No Account? Report Anonymously'} size={14}  bold={true} disabled={false}/>
        </View>
-     <AppText text={'Powerd By Softcity Group'} size={8}/>
+       <View style={{alignItems:'center'}}>
+     <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>
+     </View>
      </View>
   </SafeAreaView>
   )

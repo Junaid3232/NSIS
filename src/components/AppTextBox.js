@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor:colors.lightGray,
     fontSize:12,
+    fontFamily:'Raleway-Medium'
     
   },
 });

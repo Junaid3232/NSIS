@@ -51,10 +51,17 @@ const ReportIssue = ({navigation}) => {
             }}>
             <View style={{padding: 5}}>
               <AppText bold={'bold'} text={'Report Safety Issue'} />
+              {extendView ? <AppText 
+               text={" Are you reporting a fresh Safety issue or you are confirming the status of a safety issue you have reported in the past"}
+               size={10}
+               color={colors.gray}/>
+  
+              :
               <AppText
                 text={"Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"}
-                size={12}
-              />
+                size={10}
+                color={colors.gray}
+              /> }
             </View>
           </TouchableOpacity>
           {extendView && (
@@ -82,7 +89,7 @@ const ReportIssue = ({navigation}) => {
                   }>
                   <AppText
                     bold={'bold'}
-                    size={12}
+                    size={10}
                     color={'white'}
                     text={'Fresh Issue'}
                   />
@@ -113,7 +120,7 @@ const ReportIssue = ({navigation}) => {
                     bold={'bold'}
                     color={'#fff'}
                     text={'Existing Issue'}
-                    size={12}
+                    size={10}
                   />
                 </TouchableOpacity>
               </View>
@@ -122,10 +129,9 @@ const ReportIssue = ({navigation}) => {
 
           {statusConfirmation.existingIssue || statusConfirmation.freshIssue ? (
             <>
-              <AppText
-                text={
-                  "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
-                }
+              <AppText text={"Below are the safety issues you have reported in the past. Select the name of the orgainization you are confirming the status of the safety issue"}
+                color={colors.gray}
+                size={10}
               />
               <View style={styles.cardContainer}>
                 <View style={{flex: 0.5, marginEnd: 8}}>
@@ -153,6 +159,7 @@ const ReportIssue = ({navigation}) => {
                       bold={'bold'}
                       color={'#fff'}
                       text={'Softcity Group'}
+                      size={10}
                     />
                   </TouchableOpacity>
                 </View>
@@ -177,7 +184,7 @@ const ReportIssue = ({navigation}) => {
                         softCityGroup: false,
                       })
                     }>
-                    <AppText bold={'bold'} color={'#fff'} text={'Audit Tech'} />
+                    <AppText bold={'bold'} color={'#fff'} text={'Audit Tech'}  size={10}/>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -186,7 +193,9 @@ const ReportIssue = ({navigation}) => {
           {statusConfirmation.softCityGroup || statusConfirmation.auditTech ? (
             <>
               <AppText
-                text={'Here this issue being resolved or it is still pending'}
+                text={'Has this issue being resolved or it is still pending'}
+                color={colors.gray}
+                size={10}
               />
               <View style={styles.cardContainer}>
                 <View style={{flex: 0.5, marginEnd: 8}}>
@@ -214,6 +223,7 @@ const ReportIssue = ({navigation}) => {
                       bold={'bold'}
                       color={'#fff'}
                       text={'Its Resolved'}
+                      size={10}
                     />
                   </TouchableOpacity>
                 </View>
@@ -242,6 +252,7 @@ const ReportIssue = ({navigation}) => {
                       bold={'bold'}
                       color={'#fff'}
                       text={'Still Pending'}
+                      size={10}
                     />
                   </TouchableOpacity>
                 </View>
@@ -253,8 +264,10 @@ const ReportIssue = ({navigation}) => {
               <View style={{paddingBottom: 10}}>
                 <AppText
                   text={
-                    "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+                    "Is there any further information you will like to share with us about this issue? Enter below"
                   }
+                  color={colors.gray}
+                  size={10}
                 />
               </View>
               <View style={styles.textInput}>
@@ -272,7 +285,7 @@ const ReportIssue = ({navigation}) => {
                 alignItems: 'center',
                 marginVertical: 10,
               }}>
-              <AppText text={'Next Will Load Your Response Above'} />
+              <AppText text={'Next Will Load Your Response Above'} size={10} color={colors.gray}/>
               <View style={styles.waitingDot} />
               <View style={styles.waitingDot2} />
               <View style={styles.waitingDot3} />
@@ -304,11 +317,12 @@ const ReportIssue = ({navigation}) => {
           )}
           {showIndustryInfo ? (
             <>
-              <AppText bold={'bold'} text={'Industry Information'} />
+              <AppText bold={'bold'} text={'Industry Information'}  size={10}/>
               <AppText
                 text={
                   'Select the industry of the organization you are reporting'
                 }
+                
               />
               <View
                 style={{
@@ -328,6 +342,8 @@ const ReportIssue = ({navigation}) => {
                 text={
                   'We will like to know the industry the organization you are reporting operators'
                 }
+                color={colors.gray}
+                size={10}
               />
             </>
           )}
@@ -342,11 +358,13 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Report Safety Issue'} />
+          <AppText text={'Organization Information'} bold={true}/>
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+               "We will like to get detailed information about the organization you are reporting operates"
             }
+            color={colors.gray}
+            size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
@@ -359,11 +377,13 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Report Safety Issue'} />
+          <AppText text={'Select the State You are Reporting From'} bold={true}/>
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+            "We will like to know the Nigerian State in which the safety issue you are reporting happend"
             }
+            color={colors.gray}
+            size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
@@ -376,11 +396,13 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Report Safety Issue'} />
+          <AppText text={'Select the LGA Yor ar Reporting From'} bold={true}/>
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+              "We will like to know the Local Government Area in which the safety issue you are reporting happend"
             }
+            color={colors.gray}
+            size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
@@ -393,13 +415,36 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Report Safety Issue'} />
+          <AppText text={'Location of the Safety Issue'} bold={true}/>
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+                "We will like to know the location within Nigeria in which the safety issue you are reporting happend"
             }
+            color={colors.gray}
+            size={10}
           />
         </TouchableOpacity>
+        
+        <TouchableOpacity style={{...styles.container}}>
+          {submit == false ? (
+            <View style={styles.counterSticker}>
+              <AppText color={'#fff'} text={'7'} />
+            </View>
+          ) : (
+            <View style={styles.counterSticker}>
+              <AppText color={'#fff'} text={'A'} />
+            </View>
+          )}
+          <AppText text={'Designated Safety Channel'} bold={true}/>
+          <AppText
+            text={
+ "We will like to know if the organization you are reporting have a designated channel to report safety issues"
+            }
+            color={colors.gray}
+            size={10}
+          />
+        </TouchableOpacity>
+     
         <View style={{marginBottom:'30%'}}>
         <TouchableOpacity style={{...styles.container}}>
           {submit == false ? (
@@ -411,11 +456,13 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Report Safety Issue'} />
+          <AppText text={'Other Relevent Information'} bold={true}/>
           <AppText
             text={
-              "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+ "We need more information to allow us investigate this safety issue such as timeline, anonymous verification, etc"
             }
+            color={colors.gray}
+            size={10}
           />
         </TouchableOpacity>
         </View>
@@ -442,12 +489,13 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: 'green',
     marginVertical: 8,
-    borderRadius: 15,
+    borderRadius: 10,
     zIndex: -999,
     alignSelf: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
     shadowColor: '#000',
+ 
 
     shadowOffset: {
       width: 0,
@@ -466,7 +514,7 @@ const styles = StyleSheet.create({
     width: 30,
     position: 'absolute',
     left: -15,
-    top: 25,
+    top: 15,
     zIndex: 999,
     shadowColor: '#000',
     shadowOffset: {
@@ -498,8 +546,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    height: 30,
+    height: 25,
     marginVertical: 10,
+    
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -533,7 +582,8 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.3,
+    borderColor:colors.gray,
     marginBottom: 10,
   },
   issueHeader:{paddingVertical: 10, paddingHorizontal: 22},
