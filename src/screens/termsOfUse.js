@@ -3,12 +3,13 @@ import { ScrollView,TouchableOpacity } from 'react-native';
 import { StyleSheet, SafeAreaView ,Text, View , Image} from 'react-native'
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
+import colors from '../config/colors';
 
 const TermsOfUse = ({navigation}) => {
     const image = require('../assets/images/4.jpg');
     return (
-        <SafeAreaView style={{flex:1}}>
-            <Header/>
+        <SafeAreaView style={{flex:1,backgroundColor:colors.white}}>
+            <Header navigation={navigation}/>
             <View style={{paddingHorizontal:15}}>
                 <View style={styles.title}>
                 <AppText bold={'bold'} text={"Terms Of Use"}/>
@@ -19,7 +20,7 @@ const TermsOfUse = ({navigation}) => {
                 </View>
             </View>
             <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Compliance")}>
-        <AppText bold={"bold"} color={'#fff'} text={'NDPR / GDPR COMPLIANCE'} />
+        <AppText color={'#fff'} text={'NDPR / GDPR COMPLIANCE'} />
       </TouchableOpacity>
         </SafeAreaView>
     )
@@ -36,14 +37,23 @@ const styles = StyleSheet.create({
     },
     btn: {
         height: 40,
-        backgroundColor: 'green',
+        backgroundColor: colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
         position: 'absolute',
         left: 20,
         right: 20,
-        bottom: "13%",
+        bottom: "15%",
         zIndex: 999,
+        shadowColor: '#000',
+shadowOffset: {
+  width: 0,
+  height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
+ 
       },
 })

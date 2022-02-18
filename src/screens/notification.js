@@ -12,6 +12,7 @@ import { filterConfig } from 'react-native-gesture-handler/lib/typescript/handle
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
+import colors from '../config/colors';
 
 const notifications = [
   {
@@ -55,8 +56,8 @@ const Notification = ({navigation}) => {
 
     const[showFilter, setShowFilter] = useState(false)
   return (
-    <SafeAreaView style={{zIndex:-1}}>
-      <Header />
+    <SafeAreaView style={{zIndex:-1,backgroundColor:'white',flex:1}}>
+      <Header navigation={navigation}/>
       <View>
       <View
         style={{
@@ -73,7 +74,6 @@ const Notification = ({navigation}) => {
             <AntDesign name="caretdown" color={colors.black} size={20} />
           </TouchableOpacity>
         </TouchableOpacity>
-       
       </View>
       {showFilter  &&
         <View style={styles.filter}>
@@ -94,20 +94,21 @@ const Notification = ({navigation}) => {
           renderItem={({item}) => {
             return (
               <TouchableOpacity onPress={()=>navigation.navigate("NotificationDetail")} style={styles.notification}>
-                <AppText size={16} bold={'bold'} text={item.title} />
+                <AppText size={14} bold={'bold'} text={item.title} />
                 <View style={{paddingVertical: 5, paddingBottom: 10, zIndex:-1}}>
-                  <AppText size={14} text={item.description} />
+                  <AppText size={12} text={item.description} />
                 </View>
-                <AppText size={14} bold={'bold'} text={item.date} />
+                <AppText size={10} bold={'bold'} text={item.date} />
               </TouchableOpacity>
             );
           }}
         />
-      </View>
-      
-      <TouchableOpacity style={styles.btn} onPress={() => {}}>
+              <TouchableOpacity style={styles.btn} onPress={() => {}}>
         <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />
       </TouchableOpacity>
+      </View>
+      
+
     </SafeAreaView>
   );
 };
@@ -116,12 +117,22 @@ export default Notification;
 
 const styles = StyleSheet.create({
   notification: {
-    borderColor: 'green',
-    borderWidth: 1,
-    borderRadius: 25,
+marginHorizontal:10,
+    borderRadius: 15,
+    marginTop:5,
     padding: 15,
     marginVertical: 5,
-    zIndex:-1
+    zIndex:-1,
+    backgroundColor:colors.lightGray,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+ 
   },
   filter:{
       height:110, 
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 20,
         right: 20,
-        bottom: "8%",
+        bottom: -10,
         zIndex: 1,
       },
 });

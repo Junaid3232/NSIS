@@ -13,6 +13,8 @@ import Drawer from './drawerNavigation/Drawer';
 import Compliance from '../screens/compliance'
 import NotificationDetail from '../screens/notificationDetail'
 import NationalSafety from '../screens/nationalSafety'
+import AboutNISCN from '../screens/aboutNISCN';
+import ReportIssue from '../screens/reportIssue'
 
 
 const Stack = createNativeStackNavigator();
@@ -25,10 +27,14 @@ const StackNavigator=()=>{
         <Stack.Screen name="Register2" component={Register2 } options={{headerShown:false}}/>
         <Stack.Screen name="Register3" component={Register3 } options={{headerShown:false}}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword } options={{headerShown:false}}/>
-        <Stack.Screen name="Dashboard" component={Drawer } options={{headerShown:false}} />
+        <Stack.Screen name="Dashboard" component={Drawer} options={{headerShown:false}} />
         <Stack.Screen name="Compliance" component={Compliance } options={{headerShown:false}} />
         <Stack.Screen name="NotificationDetail" component={NotificationDetail } options={{headerShown:false}} />
         <Stack.Screen name="NationalSafety" component={NationalSafety } options={{headerShown:false}} />
+        <Stack.Screen name="About" component={AboutNISCN } options={{headerShown:false}} />
+        <Stack.Screen name="ReportIssue" component={ReportIssue } options={{headerShown:false}} />
+
+
 
       </Stack.Navigator>
   );

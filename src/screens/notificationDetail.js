@@ -8,7 +8,7 @@ const NotificationDetail = ({navigation}) => {
     const image = require('../assets/images/4.jpg');
     return (
         <SafeAreaView style={{flex:1}}>
-            <Header/>
+            <Header navigation={navigation}/>
             <View style={{paddingHorizontal:15}}>
                 <View style={styles.title}>
                 <AppText bold={'bold'} text={"NISCN Enforces Safety In Calabar"}/>

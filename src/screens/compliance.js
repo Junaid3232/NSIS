@@ -8,11 +8,12 @@ import {
 } from 'react-native';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
+import colors from '../config/colors';
 
-const Compliance = () => {
+const Compliance = ({navigation}) => {
   return (
-    <SafeAreaView>
-      <Header />
+    <SafeAreaView style={{backgroundColor:colors.white,flex:1}}>
+      <Header navigation={navigation}/>
       <View style={{paddingHorizontal: 15, paddingVertical: 8}}>
         <AppText bold={'bold'} text={'NDPR / GDPR COMPLIANCE'} />
         <View style={{paddingVertical: 10}}>
@@ -56,5 +57,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     zIndex: 999,
+    shadowColor: '#000',
+shadowOffset: {
+  width: 0,
+  height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
+ 
   },
 });

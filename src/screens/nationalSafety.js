@@ -54,12 +54,12 @@ const nationalSafety = [
   },
 ];
 
-const NationalSafety = () => {
+const NationalSafety = ({navigation}) => {
   const [showFilter, setShowFilter] = useState(false);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <Header />
+      <Header navigation={navigation}/>
       <View style={{padding: 15, zIndex: -1}}>
         <View>
           <View

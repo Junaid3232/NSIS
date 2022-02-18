@@ -15,19 +15,20 @@ const Drawer = ({ navigation }) => {
         inactiveTintColor: 'black',
         activeTintColor: '#fff',
         inactiveBackgroundColor: 'white',
-        itemStyle: { width: '100%', },
+        itemStyle: { width: '100%', }
+        
       }}
 
       drawerContent={props => <DrawerSideBarMenu {...props} />}>
       <MainDrawer.Screen
-      
+    
         name="Home" component={TabNavigation}
         options={{
+          drawerLabelStyle:{fontFamily:'Raleway-Medium',fontSize:12},
           headerShown: false,
           title: 'Dashboard',
           drawerActiveTintColor: colors.primary,
           headerTintColor: colors.primary,
-
         }}
       />
 

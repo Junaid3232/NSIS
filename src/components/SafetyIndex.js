@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import colors from '../config/colors';
 
 const SafetyIndex = ({index, industryName}) => {
   return (
@@ -26,6 +27,8 @@ const styles = StyleSheet.create({
     padding: 5,
     marginEnd: 12,
     marginVertical: 8,
+
+backgroundColor:colors.lightGray
   },
   subContainer: {
     backgroundColor: 'green',
@@ -35,6 +38,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 7,
+    shadowColor: '#000',
+shadowOffset: {
+  width: 0,
+  height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+elevation: 5,
   },
   industryN: {
     color: '#000',

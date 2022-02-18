@@ -20,7 +20,7 @@ const shield = require('../../assets/icons/tabs/shield.png');
 
 const TabNavigation = () => {
   return (
-    <>
+
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
@@ -35,6 +35,7 @@ const TabNavigation = () => {
               borderRadius: 20,
               elevation: 0,
               height: 80,
+              backgroundColor:colors.lightGray,
               ...styles.shadow,
             },
           ],
@@ -223,7 +224,7 @@ const TabNavigation = () => {
           }}
         />
       </Tab.Navigator>
-    </>
+
   );
 };
 const styles = StyleSheet.create({
