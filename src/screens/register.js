@@ -9,7 +9,7 @@ import { screens } from '../config/constants';
 import colors from '../config/colors';
 
 const Register=({navigation})=> {
-  return (
+  return ( //
     <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:20,backgroundColor:colors.white}}>
     <View style={{flex:1}}>
       <View style={{height:400}}>
