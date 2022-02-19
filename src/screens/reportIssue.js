@@ -33,7 +33,7 @@ const ReportIssue = ({navigation}) => {
       <Header navigation={navigation}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.issueHeader}>
-          <AppText bold={'bold'} text={'Report Safety Issue'} />
+          <AppText text={'Report Safety Issue'} />
         </View>
         <View style={[styles.container, {manHeight: 100}]}>
           {submit == false ? (
@@ -50,7 +50,7 @@ const ReportIssue = ({navigation}) => {
               setExtendView(!extendView);
             }}>
             <View style={{padding: 5}}>
-              <AppText bold={'bold'} text={'Report Safety Issue'} />
+              <AppText color={colors.black} text={'Report Safety Issue'} />
               {extendView ? <AppText 
                text={" Are you reporting a fresh Safety issue or you are confirming the status of a safety issue you have reported in the past"}
                size={10}
@@ -88,7 +88,7 @@ const ReportIssue = ({navigation}) => {
                     })
                   }>
                   <AppText
-                    bold={'bold'}
+                   
                     size={10}
                     color={'white'}
                     text={'Fresh Issue'}
@@ -117,7 +117,6 @@ const ReportIssue = ({navigation}) => {
                     })
                   }>
                   <AppText
-                    bold={'bold'}
                     color={'#fff'}
                     text={'Existing Issue'}
                     size={10}
@@ -156,7 +155,7 @@ const ReportIssue = ({navigation}) => {
                       })
                     }>
                     <AppText
-                      bold={'bold'}
+
                       color={'#fff'}
                       text={'Softcity Group'}
                       size={10}
@@ -184,7 +183,7 @@ const ReportIssue = ({navigation}) => {
                         softCityGroup: false,
                       })
                     }>
-                    <AppText bold={'bold'} color={'#fff'} text={'Audit Tech'}  size={10}/>
+                    <AppText color={'#fff'} text={'Audit Tech'}  size={10}/>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -220,7 +219,7 @@ const ReportIssue = ({navigation}) => {
                       })
                     }>
                     <AppText
-                      bold={'bold'}
+
                       color={'#fff'}
                       text={'Its Resolved'}
                       size={10}
@@ -249,7 +248,7 @@ const ReportIssue = ({navigation}) => {
                       })
                     }>
                     <AppText
-                      bold={'bold'}
+
                       color={'#fff'}
                       text={'Still Pending'}
                       size={10}
@@ -317,7 +316,7 @@ const ReportIssue = ({navigation}) => {
           )}
           {showIndustryInfo ? (
             <>
-              <AppText bold={'bold'} text={'Industry Information'}  size={10}/>
+              <AppText color={colors.black} text={'Industry Information'}  size={10}/>
               <AppText
                 text={
                   'Select the industry of the organization you are reporting'
@@ -337,7 +336,7 @@ const ReportIssue = ({navigation}) => {
             </>
           ) : (
             <>
-              <AppText bold={'bold'} text={'Industry Information'} />
+              <AppText color={colors.black} text={'Industry Information'} />
               <AppText
                 text={
                   'We will like to know the industry the organization you are reporting operators'
@@ -358,7 +357,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Organization Information'} bold={true}/>
+          <AppText text={'Organization Information'} color={colors.black}/>
           <AppText
             text={
                "We will like to get detailed information about the organization you are reporting operates"
@@ -377,7 +376,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Select the State You are Reporting From'} bold={true}/>
+          <AppText text={'Select the State You are Reporting From'} color={colors.black}/>
           <AppText
             text={
             "We will like to know the Nigerian State in which the safety issue you are reporting happend"
@@ -396,7 +395,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Select the LGA Yor ar Reporting From'} bold={true}/>
+          <AppText text={'Select the LGA Yor ar Reporting From'} color={colors.black}/>
           <AppText
             text={
               "We will like to know the Local Government Area in which the safety issue you are reporting happend"
@@ -415,7 +414,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Location of the Safety Issue'} bold={true}/>
+          <AppText text={'Location of the Safety Issue'} color={colors.black}/>
           <AppText
             text={
                 "We will like to know the location within Nigeria in which the safety issue you are reporting happend"
@@ -435,7 +434,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Designated Safety Channel'} bold={true}/>
+          <AppText text={'Designated Safety Channel'} color={colors.black}/>
           <AppText
             text={
  "We will like to know if the organization you are reporting have a designated channel to report safety issues"
@@ -445,7 +444,7 @@ const ReportIssue = ({navigation}) => {
           />
         </TouchableOpacity>
      
-        <View style={{marginBottom:'30%'}}>
+        <View style={{marginBottom:'40%'}}>
         <TouchableOpacity style={{...styles.container}}>
           {submit == false ? (
             <View style={styles.counterSticker}>
@@ -456,7 +455,7 @@ const ReportIssue = ({navigation}) => {
               <AppText color={'#fff'} text={'A'} />
             </View>
           )}
-          <AppText text={'Other Relevent Information'} bold={true}/>
+          <AppText text={'Other Relevent Information'} color={colors.black}/>
           <AppText
             text={
  "We need more information to allow us investigate this safety issue such as timeline, anonymous verification, etc"

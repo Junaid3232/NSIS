@@ -50,19 +50,19 @@ const Dashboard = ({navigation}) => {
   ];
 
   const data = [
-    {value: 540,labelWidth: 100, label:showDetails ?  'Banking': null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontWeight:'500',fontSize:12, transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-11}},
-        {value: 500,labelWidth: 100, label: showDetails ? 'Telecommunication':null , labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-31}},
-        {value: 745,labelWidth: 100, label: showDetails ? 'Insurance':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontSize:12, fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-16}},
-        {value: 540, labelWidth: 100, label: showDetails ? 'Medical':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-11}},
-        {value: 600, labelWidth: 100, label: showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-17}},
-        {value: 540,labelWidth: 100, label:showDetails ?  'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-16}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-31}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-19}},
-        {value: 550,labelWidth: 100, label:showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-18}},
-        {value: 600,labelWidth: 100, label:showDetails ? 'Entertainment':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-31}},
-        {value: 530,labelWidth: 100, label: showDetails ?'Pharmacy':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Black',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-18}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black', fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-18}},
-        {value: 640,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Black',fontSize:12, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-31}},
+    {value: 540,labelWidth: 100, label:showDetails ?  'Banking': null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontWeight:'500',fontSize:11, transform: [{ rotate: '-90deg'}], position:'absolute', bottom:70, left:-9, }},
+        {value: 500,labelWidth: 100, label: showDetails ? 'Telecommunication':null , labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-35}},
+        {value: 745,labelWidth: 100, label: showDetails ? 'Insurance':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12, fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
+        {value: 540, labelWidth: 100, label: showDetails ? 'Medical':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-9}},
+        {value: 600, labelWidth: 100, label: showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
+        {value: 540,labelWidth: 100, label:showDetails ?  'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
+        {value: 600,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-26}},
+        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
+        {value: 550,labelWidth: 100, label:showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
+        {value: 600,labelWidth: 100, label:showDetails ? 'Entertainment':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-27}},
+        {value: 530,labelWidth: 100, label: showDetails ?'Pharmacy':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
+        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium', fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
+        {value: 640,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-28}},
   ];
 
   return (
@@ -96,6 +96,7 @@ const Dashboard = ({navigation}) => {
           width={420}
          hideYAxisText
          spacing={6}
+         
         />
         </View>
       </View>
@@ -105,14 +106,14 @@ const Dashboard = ({navigation}) => {
             backgroundColor={'#51BA5B'}
             totalText={'Total'}
             name={'Industries'}
-            counter={'123'}
+            counter={'13'}
             icon={  <Ionicons name="book" color={"#fff"} size={30} /> }
           />
           <TotalReports
             backgroundColor={'#383b80'}
             totalText={'Total'}
             name={'Reporters'}
-            counter={'123'}
+            counter={'143'}
             icon={  <Fontisto name="world" color={"#fff"} size={30} /> }
           />
           <TotalReports
@@ -127,15 +128,15 @@ const Dashboard = ({navigation}) => {
           <TotalReports
             backgroundColor={'#DA2936'}
             totalText={'Total'}
-            name={'Organizationa'}
-            counter={'123'}
+            name={'Organizations'}
+            counter={'98'}
             icon={  <Fontisto name="world-o" color={"#fff"} size={20} /> }
           />
           <TotalReports
             backgroundColor={'#E97B40'}
             totalText={'Total'}
             name={'Active Issues'}
-            counter={'123'}
+            counter={'676'}
             icon={  <Feather name="activity" color={"#fff"} size={40} /> }
 
           />
@@ -143,7 +144,7 @@ const Dashboard = ({navigation}) => {
             backgroundColor={'#00A863'}
             totalText={'Total'}
             name={'Ignore Issues'}
-            counter={'123'}
+            counter={'511'}
             icon={  <Feather name="activity" color={"#fff"} size={40} /> }
           />
         </View>
@@ -154,13 +155,13 @@ const Dashboard = ({navigation}) => {
           {'Industry Safety Index (Jan - March 2022)'}
         </Text>
         <View  style={styles.QMark}>
-        <AppText bold={'bold'} color={"#fff"} text={"?"}/>
+        <AppText  color={"#fff"} text={"?"}/>
         </View>
         </View>
-        <View>
+        <View style={{marginBottom:70}}>
           <FlatList
             data={industryIndex}
-            contentContainerStyle={{marginBottom:70}}
+            contentContainerStyle={{marginBottom:60}}
             renderItem={({item}) => {
               return (
                 <SafetyIndex
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 20,
     marginLeft: 10,
+    fontFamily:'Raleway-Medium',
   },
   subTitle: {
     color: '#000',
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     marginVertical: 10,
-    fontFamily:'Raleway-Black'
+    fontFamily:'Raleway-Medium'
   },
   graphContainer: {
     paddingHorizontal: 12,

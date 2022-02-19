@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: colors.white,
-    fontWeight: 'bold',
+    fontFamily:'Raleway-Medium',
     // paddingHorizontal:100
   },
 });

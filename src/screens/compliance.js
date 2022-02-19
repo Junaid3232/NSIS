@@ -15,7 +15,7 @@ const Compliance = ({navigation}) => {
     <SafeAreaView style={{backgroundColor:colors.white,flex:1}}>
       <Header navigation={navigation}/>
       <View style={{paddingHorizontal: 15, paddingVertical: 8}}>
-        <AppText bold={'bold'} text={'NDPR / GDPR COMPLIANCE'} />
+        <AppText  text={'NDPR / GDPR COMPLIANCE'} />
         <View style={{paddingVertical: 10}}>
           <AppText
             text={
@@ -27,7 +27,6 @@ const Compliance = ({navigation}) => {
         <View style={{ paddingTop:15}}>
             <View style={{paddingHorizontal:20, paddingVertical:3}}>
         <AppText
-            bold={'bold'}
             color={'blue'}
             text={'By Submitting, You Agree to Term & Conditions'}
           />
@@ -36,7 +35,6 @@ const Compliance = ({navigation}) => {
           style={styles.btn}
           onPress={() => navigation.navigate('Compliance')}>
           <AppText
-            bold={'bold'}
             color={'#fff'}
             text={'SUBMIT'}
           />
@@ -52,7 +50,7 @@ export default Compliance;
 const styles = StyleSheet.create({
   btn: {
     height: 40,
-    backgroundColor: 'green',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,

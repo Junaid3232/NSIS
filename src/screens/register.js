@@ -20,7 +20,7 @@ const Register=({navigation})=> {
    </View>
    <View style={{}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Create Account'} size={16}  bold={true}/>
+     <AppText text={'Create Account'} size={16}/>
      </View>
      <AppTextBox placeholder={"First Name"}/>
      <AppTextBox placeholder={"Last Name"}/>
@@ -34,7 +34,6 @@ const Register=({navigation})=> {
       text={'Back to Login'}
        disabled={false} 
        size={12}
-       bold={true}
        onPress={()=>navigation.goBack()}
       />
       </View>

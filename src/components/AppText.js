@@ -10,17 +10,17 @@ export const AppText = (
     onPress,
     color,
     marginLeft
-  }) => {
+  }) => {  
   return (
     <>
       {disabled ? (
         <View style={{}}>
-          <Text style={{...styles.text,fontSize:size,fontWeight:bold?'bold':'normal', color:color, marginLeft:marginLeft}}>{text}</Text>
+          <Text style={{...styles.text,fontSize:size,fontWeight:bold?'bold':'normal', fontFamily:bold?'Raleway-Black':'Raleway-Medium', color:color, marginLeft:marginLeft}}>{text}</Text>
         </View>
       ) : (
         <TouchableOpacity style={{alignItems: 'center'}}
         onPress={onPress}>
-          <Text style={{...styles.text,fontSize:size,fontWeight:bold?'bold':'normal', color:color}}>{text}</Text>
+          <Text style={{...styles.text,fontSize:size,fontWeight:bold?'bold':'normal', fontFamily:bold?'Raleway-Black':'Raleway-Medium', color:color}}>{text}</Text>
         </TouchableOpacity>
       )}
     </>
@@ -29,9 +29,8 @@ export const AppText = (
 
 const styles = StyleSheet.create({
   text: {
-    color: colors.black,
-    fontWeight: 'bold',
-    fontFamily:'Raleway-Black'
+
+
     
   },
 });

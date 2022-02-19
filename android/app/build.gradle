@@ -144,12 +144,12 @@ android {
         }
     }
     signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
+       release {
+      storeFile file('your_key_name.keystore')
+      storePassword 'nsis123'
+      keyAlias 'nsis123'
+      keyPassword 'nsis123'
+    }
     }
     buildTypes {
         debug {

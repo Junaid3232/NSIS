@@ -50,6 +50,20 @@ const notifications = [
       "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report",
     date: 'Yesterday',
   },
+  {
+    id: 1,
+    title: 'NISCN Enforces Safety In Calabar',
+    description:
+      "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report",
+    date: 'Yesterday',
+  },
+  {
+    id: 1,
+    title: 'NISCN Enforces Safety In Calabar',
+    description:
+      "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report",
+    date: 'Yesterday',
+  },
 ];
 
 const Notification = ({navigation}) => {
@@ -67,7 +81,7 @@ const Notification = ({navigation}) => {
           paddingHorizontal: 12,
           zIndex:-1
         }}>
-        <AppText size={16} bold={'bold'} text={'Notifications'} />
+        <AppText size={16} text={'Notifications'} />
         <TouchableOpacity style={{flexDirection: 'row'}}>
           <AppText size={16} text={'Filter'} />
           <TouchableOpacity style={{marginLeft:8}} onPress={() => {setShowFilter(!showFilter)}}>
@@ -88,26 +102,28 @@ const Notification = ({navigation}) => {
           </TouchableOpacity>
         </View>}
         </View>
-      <View style={{paddingHorizontal: 10,  zIndex:-1}}>
+  
         <FlatList
           data={notifications}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingHorizontal:10,paddingBottom:170,marginBottom:180}}
           renderItem={({item}) => {
+
             return (
               <TouchableOpacity onPress={()=>navigation.navigate("NotificationDetail")} style={styles.notification}>
-                <AppText size={13} bold={'bold'} text={item.title} />
+                <AppText size={13}  text={item.title} color={colors.black}/>
                 <View style={{paddingVertical: 5, paddingBottom: 10, zIndex:-1}}>
-                  <AppText size={11} text={item.description} />
+                  <AppText size={11}color={colors.gray} text={item.description} />
                 </View>
-                <AppText size={10} bold={'bold'} text={item.date} />
+                <AppText size={10}  text={item.date} />
               </TouchableOpacity>
             );
           }}
           keyExtractor={(item)=>item.index}
         />
               <TouchableOpacity style={styles.btn} onPress={() => {}}>
-        <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />
+        <AppText color={'#fff'} text={'LOAD MORE'} />
       </TouchableOpacity>
-      </View>
       
 
     </SafeAreaView>
@@ -155,7 +171,7 @@ marginHorizontal:10,
         position: 'absolute',
         left: 20,
         right: 20,
-        bottom: -10,
+        bottom:110,
         zIndex: 1,
       },
 });

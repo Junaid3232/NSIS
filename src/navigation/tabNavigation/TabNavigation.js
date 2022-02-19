@@ -69,8 +69,8 @@ const TabNavigation = () => {
                     color: focused ? colors.primary : 'gray',
                     fontSize: 10,
                     marginTop: 10,
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600'
+                    fontFamily:'Raleway-Medium',
+            
                   }}>
                   Dashboard
                 </Text>
@@ -96,8 +96,8 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600'
+             
+  
                   }}
                   resizeMode={'contain'}
                 />
@@ -106,8 +106,8 @@ const TabNavigation = () => {
                     color: focused ? colors.primary : 'gray',
                     fontSize: 10,
                     marginTop: 10,
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600'
+                    fontFamily:'Raleway-Medium',
+     
                   }}>
                   About NISCN
                 </Text>
@@ -133,16 +133,15 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600'
+                
+
                   }}
                   resizeMode={'contain'}
                 />
                 <Text
                   style={{
                     color: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600',
+                    fontFamily:'Raleway-Medium',
                     fontSize: 10,
                     marginTop: 10,
                   }}>
@@ -170,16 +169,16 @@ const TabNavigation = () => {
                     width: 20,
                     height: 20,
                     tintColor: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600'
+        
+     
                   }}
                   resizeMode={'contain'}
                 />
                 <Text
                   style={{
                     color: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Black',
-                    fontWeight:'600',
+                    fontFamily:'Raleway-Medium',
+ 
                     fontSize: 10,
                     marginTop: 10,
                   }}>
@@ -216,6 +215,7 @@ const TabNavigation = () => {
                     color: focused ? colors.primary : 'gray',
                     fontSize: 10,
                     marginTop: 10,
+                    fontFamily:'Raleway-Medium',
                   }}>
                  Notifications
                 </Text>

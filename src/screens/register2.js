@@ -20,7 +20,7 @@ const Register2=({navigation})=> {
    </View>
    <View style={{marginTop:10}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Complete Account Creation'} size={17}  bold={true}/>
+     <AppText text={'Complete Account Creation'} size={17}/>
      </View>
      <AppTextBox placeholder={"Email or Username"}/>
      <View style={{marginTop:8}}>
@@ -31,7 +31,6 @@ const Register2=({navigation})=> {
       text={'Back to Login'}
        disabled={false} 
        size={12}
-       bold={true}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>
@@ -40,7 +39,7 @@ const Register2=({navigation})=> {
    </View>
    <View style={{justifyContent:'flex-end'}}>
        <View style={{paddingBottom:15}}>
-       <AppText text={'No Account? Report Anonymously'} size={14}  bold={true} disabled={false}/>
+       <AppText text={'No Account? Report Anonymously'} size={14} disabled={false}/>
        </View>
        <View style={{alignItems:'center'}}>
      <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>

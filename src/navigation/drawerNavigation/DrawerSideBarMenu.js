@@ -227,9 +227,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     marginLeft: 10,
-    fontWeight: '400',
     color: 'white',
-    fontFamily: 'Raleway-Black',
+    fontFamily: 'Raleway-Medium',
   },
   safe: {
     flex: 1,

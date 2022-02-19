@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 12,
     fontWeight: '400',
-    fontFamily:'Raleway-Black'
+    fontFamily:'Raleway-Medium'
   },
   counterTxt: {
     color: '#000',
     fontSize: 16,
-    fontWeight:'700',
-    fontFamily:'Raleway-Black'
+ 
+    fontFamily:'Raleway-Medium'
 
   },
 });

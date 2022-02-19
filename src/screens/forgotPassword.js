@@ -44,7 +44,7 @@ const ForgotPassword=({navigation})=> {
    </View>
    <View style={{marginTop:10}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Reset Password'} size={16}  bold={true}/>
+     <AppText text={'Reset Password'} size={16}/>
      </View>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Enter Ner Password"}/>
@@ -57,7 +57,6 @@ const ForgotPassword=({navigation})=> {
       text={'Back to Login'}
        disabled={false} 
        size={12}
-       bold={true}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>

@@ -21,7 +21,7 @@ const Login=({navigation})=> {
    </View>
    <View style={{marginTop:10}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Report Safety Issue'} size={16}  bold={true}/>
+     <AppText text={'Report Safety Issue'} size={16} color={colors.black}/>
      </View>
      <AppTextBox placeholder={"Email or Username"}/>
      <AppTextBox placeholder={"Password"}/>
@@ -33,7 +33,7 @@ const Login=({navigation})=> {
       text={'Forgot Password'}
        disabled={false} 
        size={13}
-       bold={true}
+    
        onPress={()=>{navigation.navigate(screens.ForgotPassword)}}
  
       />
@@ -41,12 +41,12 @@ const Login=({navigation})=> {
       text={'Create Account'}
        disabled={false} 
        size={13}
-       bold={true}
+     
        onPress={()=>{navigation.navigate(screens.Register)}}
       />
       </View>
      <View style={{paddingHorizontal:40,marginTop:20}}>
-     <AppText text={'No Account? Report Anonymously'} size={14}  bold={true} disabled={false}/>
+     <AppText text={'No Account? Report Anonymously'} size={14}   disabled={false}/>
      </View>
    </View>
    </View>

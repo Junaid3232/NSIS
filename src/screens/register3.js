@@ -20,7 +20,7 @@ const Register3=({navigation})=> {
    </View>
    <View style={{marginTop:10}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Complete Account Creation'} size={16}  bold={true}/>
+     <AppText text={'Complete Account Creation'} size={16}/>
      </View>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Set Your Password"}/>
@@ -33,7 +33,6 @@ const Register3=({navigation})=> {
       text={'Back to Login'}
        disabled={false} 
        size={12}
-       bold={true}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>

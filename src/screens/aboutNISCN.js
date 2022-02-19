@@ -8,10 +8,12 @@ const AboutNISCN = ({navigation}) => {
     const image = require('../assets/images/4.jpg');
     return (
         <SafeAreaView style={{backgroundColor:'white',height:'100%'}} >
+          
             <Header navigation={navigation}/>
+            <ScrollView>
             <View style={{paddingHorizontal:15}}>
                 <View style={styles.title}>
-                <AppText bold={'bold'} text={"About The National Safety Intelligence System"}/>
+                <AppText text={"About The National Safety Intelligence System"}/>
                 </View>
             <View style={styles.imageView}>
             <Image
@@ -19,10 +21,11 @@ const AboutNISCN = ({navigation}) => {
             resizeMode={'cover'}
             style={{height:"100%", width:"100%",borderRadius:10}}/>
             </View>
-
+<View style={{paddingBottom:90,marginBottom:60}}>
                 <Text style={styles.text}>The Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related he Journal of Safety Research is a multidisciplinary publication that provides for the exchange of scientific evidence in all areas of safety and health, including traffic, workplace, home, and community. While this research forum invites submissions using rigorous methodologies in all related</Text>
-    
+                </View>
             </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -38,9 +41,9 @@ const styles = StyleSheet.create({
     text: {
    marginTop:10,
         color: colors.black,
-        fontFamily:'Raleway-Black',
-        fontWeight:'400',
-        fontSize:12
+        fontFamily: 'Raleway-Medium',
+        fontSize:12,
+     
         
       },
 })

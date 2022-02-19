@@ -19,7 +19,7 @@ const CompleteRegistration=({navigation})=> {
      <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
    </View>
    <View style={{marginTop:10}}>
-     <AppText text={'Complete Account Creation'} size={17}  bold={true}/>
+     <AppText text={'Complete Account Creation'} size={17}/>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Set Your Password"}/>
      <AppTextBox placeholder={"Confirm Your Password"}/>
@@ -31,7 +31,6 @@ const CompleteRegistration=({navigation})=> {
       text={'Back to Login'}
        disabled={false} 
        size={12}
-       bold={true}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>
