@@ -18,7 +18,7 @@ const AppCarousel=()=> {
     );
 }
   return (
-    <View style={{flex:1,marginRight:10,alignItems:'center'}}>
+    <View style={{flex:1,alignItems:'center'}}>
              <Carousel
              autoplay={true}
              enableMomentum={false}
@@ -26,7 +26,7 @@ const AppCarousel=()=> {
                data={data}
                renderItem={renderItem}
                sliderWidth={windowWidth}
-               itemWidth={400}
+               itemWidth={350}
              slideStyle={{backgroundColor:'white',height:350}}
              />
     </View>

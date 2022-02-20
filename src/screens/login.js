@@ -11,15 +11,15 @@ import colors from '../config/colors';
 const Login=({navigation})=> {
   
   return (
-    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:20,backgroundColor:colors.white}}>
+    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:5,backgroundColor:colors.white}}>
     <View style={{flex:1}}>
       <View style={{height:400}}>
    <AppCarousel/>
    </View>
-   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-30}}>
-     <Image source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
+   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-40}}>
+     <Image source={require('../assets/icons/Logo1.png')} style={{width:100,height:50}} />
    </View>
-   <View style={{marginTop:10}}>
+   <View style={{marginTop:5}}>
      <View style={{alignItems:'center'}}>
      <AppText text={'Report Safety Issue'} size={16} color={colors.black}/>
      </View>
@@ -33,6 +33,7 @@ const Login=({navigation})=> {
       text={'Forgot Password'}
        disabled={false} 
        size={13}
+       color={colors.black}
     
        onPress={()=>{navigation.navigate(screens.ForgotPassword)}}
  
@@ -41,12 +42,12 @@ const Login=({navigation})=> {
       text={'Create Account'}
        disabled={false} 
        size={13}
-     
+       color={colors.black}
        onPress={()=>{navigation.navigate(screens.Register)}}
       />
       </View>
      <View style={{paddingHorizontal:40,marginTop:20}}>
-     <AppText text={'No Account? Report Anonymously'} size={14}   disabled={false}/>
+     <AppText text={'No Account? Report Anonymously'} size={14}  color={colors.black}  disabled={false}/>
      </View>
    </View>
    </View>

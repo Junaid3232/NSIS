@@ -65,7 +65,7 @@ const selectIndustry = [
   {name: 'Industry Name Goes Here'},
   {name: 'Industry Name Goes Here'},
 ];
-const NationalSafety = ({navigation}) => {
+const IndustrySafety = ({navigation}) => {
   const [showFilter, setShowFilter] = useState(false);
   const [toolTip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(0);
@@ -88,7 +88,7 @@ const NationalSafety = ({navigation}) => {
               <AppText
                 size={16}
                 color={colors.black}
-                text={'National Safety Index'}
+                text={'Industry Safety Index'}
               />
 
               <TouchableOpacity
@@ -217,7 +217,7 @@ const NationalSafety = ({navigation}) => {
   );
 };
 
-export default NationalSafety;
+export default IndustrySafety;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView,Image,StyleSheet} from 'react-native'
+import { View, Text, SafeAreaView,Image,StyleSheet, ScrollView} from 'react-native'
 import React from 'react'
 import Carousel from 'react-native-snap-carousel';
 import AppCarousel from '../components/AppCarousel';
@@ -10,17 +10,18 @@ import colors from '../config/colors';
 
 const Register=({navigation})=> {
   return ( //
-    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:20,backgroundColor:colors.white}}>
+    <SafeAreaView style={{flex:1,marginTop:10,paddingHorizontal:5,backgroundColor:colors.white}}>
+      <ScrollView>
     <View style={{flex:1}}>
       <View style={{height:400}}>
    <AppCarousel/>
    </View>
-   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-30}}>
-     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
+   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-40}}>
+     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:100,height:50}} />
    </View>
    <View style={{}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Create Account'} size={16}/>
+     <AppText text={'Create Account'} size={16} color={colors.black}/>
      </View>
      <AppTextBox placeholder={"First Name"}/>
      <AppTextBox placeholder={"Last Name"}/>
@@ -33,7 +34,8 @@ const Register=({navigation})=> {
      <AppText
       text={'Back to Login'}
        disabled={false} 
-       size={12}
+       size={13}
+       color={colors.black}
        onPress={()=>navigation.goBack()}
       />
       </View>
@@ -43,6 +45,7 @@ const Register=({navigation})=> {
    <View style={{justifyContent:'flex-end',alignItems:'center'}}>
      <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'}/>
      </View>
+     </ScrollView>
   </SafeAreaView>
   )
 }

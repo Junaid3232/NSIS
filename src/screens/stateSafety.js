@@ -58,14 +58,14 @@ const nationalSafety = [
   },
 ];
 const selectIndustry = [
-  {name: 'Industry Name Goes Here'},
-  {name: 'Industry Name Goes Here'},
-  {name: 'Industry Name Goes Here'},
-  {name: 'Industry Name Goes Here'},
-  {name: 'Industry Name Goes Here'},
-  {name: 'Industry Name Goes Here'},
+  {name: 'State Name Goes Here'},
+  {name: 'State Name Goes Here'},
+  {name: 'State Name Goes Here'},
+  {name: 'State Name Goes Here'},
+  {name: 'State Name Goes Here'},
+  {name: 'State Name Goes Here'},
 ];
-const NationalSafety = ({navigation}) => {
+const StateSafety = ({navigation}) => {
   const [showFilter, setShowFilter] = useState(false);
   const [toolTip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(0);
@@ -88,7 +88,7 @@ const NationalSafety = ({navigation}) => {
               <AppText
                 size={16}
                 color={colors.black}
-                text={'National Safety Index'}
+                text={'State Safety Index'}
               />
 
               <TouchableOpacity
@@ -106,7 +106,7 @@ const NationalSafety = ({navigation}) => {
               
                   }}>
                      <AppText
-                          text={'Select Industry'}
+                          text={'Select State'}
                           color={colors.white}
                           size={16}
                         />
@@ -149,6 +149,13 @@ const NationalSafety = ({navigation}) => {
           </View>
           {showFilter && (
             <View style={styles.filter}>
+                  <TouchableOpacity
+                style={{padding: 2}}
+                onPress={() => {
+                  setShowFilter(false);
+                }}>
+                <AppText color={'#fff'} size={12} text={'Change State'} />
+              </TouchableOpacity>
               <TouchableOpacity
                 style={{padding: 2}}
                 onPress={() => {
@@ -217,7 +224,7 @@ const NationalSafety = ({navigation}) => {
   );
 };
 
-export default NationalSafety;
+export default StateSafety;
 
 const styles = StyleSheet.create({
   container: {

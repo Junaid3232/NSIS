@@ -12,6 +12,7 @@ import {AppText} from '../components/AppText';
 import {ScrollView} from 'react-native';
 import colors from '../config/colors';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { color } from 'react-native-reanimated';
 
 const ReportIssue = ({navigation}) => {
   const [submit, setSubmit] = useState(true);
@@ -19,6 +20,8 @@ const ReportIssue = ({navigation}) => {
   const [existingIssue, setExistingIssue] = useState(false);
   const [softCity, setSoftCity] = useState(false);
   const [input, setInput] = useState(false);
+  const [showIndustries, setShowIndustries]=useState(false)
+  const [selectedIndustry,setSelectedIndustry]=useState('Telecomunication')
   const [statusConfirmation, setStatusConfirmation] = useState({
     freshIssue: false,
     existingIssue: false,
@@ -33,18 +36,13 @@ const ReportIssue = ({navigation}) => {
       <Header navigation={navigation}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.issueHeader}>
-          <AppText text={'Report Safety Issue'} />
+          <AppText color={colors.black} size={14} text={'Report Safety Issue'} />
         </View>
         <View style={[styles.container, {manHeight: 100}]}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'1'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
+
           <TouchableOpacity
             onPress={() => {
               setExtendView(!extendView);
@@ -78,6 +76,7 @@ const ReportIssue = ({navigation}) => {
                           !statusConfirmation.freshIssue
                         ? colors.primary
                         : colors.primary + 50,
+                        elevation:statusConfirmation.existingIssue ? 0:5
                     },
                   ]}
                   onPress={() =>
@@ -107,6 +106,7 @@ const ReportIssue = ({navigation}) => {
                           !statusConfirmation.freshIssue
                         ? colors.primary
                         : colors.primary + 50,
+                        elevation:statusConfirmation.freshIssue ? 0:5
                     },
                   ]}
                   onPress={() =>
@@ -145,6 +145,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.softCityGroup
                           ? colors.primary
                           : colors.primary + 50,
+                          elevation:statusConfirmation.auditTech ? 0:5
                       },
                     ]}
                     onPress={() =>
@@ -174,6 +175,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.softCityGroup
                           ? colors.primary
                           : colors.primary + 50,
+                          elevation:statusConfirmation.softCityGroup ? 0:5
                       },
                     ]}
                     onPress={() =>
@@ -209,6 +211,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.pending
                           ? colors.primary
                           : colors.primary + 50,
+                          elevation:statusConfirmation.pending ? 0:5
                       },
                     ]}
                     onPress={() =>
@@ -238,6 +241,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.pending
                           ? colors.primary
                           : colors.primary + 50,
+                          elevation:statusConfirmation.resolved ? 0:5
                       },
                     ]}
                     onPress={() =>
@@ -285,9 +289,11 @@ const ReportIssue = ({navigation}) => {
                 marginVertical: 10,
               }}>
               <AppText text={'Next Will Load Your Response Above'} size={10} color={colors.gray}/>
-              <View style={styles.waitingDot} />
-              <View style={styles.waitingDot2} />
-              <View style={styles.waitingDot3} />
+             <View style={{flexDirection:'row',marginTop:5}}>
+              <View style={{...styles.waitingDot}} />
+              <View style={{...styles.waitingDot2, backgroundColor:'#cecece'}} />
+              <View style={{...styles.waitingDot3 ,backgroundColor:'#d7d7d7'}}  />
+            </View>
             </View>
           )}
 
@@ -305,34 +311,63 @@ const ReportIssue = ({navigation}) => {
         <TouchableOpacity
           onPress={() => setShowIndustryInfo(!showIndustryInfo)}
           style={styles.container}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'2'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
           {showIndustryInfo ? (
             <>
               <AppText color={colors.black} text={'Industry Information'}  size={10}/>
-              <AppText
-                text={
-                  'Select the industry of the organization you are reporting'
-                }
-                
+
+              <AppText text={'Select the industry of the organization you are reporting'}
+                 color={colors.gray}
+                 size={10}
               />
+              <TouchableOpacity
+                style={styles.industryContainer}
+                onPress={()=>setShowIndustries(!showIndustries)}>
+                <AppText color={'white'} text={selectedIndustry}/>
+                <FontAwesome name='caret-down' size={20} color={colors.white}/>
+              </TouchableOpacity>
+              {showIndustries  &&
+        <View style={styles.filter}>
+        <TouchableOpacity style={{padding:2}} 
+        onPress={() => {setSelectedIndustry('Banking') 
+        setShowIndustries(false)}}>
+        <AppText color={"#fff"}  size={12} text={'Banking'}/>         
+         </TouchableOpacity>
+          <TouchableOpacity style={{padding:3}}
+           onPress={() => {setSelectedIndustry('Insurance')
+           setShowIndustries(false)}
+           }>
+          <AppText color={"#fff"}  size={12} text={'Insurance'}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{padding:2}} 
+          onPress={() => {setSelectedIndustry('Medical')
+          setShowIndustries(false)}}>
+          <AppText color={"#fff"} size={12} text={'Medical'}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{padding:2}} 
+          onPress={() => {setSelectedIndustry('Telecomunication')
+          setShowIndustries(false)}}>
+          <AppText color={"#fff"} size={12} text={'Telecomunication'}/>
+          </TouchableOpacity>
+        </View>}
               <View
-                style={{
-                  width: '90%',
-                  padding: 8,
-                  backgroundColor: colors.primary,
-                  borderRadius: 10,
-                  marginTop: 10,
-                }}>
-                <AppText color={'white'} text={'Telecomunication'} />
-              </View>
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 10,
+                borderTopWidth:0.5,
+paddingTop:10
+
+              }}>
+              <AppText text={'You Can Proceed to Step 3 After This'} size={10} color={colors.gray}/>
+             <View style={{flexDirection:'row'}}>
+              <View style={{...styles.waitingDot}} />
+              <View style={{...styles.waitingDot2, backgroundColor:'#cecece'}} />
+              <View style={{...styles.waitingDot3 ,backgroundColor:'#d7d7d7'}}  />
+            </View>
+            </View>
             </>
           ) : (
             <>
@@ -348,15 +383,9 @@ const ReportIssue = ({navigation}) => {
           )}
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'3'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
           <AppText text={'Organization Information'} color={colors.black}/>
           <AppText
             text={
@@ -367,15 +396,9 @@ const ReportIssue = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'4'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
           <AppText text={'Select the State You are Reporting From'} color={colors.black}/>
           <AppText
             text={
@@ -386,15 +409,9 @@ const ReportIssue = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'5'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
           <AppText text={'Select the LGA Yor ar Reporting From'} color={colors.black}/>
           <AppText
             text={
@@ -405,15 +422,10 @@ const ReportIssue = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'6'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
+
           <AppText text={'Location of the Safety Issue'} color={colors.black}/>
           <AppText
             text={
@@ -425,15 +437,11 @@ const ReportIssue = ({navigation}) => {
         </TouchableOpacity>
         
         <TouchableOpacity style={{...styles.container}}>
-          {submit == false ? (
+
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'7'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
+
           <AppText text={'Designated Safety Channel'} color={colors.black}/>
           <AppText
             text={
@@ -446,15 +454,10 @@ const ReportIssue = ({navigation}) => {
      
         <View style={{marginBottom:'40%'}}>
         <TouchableOpacity style={{...styles.container}}>
-          {submit == false ? (
             <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'7'} />
+              <AppText color={'#fff'} text={'8'} />
             </View>
-          ) : (
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'A'} />
-            </View>
-          )}
+
           <AppText text={'Other Relevent Information'} color={colors.black}/>
           <AppText
             text={
@@ -533,7 +536,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     right: 20,
-    bottom: 110,
+    bottom: 80,
     zIndex: 999,
     shadowColor: '#000',
     shadowOffset: {
@@ -560,14 +563,14 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  waitingDot: {height: 10, width: 10, backgroundColor: 'grey', marginLeft: 10},
+  waitingDot: {height: 8, width: 8, backgroundColor: 'grey', marginLeft: 15},
   waitingDot2: {
-    height: 10,
-    width: 10,
+    height: 8,
+    width: 8,
     backgroundColor: 'grey',
-    marginHorizontal: 10,
+    marginHorizontal: 8,
   },
-  waitingDot3: {height: 10, width: 10, backgroundColor: 'grey'},
+  waitingDot3: {height: 8, width: 8, backgroundColor: 'grey'},
   lineCounter: {
     position: 'absolute',
     right: 5,
@@ -591,5 +594,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-  }
+  },
+  industryContainer:{
+    width: '90%',
+    padding: 8,
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    marginTop: 10,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+  },
+  filter:{
+    height:100, 
+    maxHeight:'50%',
+    width: '90%',
+    backgroundColor:colors.primary, 
+    borderBottomEndRadius:10,
+    borderBottomStartRadius:10,
+    padding:15, 
+    marginTop:-10,
+     zIndex:1
+  },
 });

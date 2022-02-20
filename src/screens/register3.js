@@ -15,12 +15,12 @@ const Register3=({navigation})=> {
       <View style={{height:400}}>
    <AppCarousel/>
    </View>
-   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-30}}>
-     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
+   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-40}}>
+     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:100,height:50}} />
    </View>
-   <View style={{marginTop:10}}>
+   <View style={{marginTop:5}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Complete Account Creation'} size={16}/>
+     <AppText text={'Complete Account Creation'} color={colors.black} size={16}/>
      </View>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Set Your Password"}/>
@@ -32,7 +32,8 @@ const Register3=({navigation})=> {
      <AppText
       text={'Back to Login'}
        disabled={false} 
-       size={12}
+       size={13}
+       color={colors.black}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>

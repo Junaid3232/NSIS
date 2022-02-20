@@ -39,12 +39,12 @@ const ForgotPassword=({navigation})=> {
    {!isKeyboardVisible &&   <View style={{height:400}}>
    <AppCarousel/>
    </View> }
-   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-30}}>
-     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:150,height:60}} />
+   <View style={{alignItems:'center',justifyContent:'flex-start',marginTop:-40}}>
+     <Image resizeMode='contain' source={require('../assets/icons/Logo1.png')} style={{width:100,height:50}} />
    </View>
-   <View style={{marginTop:10}}>
+   <View style={{marginTop:5}}>
      <View style={{alignItems:'center'}}>
-     <AppText text={'Reset Password'} size={16}/>
+     <AppText text={'Reset Password'} color={colors.black} size={16}/>
      </View>
      <AppTextBox placeholder={"Enter Code Sent to Your Email"}/>
      <AppTextBox placeholder={"Enter Ner Password"}/>
@@ -56,6 +56,7 @@ const ForgotPassword=({navigation})=> {
      <AppText
       text={'Back to Login'}
        disabled={false} 
+       color={colors.black}
        size={12}
        onPress={()=>navigation.navigate(screens.Login)}
       />

@@ -12,7 +12,7 @@ const TermsOfUse = ({navigation}) => {
             <Header navigation={navigation}/>
             <View style={{paddingHorizontal:15}}>
                 <View style={styles.title}>
-                <AppText text={"Terms Of Use"}/>
+                <AppText size={14} color={colors.black} text={"Terms Of Use"}/>
                 </View>
            
             <View style={styles.title}>

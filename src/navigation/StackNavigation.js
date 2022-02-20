@@ -8,13 +8,14 @@ import CompleteRegistration from '../screens/completeRegistration';
 import Register2 from '../screens/register2';
 import Register3 from '../screens/register3';
 import ForgotPassword from '../screens/forgotPassword';
-import DrawerNavigation from './DrawerNavigation';
 import Drawer from './drawerNavigation/Drawer';
 import Compliance from '../screens/compliance'
 import NotificationDetail from '../screens/notificationDetail'
 import NationalSafety from '../screens/nationalSafety'
 import AboutNISCN from '../screens/aboutNISCN';
 import ReportIssue from '../screens/reportIssue'
+import IndustrySafety from '../screens/industrySafety';
+import StateSafety from '../screens/stateSafety';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,8 @@ const StackNavigator=()=>{
         <Stack.Screen name="NationalSafety" component={NationalSafety } options={{headerShown:false}} />
         <Stack.Screen name="About" component={AboutNISCN } options={{headerShown:false}} />
         <Stack.Screen name="ReportIssue" component={ReportIssue } options={{headerShown:false}} />
+        <Stack.Screen name="IndustrySafety" component={IndustrySafety } options={{headerShown:false}} />
+        <Stack.Screen name="StateSafety" component={StateSafety } options={{headerShown:false}} />
 
 
 

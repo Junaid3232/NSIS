@@ -111,6 +111,19 @@ const DrawerSideBarMenu = props => {
           )}
           onPress={() => props.navigation.navigate('NationalSafety')}
         />
+          <DrawerItem
+          label={({focused, color}) => (
+            <DrawerSection
+              focused={focused}
+              color={color}
+              icon="crop-square"
+              title="State Safety Index"
+            />
+          )}
+          onPress={() => {
+            props.navigation.navigate('StateSafety')
+          }}
+        />
         <DrawerItem
           label={({focused, color}) => (
             <DrawerSection
@@ -121,7 +134,7 @@ const DrawerSideBarMenu = props => {
             />
           )}
           onPress={() => {
-            alert('Industry Safety Index Pressed');
+            props.navigation.navigate('IndustrySafety')
           }}
         />
         <DrawerItem
@@ -134,7 +147,7 @@ const DrawerSideBarMenu = props => {
             />
           )}
           onPress={() => {
-            alert('NDPR / GDPR Compliance Pressed');
+            props.navigation.navigate('Compliance')
           }}
         />
         <DrawerItem

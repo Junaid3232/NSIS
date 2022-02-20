@@ -30,7 +30,8 @@ const CompleteRegistration=({navigation})=> {
      <AppText
       text={'Back to Login'}
        disabled={false} 
-       size={12}
+       size={13}
+       color={colors.black}
        onPress={()=>navigation.navigate(screens.Login)}
       />
       </View>

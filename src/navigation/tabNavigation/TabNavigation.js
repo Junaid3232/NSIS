@@ -29,12 +29,12 @@ const TabNavigation = () => {
               
             {
               position: 'absolute',
-              bottom: 25,
-              left: 20,
-              right: 20,
+            
+              left: 8,
+              right: 8,
               borderRadius: 20,
               elevation: 0,
-              height: 80,
+              height: 70,
               backgroundColor:colors.lightGray,
               ...styles.shadow,
             },
@@ -52,7 +52,7 @@ const TabNavigation = () => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-               top:Platform.OS=='ios'?15:5
+               top:5
                   
                 }}>
                 <Image
@@ -88,7 +88,7 @@ const TabNavigation = () => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  top:Platform.OS=='ios'?15:5
+                  top:5
                 }}>
                 <Image
                   source={about}
@@ -125,7 +125,7 @@ const TabNavigation = () => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  top:Platform.OS=='ios'?15:5
+                  top:5
                 }}>
                 <Image
                   source={shield}
@@ -161,7 +161,7 @@ const TabNavigation = () => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  top:Platform.OS=='ios'?15:5
+                  top:5
                 }}>
                 <Image
                   source={lock}
@@ -199,7 +199,7 @@ const TabNavigation = () => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  top:Platform.OS=='ios'?15:5
+                  top:5
                 }}>
                 <Image
                   source={bell}

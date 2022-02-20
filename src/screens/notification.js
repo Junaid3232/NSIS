@@ -81,24 +81,24 @@ const Notification = ({navigation}) => {
           paddingHorizontal: 12,
           zIndex:-1
         }}>
-        <AppText size={16} text={'Notifications'} />
+        <AppText size={16} color={colors.black} text={'Notifications'} />
         <TouchableOpacity style={{flexDirection: 'row'}}>
-          <AppText size={16} text={'Filter'} />
+          <AppText size={13} text={'Filter'} />
           <TouchableOpacity style={{marginLeft:8}} onPress={() => {setShowFilter(!showFilter)}}>
-            <AntDesign name="caretdown" color={colors.black} size={20} />
+            <AntDesign name="caretdown" color={colors.black} size={13} style={{marginTop:4}} />
           </TouchableOpacity>
         </TouchableOpacity>
       </View>
       {showFilter  &&
         <View style={styles.filter}>
         <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-        <AppText color={"#fff"}  size={14} text={'Last 7 Days'}/>         
+        <AppText color={"#fff"}  size={12} text={'Last 7 Days'}/>         
          </TouchableOpacity>
           <TouchableOpacity style={{padding:3}} onPress={() => {}}>
-          <AppText color={"#fff"}  size={14} text={'Last Month'}/>
+          <AppText color={"#fff"}  size={12} text={'Last Month'}/>
           </TouchableOpacity>
           <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-          <AppText color={"#fff"} size={14} text={'Calender Range'}/>
+          <AppText color={"#fff"} size={12} text={'Calender Range'}/>
           </TouchableOpacity>
         </View>}
         </View>
@@ -120,10 +120,13 @@ const Notification = ({navigation}) => {
             );
           }}
           keyExtractor={(item)=>item.index}
+          ListFooterComponent={()=>(
+            <TouchableOpacity style={styles.btn} onPress={() => {}}>
+            <AppText color={'#fff'} text={'LOAD MORE'} />
+          </TouchableOpacity>
+          )}
         />
-              <TouchableOpacity style={styles.btn} onPress={() => {}}>
-        <AppText color={'#fff'} text={'LOAD MORE'} />
-      </TouchableOpacity>
+         
       
 
     </SafeAreaView>
@@ -152,8 +155,8 @@ marginHorizontal:10,
  
   },
   filter:{
-      height:110, 
-      width:170, 
+      height:90, 
+      width:130, 
       backgroundColor:'green', 
       borderRadius:15, 
       padding:15, 
@@ -169,9 +172,9 @@ marginHorizontal:10,
         alignItems: 'center',
         borderRadius: 15,
         position: 'absolute',
-        left: 20,
-        right: 20,
-        bottom:110,
+        left: 10,
+        right: 10,
+        bottom:-50,
         zIndex: 1,
       },
 });

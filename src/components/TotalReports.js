@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: '#fff',
     width: '100%',
     borderWidth: 0.2,
@@ -39,12 +39,22 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   container: {
-    height: 65,
-    width: 65,
+    height: 55,
+    width: 55,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 1.84,
+    elevation: 5,
     // marginVertical:15,
+    
   },
   totalTxt: {
     color: '#000',

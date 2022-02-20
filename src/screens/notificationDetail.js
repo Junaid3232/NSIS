@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+
 import {
   StyleSheet,
   TouchableOpacity,
@@ -7,18 +7,20 @@ import {
   Text,
   View,
   Image,
+  ScrollView
 } from 'react-native';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
+import colors from '../config/colors';
 
 const NotificationDetail = ({navigation}) => {
   const image = require('../assets/images/4.jpg');
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1,backgroundColor:colors.white}}>
       <Header navigation={navigation} />
-      <View style={{paddingHorizontal: 15}}>
+      <ScrollView style={{paddingHorizontal: 15}}>
         <View style={styles.title}>
-          <AppText text={'NISCN Enforces Safety In Calabar'} />
+          <AppText color={colors.black} text={'NISCN Enforces Safety In Calabar'} />
         </View>
         <View style={styles.imageView}>
           <Image
@@ -34,11 +36,11 @@ const NotificationDetail = ({navigation}) => {
             }
           />
         </View>
-      </View>
+      </ScrollView>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate('Notification')}>
-        <AppText  color={'#fff'} text={'SUBMIT'} />
+        onPress={() => navigation.navigate('Notifications')}>
+        <AppText  color={'#fff'} text={'CLOSE'} />
       </TouchableOpacity>
     </SafeAreaView>
   );

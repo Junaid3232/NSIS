@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {StyleSheet,SafeAreaView, TouchableOpacity, Text, View, FlatList, ScrollView} from 'react-native';
+import {StyleSheet,SafeAreaView, TouchableOpacity, Text, View, FlatList, ScrollView, Dimensions} from 'react-native';
 import TotalReports from '../components/TotalReports';
 import SafetyIndex from '../components/SafetyIndex';
 import {BarChart} from 'react-native-gifted-charts';
@@ -13,62 +13,68 @@ import colors from '../config/colors';
 
 
 const Dashboard = ({navigation}) => {
-
+  const windowWidth = Dimensions.get('window').width;
   const [showDetails, setShowDetails] = useState(false)
+  const [showMoreIndustryIndex, setShowMoreIndustryIndex]=useState(false)
 
   const industryIndex = [
     {
       id: 0,
-      number: 1,
+      number: 5,
       industryName: 'Telecommunication',
     },
     {
       id: 1,
-      number: 2,
+      number: 6,
       industryName: 'Government',
     },
     {
       id: 2,
-      number: 3,
+      number: 7,
       industryName: 'Banking',
     },
     {
       id: 3,
-      number: 4,
+      number: 8,
       industryName: 'Government',
     },
     {
       id: 4,
-      number: 5,
+      number: 9,
       industryName: 'Government',
     },
     {
       id: 5,
-      number: 6,
+      number: 10,
       industryName: 'Civil Engineering ',
     },
+
   ];
 
   const data = [
-    {value: 540,labelWidth: 100, label:showDetails ?  'Banking': null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontWeight:'500',fontSize:11, transform: [{ rotate: '-90deg'}], position:'absolute', bottom:70, left:-9, }},
-        {value: 500,labelWidth: 100, label: showDetails ? 'Telecommunication':null , labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-35}},
-        {value: 745,labelWidth: 100, label: showDetails ? 'Insurance':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12, fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
-        {value: 540, labelWidth: 100, label: showDetails ? 'Medical':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-9}},
-        {value: 600, labelWidth: 100, label: showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
-        {value: 540,labelWidth: 100, label:showDetails ?  'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-26}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
-        {value: 550,labelWidth: 100, label:showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-15}},
-        {value: 600,labelWidth: 100, label:showDetails ? 'Entertainment':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-27}},
-        {value: 530,labelWidth: 100, label: showDetails ?'Pharmacy':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
-        {value: 600,labelWidth: 100, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium', fontSize:12,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-14}},
-        {value: 640,labelWidth: 100, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:12, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:80, left:-28}},
+    {value: 540, label:showDetails ?  'Banking': null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontWeight:'500',fontSize:10, transform: [{ rotate: '-90deg'}], position:'absolute', bottom:40, left:-6, }},
+        {value: 700, label: showDetails ? 'Telecommunication':null , labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:69, left:-35}},
+        {value: 745, label: showDetails ? 'Insurance':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 540, label: showDetails ? 'Medical':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:40, left:-5}},
+        {value: 600, label: showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 540, label:showDetails ?  'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 600, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 600, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 550, label:showDetails ? 'Pharmacy':null, labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 600, label:showDetails ? 'Entertainment':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 530, label: showDetails ?'Pharmacy':null,labelTextStyle:{color:"#fff", fontFamily:'Raleway-Medium',fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 600, label: showDetails ?'Pharmacy':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium', fontSize:10,fontWeight:'500',transform: [{ rotate: '-90deg'}], position:'absolute', bottom:45, left:-10}},
+        {value: 640, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 640, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 640, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 640, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
+        {value: 640, label: showDetails ?'Entertainment':null, labelTextStyle:{color:"#fff",fontFamily:'Raleway-Medium',fontSize:10, fontWeight:'500', transform: [{ rotate: '-90deg'}], position:'absolute', bottom:55, left:-20}},
   ];
 
   return (
     <SafeAreaView style={styles.container} >
         <Header dashboard={true} navigation={navigation}/>
-        <ScrollView style={{paddingHorizontal:15}} showsVerticalScrollIndicator={false}>
+        <ScrollView style={{}} showsVerticalScrollIndicator={false}>
           <View style={{paddingTop:10, zIndex:999}}>
           <Text style={styles.title}>{'Dashboard'}</Text>
           </View>
@@ -83,8 +89,10 @@ const Dashboard = ({navigation}) => {
         <View style={styles.barChartContainer}>
         <BarChart
           data={data}
+          labelWidth={100}
           barWidth={20}
           noOfSections={3}
+
           barBorderRadius={2}
           frontColor={colors.primary}
           yAxisThickness={0}
@@ -93,35 +101,35 @@ const Dashboard = ({navigation}) => {
           hideOrigin
           hideYAxisText
           height={140}
-          width={420}
+          width={windowWidth-30}
          hideYAxisText
          spacing={6}
          
         />
         </View>
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row',paddingHorizontal:12}}>
         <View style={[styles.totalBadges, {marginEnd: 10}]}>
           <TotalReports
             backgroundColor={'#51BA5B'}
             totalText={'Total'}
             name={'Industries'}
             counter={'13'}
-            icon={  <Ionicons name="book" color={"#fff"} size={30} /> }
+            icon={  <Ionicons name="book" color={"#fff"} size={20} /> }
           />
           <TotalReports
             backgroundColor={'#383b80'}
             totalText={'Total'}
             name={'Reporters'}
             counter={'143'}
-            icon={  <Fontisto name="world" color={"#fff"} size={30} /> }
+            icon={  <Fontisto name="world" color={"#fff"} size={20} /> }
           />
           <TotalReports
             backgroundColor={'#FF17F5'}
             totalText={'Total'}
             name={'Resolved Issue'}
             counter={'123'}
-            icon={  <Fontisto name="world" color={"#fff"} size={30} /> }
+            icon={  <Fontisto name="world" color={"#fff"} size={20} /> }
           />
         </View>
         <View style={styles.totalBadges}>
@@ -137,7 +145,7 @@ const Dashboard = ({navigation}) => {
             totalText={'Total'}
             name={'Active Issues'}
             counter={'676'}
-            icon={  <Feather name="activity" color={"#fff"} size={40} /> }
+            icon={  <Feather name="activity" color={"#fff"} size={20} /> }
 
           />
           <TotalReports
@@ -145,12 +153,12 @@ const Dashboard = ({navigation}) => {
             totalText={'Total'}
             name={'Ignore Issues'}
             counter={'511'}
-            icon={  <Feather name="activity" color={"#fff"} size={40} /> }
+            icon={  <Feather name="activity" color={"#fff"} size={20} /> }
           />
         </View>
       </View>
       <View>
-        <View style={{flexDirection:'row', alignItems:'center'}}>
+        <View style={{flexDirection:'row', alignItems:'center',paddingHorizontal:10}}>
         <Text style={styles.safetyText}>
           {'Industry Safety Index (Jan - March 2022)'}
         </Text>
@@ -158,10 +166,36 @@ const Dashboard = ({navigation}) => {
         <AppText  color={"#fff"} text={"?"}/>
         </View>
         </View>
-        <View style={{marginBottom:70}}>
+        <View style={{paddingHorizontal:10}}>
+          <View style={{flexDirection:'row'}}>
+        <SafetyIndex
+                  index={1}
+                  industryName={'Telecommunication'}
+                />
+                   <SafetyIndex
+                  index={2}
+                  industryName={'Government'}
+                />
+                </View>
+                <View style={{flexDirection:'row'}}>
+                   <SafetyIndex
+                  index={3}
+                  industryName={'Banking'}
+                />
+                   <SafetyIndex
+                  index={4}
+                  industryName={'Telecommunication'}
+                />
+                </View>
+               
+               
+                </View>
+       {showMoreIndustryIndex &&<View style={{}}>
+      
           <FlatList
             data={industryIndex}
-            contentContainerStyle={{marginBottom:60}}
+            scrollEnabled={false}
+            contentContainerStyle={{paddingHorizontal:12}}
             renderItem={({item}) => {
               return (
                 <SafetyIndex
@@ -172,7 +206,10 @@ const Dashboard = ({navigation}) => {
             }}
             numColumns={2}
           />
-        </View>
+        </View>}
+        <TouchableOpacity onPress={()=>setShowMoreIndustryIndex(!showMoreIndustryIndex)} style={{alignItems:'flex-end', marginRight:15,marginBottom:75,marginTop:5}}>
+                <AppText text={showMoreIndustryIndex?'Hide Full List':'View Full List'} color={'blue'} size={10}/>
+                </TouchableOpacity>
       </View>
       </ScrollView>
     </SafeAreaView>
@@ -210,6 +247,7 @@ const styles = StyleSheet.create({
   },
   graphContainer: {
     paddingHorizontal: 12,
+  width:'95%',
     marginVertical: 10,
     borderRadius: 10,
     borderWidth: 0.2,
@@ -224,6 +262,7 @@ shadowOffset: {
 shadowOpacity: 0.25,
 shadowRadius: 3.84,
 elevation: 5,
+alignSelf:'center'
     
 
   },
@@ -251,5 +290,6 @@ elevation: 5,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 2,
+
   }
 });
