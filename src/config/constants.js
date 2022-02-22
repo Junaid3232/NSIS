@@ -1,7 +1,6 @@
-export const constants = {
+export const BASE_URL="https://api-safecity.herokuapp.com"
+export const REPORT_ISSUE="Issues"
 
-
-}
 export const screens={
 
     Login:'Login',

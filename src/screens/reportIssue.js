@@ -6,22 +6,27 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {Header} from '../components/Header';
 import {AppText} from '../components/AppText';
 import {ScrollView} from 'react-native';
 import colors from '../config/colors';
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { color } from 'react-native-reanimated';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {color} from 'react-native-reanimated';
+import {reportIssue} from '../api/reportIssue';
 const ReportIssue = ({navigation}) => {
   const [submit, setSubmit] = useState(true);
   const [extendView, setExtendView] = useState(false);
   const [existingIssue, setExistingIssue] = useState(false);
   const [softCity, setSoftCity] = useState(false);
   const [input, setInput] = useState(false);
-  const [showIndustries, setShowIndustries]=useState(false)
-  const [selectedIndustry,setSelectedIndustry]=useState('Telecomunication')
+  const [showIndustries, setShowIndustries] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState('Telecomunication');
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const [statusConfirmation, setStatusConfirmation] = useState({
     freshIssue: false,
     existingIssue: false,
@@ -31,17 +36,48 @@ const ReportIssue = ({navigation}) => {
     pending: false,
   });
   const [showIndustryInfo, setShowIndustryInfo] = useState(false);
+
+  const status = 'Active';
+  const organization = 'organization';
+  const industry = 'industry';
+  const state = 'state';
+  const onSubmitIssue = async () => {
+    try {
+      setLoading(true);
+      const response = await reportIssue({
+        status,
+        description,
+        organization,
+        industry,
+        state,
+      });
+      setLoading(false);
+      if (response.status) {
+        console.log('....RESPONSE', response);
+      } else {
+        Alert.alert('Error', response.message);
+      }
+    } catch (err) {
+      setLoading(false);
+      Alert.alert('Error', err.message);
+      console.log('error is: ', err);
+    }
+  };
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Header navigation={navigation}/>
+      <Header navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.issueHeader}>
-          <AppText color={colors.black} size={14} text={'Report Safety Issue'} />
+          <AppText
+            color={colors.black}
+            size={14}
+            text={'Report Safety Issue'}
+          />
         </View>
         <View style={[styles.container, {manHeight: 100}]}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'1'} />
-            </View>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'1'} />
+          </View>
 
           <TouchableOpacity
             onPress={() => {
@@ -49,17 +85,23 @@ const ReportIssue = ({navigation}) => {
             }}>
             <View style={{padding: 5}}>
               <AppText color={colors.black} text={'Report Safety Issue'} />
-              {extendView ? <AppText 
-               text={" Are you reporting a fresh Safety issue or you are confirming the status of a safety issue you have reported in the past"}
-               size={10}
-               color={colors.gray}/>
-  
-              :
-              <AppText
-                text={"Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"}
-                size={10}
-                color={colors.gray}
-              /> }
+              {extendView ? (
+                <AppText
+                  text={
+                    ' Are you reporting a fresh Safety issue or you are confirming the status of a safety issue you have reported in the past'
+                  }
+                  size={10}
+                  color={colors.gray}
+                />
+              ) : (
+                <AppText
+                  text={
+                    "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
+                  }
+                  size={10}
+                  color={colors.gray}
+                />
+              )}
             </View>
           </TouchableOpacity>
           {extendView && (
@@ -76,7 +118,7 @@ const ReportIssue = ({navigation}) => {
                           !statusConfirmation.freshIssue
                         ? colors.primary
                         : colors.primary + 50,
-                        elevation:statusConfirmation.existingIssue ? 0:5
+                      elevation: statusConfirmation.existingIssue ? 0 : 5,
                     },
                   ]}
                   onPress={() =>
@@ -86,12 +128,7 @@ const ReportIssue = ({navigation}) => {
                       existingIssue: false,
                     })
                   }>
-                  <AppText
-                   
-                    size={10}
-                    color={'white'}
-                    text={'Fresh Issue'}
-                  />
+                  <AppText size={10} color={'white'} text={'Fresh Issue'} />
                 </TouchableOpacity>
               </View>
               <View style={{flex: 0.5}}>
@@ -106,7 +143,7 @@ const ReportIssue = ({navigation}) => {
                           !statusConfirmation.freshIssue
                         ? colors.primary
                         : colors.primary + 50,
-                        elevation:statusConfirmation.freshIssue ? 0:5
+                      elevation: statusConfirmation.freshIssue ? 0 : 5,
                     },
                   ]}
                   onPress={() =>
@@ -116,11 +153,7 @@ const ReportIssue = ({navigation}) => {
                       freshIssue: false,
                     })
                   }>
-                  <AppText
-                    color={'#fff'}
-                    text={'Existing Issue'}
-                    size={10}
-                  />
+                  <AppText color={'#fff'} text={'Existing Issue'} size={10} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -128,7 +161,10 @@ const ReportIssue = ({navigation}) => {
 
           {statusConfirmation.existingIssue || statusConfirmation.freshIssue ? (
             <>
-              <AppText text={"Below are the safety issues you have reported in the past. Select the name of the orgainization you are confirming the status of the safety issue"}
+              <AppText
+                text={
+                  'Below are the safety issues you have reported in the past. Select the name of the orgainization you are confirming the status of the safety issue'
+                }
                 color={colors.gray}
                 size={10}
               />
@@ -145,7 +181,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.softCityGroup
                           ? colors.primary
                           : colors.primary + 50,
-                          elevation:statusConfirmation.auditTech ? 0:5
+                        elevation: statusConfirmation.auditTech ? 0 : 5,
                       },
                     ]}
                     onPress={() =>
@@ -155,12 +191,7 @@ const ReportIssue = ({navigation}) => {
                         softCityGroup: !statusConfirmation.softCityGroup,
                       })
                     }>
-                    <AppText
-
-                      color={'#fff'}
-                      text={'Softcity Group'}
-                      size={10}
-                    />
+                    <AppText color={'#fff'} text={'Softcity Group'} size={10} />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 0.5}}>
@@ -175,7 +206,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.softCityGroup
                           ? colors.primary
                           : colors.primary + 50,
-                          elevation:statusConfirmation.softCityGroup ? 0:5
+                        elevation: statusConfirmation.softCityGroup ? 0 : 5,
                       },
                     ]}
                     onPress={() =>
@@ -185,7 +216,7 @@ const ReportIssue = ({navigation}) => {
                         softCityGroup: false,
                       })
                     }>
-                    <AppText color={'#fff'} text={'Audit Tech'}  size={10}/>
+                    <AppText color={'#fff'} text={'Audit Tech'} size={10} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -211,7 +242,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.pending
                           ? colors.primary
                           : colors.primary + 50,
-                          elevation:statusConfirmation.pending ? 0:5
+                        elevation: statusConfirmation.pending ? 0 : 5,
                       },
                     ]}
                     onPress={() =>
@@ -221,12 +252,7 @@ const ReportIssue = ({navigation}) => {
                         pending: false,
                       })
                     }>
-                    <AppText
-
-                      color={'#fff'}
-                      text={'Its Resolved'}
-                      size={10}
-                    />
+                    <AppText color={'#fff'} text={'Its Resolved'} size={10} />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 0.5}}>
@@ -241,7 +267,7 @@ const ReportIssue = ({navigation}) => {
                             !statusConfirmation.pending
                           ? colors.primary
                           : colors.primary + 50,
-                          elevation:statusConfirmation.resolved ? 0:5
+                        elevation: statusConfirmation.resolved ? 0 : 5,
                       },
                     ]}
                     onPress={() =>
@@ -251,12 +277,7 @@ const ReportIssue = ({navigation}) => {
                         resolved: false,
                       })
                     }>
-                    <AppText
-
-                      color={'#fff'}
-                      text={'Still Pending'}
-                      size={10}
-                    />
+                    <AppText color={'#fff'} text={'Still Pending'} size={10} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -267,7 +288,7 @@ const ReportIssue = ({navigation}) => {
               <View style={{paddingBottom: 10}}>
                 <AppText
                   text={
-                    "Is there any further information you will like to share with us about this issue? Enter below"
+                    'Is there any further information you will like to share with us about this issue? Enter below'
                   }
                   color={colors.gray}
                   size={10}
@@ -277,7 +298,11 @@ const ReportIssue = ({navigation}) => {
                 <View style={styles.lineCounter}>
                   <AppText text={'0/100'} />
                 </View>
-                <TextInput multiline numberOfLines={100} />
+                <TextInput
+                  multiline
+                  numberOfLines={100}
+                  onChangeText={text => setDescription(text)}
+                />
               </View>
             </>
           ) : null}
@@ -288,18 +313,25 @@ const ReportIssue = ({navigation}) => {
                 alignItems: 'center',
                 marginVertical: 10,
               }}>
-              <AppText text={'Next Will Load Your Response Above'} size={10} color={colors.gray}/>
-             <View style={{flexDirection:'row',marginTop:5}}>
-              <View style={{...styles.waitingDot}} />
-              <View style={{...styles.waitingDot2, backgroundColor:'#cecece'}} />
-              <View style={{...styles.waitingDot3 ,backgroundColor:'#d7d7d7'}}  />
-            </View>
+              <AppText
+                text={'Next Will Load Your Response Above'}
+                size={10}
+                color={colors.gray}
+              />
+              <View style={{flexDirection: 'row', marginTop: 5}}>
+                <View style={{...styles.waitingDot}} />
+                <View
+                  style={{...styles.waitingDot2, backgroundColor: '#cecece'}}
+                />
+                <View
+                  style={{...styles.waitingDot3, backgroundColor: '#d7d7d7'}}
+                />
+              </View>
             </View>
           )}
 
           {input && (
-            <View
-              style={styles.hitView}>
+            <View style={styles.hitView}>
               <AppText text={'You Can Hit Submit After This'} />
               <View style={styles.waitingDot} />
               <View style={styles.waitingDot2} />
@@ -311,63 +343,93 @@ const ReportIssue = ({navigation}) => {
         <TouchableOpacity
           onPress={() => setShowIndustryInfo(!showIndustryInfo)}
           style={styles.container}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'2'} />
-            </View>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'2'} />
+          </View>
           {showIndustryInfo ? (
             <>
-              <AppText color={colors.black} text={'Industry Information'}  size={10}/>
+              <AppText
+                color={colors.black}
+                text={'Industry Information'}
+                size={10}
+              />
 
-              <AppText text={'Select the industry of the organization you are reporting'}
-                 color={colors.gray}
-                 size={10}
+              <AppText
+                text={
+                  'Select the industry of the organization you are reporting'
+                }
+                color={colors.gray}
+                size={10}
               />
               <TouchableOpacity
                 style={styles.industryContainer}
-                onPress={()=>setShowIndustries(!showIndustries)}>
-                <AppText color={'white'} text={selectedIndustry}/>
-                <FontAwesome name='caret-down' size={20} color={colors.white}/>
+                onPress={() => setShowIndustries(!showIndustries)}>
+                <AppText color={'white'} text={selectedIndustry} />
+                <FontAwesome name="caret-down" size={20} color={colors.white} />
               </TouchableOpacity>
-              {showIndustries  &&
-        <View style={styles.filter}>
-        <TouchableOpacity style={{padding:2}} 
-        onPress={() => {setSelectedIndustry('Banking') 
-        setShowIndustries(false)}}>
-        <AppText color={"#fff"}  size={12} text={'Banking'}/>         
-         </TouchableOpacity>
-          <TouchableOpacity style={{padding:3}}
-           onPress={() => {setSelectedIndustry('Insurance')
-           setShowIndustries(false)}
-           }>
-          <AppText color={"#fff"}  size={12} text={'Insurance'}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={{padding:2}} 
-          onPress={() => {setSelectedIndustry('Medical')
-          setShowIndustries(false)}}>
-          <AppText color={"#fff"} size={12} text={'Medical'}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={{padding:2}} 
-          onPress={() => {setSelectedIndustry('Telecomunication')
-          setShowIndustries(false)}}>
-          <AppText color={"#fff"} size={12} text={'Telecomunication'}/>
-          </TouchableOpacity>
-        </View>}
+              {showIndustries && (
+                <View style={styles.filter}>
+                  <TouchableOpacity
+                    style={{padding: 2}}
+                    onPress={() => {
+                      setSelectedIndustry('Banking');
+                      setShowIndustries(false);
+                    }}>
+                    <AppText color={'#fff'} size={12} text={'Banking'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{padding: 3}}
+                    onPress={() => {
+                      setSelectedIndustry('Insurance');
+                      setShowIndustries(false);
+                    }}>
+                    <AppText color={'#fff'} size={12} text={'Insurance'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{padding: 2}}
+                    onPress={() => {
+                      setSelectedIndustry('Medical');
+                      setShowIndustries(false);
+                    }}>
+                    <AppText color={'#fff'} size={12} text={'Medical'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{padding: 2}}
+                    onPress={() => {
+                      setSelectedIndustry('Telecomunication');
+                      setShowIndustries(false);
+                    }}>
+                    <AppText
+                      color={'#fff'}
+                      size={12}
+                      text={'Telecomunication'}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
               <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 10,
-                borderTopWidth:0.5,
-paddingTop:10
-
-              }}>
-              <AppText text={'You Can Proceed to Step 3 After This'} size={10} color={colors.gray}/>
-             <View style={{flexDirection:'row'}}>
-              <View style={{...styles.waitingDot}} />
-              <View style={{...styles.waitingDot2, backgroundColor:'#cecece'}} />
-              <View style={{...styles.waitingDot3 ,backgroundColor:'#d7d7d7'}}  />
-            </View>
-            </View>
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginVertical: 10,
+                  borderTopWidth: 0.5,
+                  paddingTop: 10,
+                }}>
+                <AppText
+                  text={'You Can Proceed to Step 3 After This'}
+                  size={10}
+                  color={colors.gray}
+                />
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{...styles.waitingDot}} />
+                  <View
+                    style={{...styles.waitingDot2, backgroundColor: '#cecece'}}
+                  />
+                  <View
+                    style={{...styles.waitingDot3, backgroundColor: '#d7d7d7'}}
+                  />
+                </View>
+              </View>
             </>
           ) : (
             <>
@@ -383,94 +445,103 @@ paddingTop:10
           )}
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'3'} />
-            </View>
-          <AppText text={'Organization Information'} color={colors.black}/>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'3'} />
+          </View>
+          <AppText text={'Organization Information'} color={colors.black} />
           <AppText
             text={
-               "We will like to get detailed information about the organization you are reporting operates"
+              'We will like to get detailed information about the organization you are reporting operates'
             }
             color={colors.gray}
             size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'4'} />
-            </View>
-          <AppText text={'Select the State You are Reporting From'} color={colors.black}/>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'4'} />
+          </View>
+          <AppText
+            text={'Select the State You are Reporting From'}
+            color={colors.black}
+          />
           <AppText
             text={
-            "We will like to know the Nigerian State in which the safety issue you are reporting happend"
+              'We will like to know the Nigerian State in which the safety issue you are reporting happend'
             }
             color={colors.gray}
             size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'5'} />
-            </View>
-          <AppText text={'Select the LGA Yor ar Reporting From'} color={colors.black}/>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'5'} />
+          </View>
+          <AppText
+            text={'Select the LGA Yor ar Reporting From'}
+            color={colors.black}
+          />
           <AppText
             text={
-              "We will like to know the Local Government Area in which the safety issue you are reporting happend"
+              'We will like to know the Local Government Area in which the safety issue you are reporting happend'
             }
             color={colors.gray}
             size={10}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.container}>
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'6'} />
-            </View>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'6'} />
+          </View>
 
-          <AppText text={'Location of the Safety Issue'} color={colors.black}/>
+          <AppText text={'Location of the Safety Issue'} color={colors.black} />
           <AppText
             text={
-                "We will like to know the location within Nigeria in which the safety issue you are reporting happend"
+              'We will like to know the location within Nigeria in which the safety issue you are reporting happend'
             }
             color={colors.gray}
             size={10}
           />
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={{...styles.container}}>
+          <View style={styles.counterSticker}>
+            <AppText color={'#fff'} text={'7'} />
+          </View>
 
-            <View style={styles.counterSticker}>
-              <AppText color={'#fff'} text={'7'} />
-            </View>
-
-          <AppText text={'Designated Safety Channel'} color={colors.black}/>
+          <AppText text={'Designated Safety Channel'} color={colors.black} />
           <AppText
             text={
- "We will like to know if the organization you are reporting have a designated channel to report safety issues"
+              'We will like to know if the organization you are reporting have a designated channel to report safety issues'
             }
             color={colors.gray}
             size={10}
           />
         </TouchableOpacity>
-     
-        <View style={{marginBottom:'40%'}}>
-        <TouchableOpacity style={{...styles.container}}>
+
+        <View style={{marginBottom: '40%'}}>
+          <TouchableOpacity style={{...styles.container}}>
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'8'} />
             </View>
 
-          <AppText text={'Other Relevent Information'} color={colors.black}/>
-          <AppText
-            text={
- "We need more information to allow us investigate this safety issue such as timeline, anonymous verification, etc"
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
+            <AppText text={'Other Relevent Information'} color={colors.black} />
+            <AppText
+              text={
+                'We need more information to allow us investigate this safety issue such as timeline, anonymous verification, etc'
+              }
+              color={colors.gray}
+              size={10}
+            />
+          </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.btn} onPress={() => setSubmit(!submit)}>
-        <AppText color={'#fff'} text={'SUBMIT'} />
+      <TouchableOpacity style={styles.btn} onPress={() => onSubmitIssue()}>
+        {loading ? (
+          <ActivityIndicator size={20} color={colors.white} />
+        ) : (
+          <AppText color={'#fff'} text={'SUBMIT'} />
+        )}
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -497,7 +568,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     shadowColor: '#000',
- 
 
     shadowOffset: {
       width: 0,
@@ -550,7 +620,7 @@ const styles = StyleSheet.create({
   button: {
     height: 25,
     marginVertical: 10,
-    
+
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -585,35 +655,35 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     borderBottomWidth: 0.3,
-    borderColor:colors.gray,
+    borderColor: colors.gray,
     marginBottom: 10,
   },
-  issueHeader:{paddingVertical: 10, paddingHorizontal: 22},
+  issueHeader: {paddingVertical: 10, paddingHorizontal: 22},
 
-  hitView:{
+  hitView: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
   },
-  industryContainer:{
+  industryContainer: {
     width: '90%',
     padding: 8,
     backgroundColor: colors.primary,
     borderRadius: 10,
     marginTop: 10,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  filter:{
-    height:100, 
-    maxHeight:'50%',
+  filter: {
+    height: 100,
+    maxHeight: '50%',
     width: '90%',
-    backgroundColor:colors.primary, 
-    borderBottomEndRadius:10,
-    borderBottomStartRadius:10,
-    padding:15, 
-    marginTop:-10,
-     zIndex:1
+    backgroundColor: colors.primary,
+    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 10,
+    padding: 15,
+    marginTop: -10,
+    zIndex: 1,
   },
 });

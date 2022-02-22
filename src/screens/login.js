@@ -71,8 +71,8 @@ const Login = ({navigation}) => {
             <AppButton
               title={'LOGIN'}
               onPress={() => {
-                login();
-                // navigation.navigate(screens.Dashboard);
+                // login();
+                navigation.navigate(screens.Dashboard);
               }}
             />
           </View>
