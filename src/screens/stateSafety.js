@@ -6,13 +6,11 @@ import {
   Text,
   View,
   TouchableOpacity,
-
   TouchableHighlight,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
-import Tooltip from 'react-native-walkthrough-tooltip';
 import colors from '../config/colors';
 
 const nationalSafety = [
@@ -82,7 +80,6 @@ const StateSafety = ({navigation}) => {
               justifyContent: 'space-between',
               paddingVertical: 10,
               paddingHorizontal: 12,
-        
             }}>
             <View style={{flexDirection: 'row'}}>
               <AppText
@@ -102,32 +99,30 @@ const StateSafety = ({navigation}) => {
                     ...styles.dropdown,
                     width: 250,
                     alignSelf: 'center',
-                    justifyContent:'center',
-              
+                    justifyContent: 'center',
                   }}>
-                     <AppText
-                          text={'Select State'}
-                          color={colors.white}
-                          size={16}
-                        />
-                        <View style={{marginTop:10}}>
-                  <FlatList
-                    data={selectIndustry}
-                    keyExtractor={({index}) => index}
-                    renderItem={({item, index}) => {
-                      return (
-                        <TouchableOpacity style={{marginTop:5}}>
-                        <AppText
-                          text={item.name}
-                          color={colors.white}
-                          size={12}
-                        />
-                        </TouchableOpacity>
-                    
-                      );
-                    }}
+                  <AppText
+                    text={'Select State'}
+                    color={colors.white}
+                    size={16}
                   />
-                      </View>
+                  <View style={{marginTop: 10}}>
+                    <FlatList
+                      data={selectIndustry}
+                      keyExtractor={({index}) => index}
+                      renderItem={({item, index}) => {
+                        return (
+                          <TouchableOpacity style={{marginTop: 5}}>
+                            <AppText
+                              text={item.name}
+                              color={colors.white}
+                              size={12}
+                            />
+                          </TouchableOpacity>
+                        );
+                      }}
+                    />
+                  </View>
                 </View>
               )}
             </View>
@@ -149,7 +144,7 @@ const StateSafety = ({navigation}) => {
           </View>
           {showFilter && (
             <View style={styles.filter}>
-                  <TouchableOpacity
+              <TouchableOpacity
                 style={{padding: 2}}
                 onPress={() => {
                   setShowFilter(false);
@@ -187,7 +182,7 @@ const StateSafety = ({navigation}) => {
             </View>
           )}
         </View>
-        <View style={{flex: 1,zIndex:-1}}>
+        <View style={{flex: 1, zIndex: -1}}>
           <FlatList
             data={nationalSafety}
             keyExtractor={({index}) => index}
@@ -289,13 +284,12 @@ const styles = StyleSheet.create({
     elevation: 50,
   },
   dropdown: {
-
     backgroundColor: colors.primary,
     borderRadius: 15,
     padding: 25,
     position: 'absolute',
     top: 25,
-   left:50,
+    left: 50,
     zIndex: 15,
     shadowColor: '#000',
     shadowOffset: {
@@ -305,7 +299,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
     elevation: 5,
-alignItems:'center'
+    alignItems: 'center',
   },
   QMark: {
     height: 20,

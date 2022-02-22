@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,15 +6,16 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from 'react-native';
-import { filterConfig } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon';
+import {filterConfig} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
 import colors from '../config/colors';
 
 const notifications = [
+  //
   {
     id: 1,
     title: 'NISCN Enforces Safety In Calabar',
@@ -67,68 +68,79 @@ const notifications = [
 ];
 
 const Notification = ({navigation}) => {
-
-    const[showFilter, setShowFilter] = useState(false)
+  const [showFilter, setShowFilter] = useState(false);
   return (
-    <SafeAreaView style={{zIndex:-1,backgroundColor:'white',flex:1}}>
-      <Header navigation={navigation}/>
+    <SafeAreaView style={{zIndex: -1, backgroundColor: 'white', flex: 1}}>
+      <Header navigation={navigation} />
       <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 12,
-          zIndex:-1
-        }}>
-        <AppText size={16} color={colors.black} text={'Notifications'} />
-        <TouchableOpacity style={{flexDirection: 'row'}}>
-          <AppText size={13} text={'Filter'} />
-          <TouchableOpacity style={{marginLeft:8}} onPress={() => {setShowFilter(!showFilter)}}>
-            <AntDesign name="caretdown" color={colors.black} size={13} style={{marginTop:4}} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingVertical: 10,
+            paddingHorizontal: 12,
+            zIndex: -1,
+          }}>
+          <AppText size={16} bold={'bold'} text={'Notifications'} />
+          <TouchableOpacity style={{flexDirection: 'row'}}>
+            <AppText size={16} text={'Filter'} />
+            <TouchableOpacity
+              style={{marginLeft: 8}}
+              onPress={() => {
+                setShowFilter(!showFilter);
+              }}>
+              <AntDesign name="caretdown" color={colors.black} size={20} />
+            </TouchableOpacity>
           </TouchableOpacity>
-        </TouchableOpacity>
-      </View>
-      {showFilter  &&
-        <View style={styles.filter}>
-        <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-        <AppText color={"#fff"}  size={12} text={'Last 7 Days'}/>         
-         </TouchableOpacity>
-          <TouchableOpacity style={{padding:3}} onPress={() => {}}>
-          <AppText color={"#fff"}  size={12} text={'Last Month'}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={{padding:2}} onPress={() => {}}>
-          <AppText color={"#fff"} size={12} text={'Calender Range'}/>
-          </TouchableOpacity>
-        </View>}
         </View>
-  
+        {showFilter && (
+          <View style={styles.filter}>
+            <TouchableOpacity style={{padding: 2}} onPress={() => {}}>
+              <AppText color={'#fff'} size={16} text={'Last 7 Days'} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{padding: 3}} onPress={() => {}}>
+              <AppText color={'#fff'} size={16} text={'Last Month'} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{padding: 2}} onPress={() => {}}>
+              <AppText color={'#fff'} size={16} text={'Calender Range'} />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+      <View style={{paddingHorizontal: 10, zIndex: -1}}>
         <FlatList
           data={notifications}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal:10,paddingBottom:170,marginBottom:180}}
+          contentContainerStyle={{
+            paddingHorizontal: 10,
+            paddingBottom: 170,
+            marginBottom: 180,
+          }}
           renderItem={({item}) => {
-
             return (
-              <TouchableOpacity onPress={()=>navigation.navigate("NotificationDetail")} style={styles.notification}>
-                <AppText size={13}  text={item.title} color={colors.black}/>
-                <View style={{paddingVertical: 5, paddingBottom: 10, zIndex:-1}}>
-                  <AppText size={11}color={colors.gray} text={item.description} />
+              <TouchableOpacity
+                onPress={() => navigation.navigate('NotificationDetail')}
+                style={styles.notification}>
+                <AppText size={14} bold={'bold'} text={item.title} />
+                <View
+                  style={{paddingVertical: 5, paddingBottom: 10, zIndex: -1}}>
+                  <AppText size={12} text={item.description} />
                 </View>
-                <AppText size={10}  text={item.date} />
+                <AppText size={10} text={item.date} />
               </TouchableOpacity>
             );
           }}
-          keyExtractor={(item)=>item.index}
-          ListFooterComponent={()=>(
+          keyExtractor={item => item.index}
+          ListFooterComponent={() => (
             <TouchableOpacity style={styles.btn} onPress={() => {}}>
-            <AppText color={'#fff'} text={'LOAD MORE'} />
-          </TouchableOpacity>
+              <AppText color={'#fff'} text={'LOAD MORE'} />
+            </TouchableOpacity>
           )}
         />
-         
-      
-
+        <TouchableOpacity style={styles.btn} onPress={() => {}}>
+          <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -137,13 +149,13 @@ export default Notification;
 
 const styles = StyleSheet.create({
   notification: {
-marginHorizontal:10,
+    marginHorizontal: 10,
     borderRadius: 15,
-    marginTop:5,
+    marginTop: 5,
     padding: 15,
     marginVertical: 5,
-    zIndex:-1,
-    backgroundColor:colors.lightGray,
+    zIndex: -1,
+    backgroundColor: colors.lightGray,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -152,29 +164,28 @@ marginHorizontal:10,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
- 
   },
-  filter:{
-      height:90, 
-      width:130, 
-      backgroundColor:'green', 
-      borderRadius:15, 
-      padding:15, 
-      position:'absolute',
-      right:10, 
-      top:"90%",
-       zIndex:1
-    },
-    btn: {
-        height: 40,
-        backgroundColor: 'green',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 15,
-        position: 'absolute',
-        left: 10,
-        right: 10,
-        bottom:-50,
-        zIndex: 1,
-      },
+  filter: {
+    height: 110,
+    width: 170,
+    backgroundColor: 'green',
+    borderRadius: 15,
+    padding: 15,
+    position: 'absolute',
+    right: 10,
+    top: '90%',
+    zIndex: 1,
+  },
+  btn: {
+    height: 40,
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    position: 'absolute',
+    left: 20,
+    right: 20,
+    bottom: -10,
+    zIndex: 1,
+  },
 });
