@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,6 +16,8 @@ import colors from '../config/colors';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {color} from 'react-native-reanimated';
 import {reportIssue} from '../api/reportIssue';
+import ReportSafetyIssue from '../components/safetyReport/ReportSafetyIssue';
+import IssueReportedModal from '../components/IssueReportedModal';
 const ReportIssue = ({navigation}) => {
   const [submit, setSubmit] = useState(true);
   const [extendView, setExtendView] = useState(false);
@@ -26,7 +28,9 @@ const ReportIssue = ({navigation}) => {
   const [selectedIndustry, setSelectedIndustry] = useState('Telecomunication');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const [fresh, setFresh] = useState(false);
+  const [isDone, setDone] = useState(false);
+  console.log('.....IS DONE', isDone);
   const [statusConfirmation, setStatusConfirmation] = useState({
     freshIssue: false,
     existingIssue: false,
@@ -63,283 +67,19 @@ const ReportIssue = ({navigation}) => {
       console.log('error is: ', err);
     }
   };
+  useEffect(() => {
+    setShowIndustryInfo(true);
+  }, [fresh]);
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Header navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.issueHeader}>
-          <AppText
-            color={colors.black}
-            size={14}
-            text={'Report Safety Issue'}
-          />
-        </View>
-        <View style={[styles.container, {manHeight: 100}]}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'1'} />
-          </View>
-
-          <TouchableOpacity
-            onPress={() => {
-              setExtendView(!extendView);
-            }}>
-            <View style={{padding: 5}}>
-              <AppText color={colors.black} text={'Report Safety Issue'} />
-              {extendView ? (
-                <AppText
-                  text={
-                    ' Are you reporting a fresh Safety issue or you are confirming the status of a safety issue you have reported in the past'
-                  }
-                  size={10}
-                  color={colors.gray}
-                />
-              ) : (
-                <AppText
-                  text={
-                    "Let's know if this is an existing safety issue or if this is a fresh safety issue you will like to report"
-                  }
-                  size={10}
-                  color={colors.gray}
-                />
-              )}
-            </View>
-          </TouchableOpacity>
-          {extendView && (
-            <View style={styles.cardContainer}>
-              <View style={{flex: 0.5, marginEnd: 8}}>
-                <TouchableOpacity
-                  disabled={statusConfirmation.existingIssue && true}
-                  style={[
-                    styles.button,
-                    {
-                      backgroundColor: statusConfirmation.freshIssue
-                        ? 'red'
-                        : !statusConfirmation.existingIssue &&
-                          !statusConfirmation.freshIssue
-                        ? colors.primary
-                        : colors.primary + 50,
-                      elevation: statusConfirmation.existingIssue ? 0 : 5,
-                    },
-                  ]}
-                  onPress={() =>
-                    setStatusConfirmation({
-                      ...statusConfirmation,
-                      freshIssue: !statusConfirmation.freshIssue,
-                      existingIssue: false,
-                    })
-                  }>
-                  <AppText size={10} color={'white'} text={'Fresh Issue'} />
-                </TouchableOpacity>
-              </View>
-              <View style={{flex: 0.5}}>
-                <TouchableOpacity
-                  disabled={statusConfirmation.freshIssue && true}
-                  style={[
-                    styles.button,
-                    {
-                      backgroundColor: statusConfirmation.existingIssue
-                        ? 'red'
-                        : !statusConfirmation.existingIssue &&
-                          !statusConfirmation.freshIssue
-                        ? colors.primary
-                        : colors.primary + 50,
-                      elevation: statusConfirmation.freshIssue ? 0 : 5,
-                    },
-                  ]}
-                  onPress={() =>
-                    setStatusConfirmation({
-                      ...statusConfirmation,
-                      existingIssue: !statusConfirmation.existingIssue,
-                      freshIssue: false,
-                    })
-                  }>
-                  <AppText color={'#fff'} text={'Existing Issue'} size={10} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-
-          {statusConfirmation.existingIssue || statusConfirmation.freshIssue ? (
-            <>
-              <AppText
-                text={
-                  'Below are the safety issues you have reported in the past. Select the name of the orgainization you are confirming the status of the safety issue'
-                }
-                color={colors.gray}
-                size={10}
-              />
-              <View style={styles.cardContainer}>
-                <View style={{flex: 0.5, marginEnd: 8}}>
-                  <TouchableOpacity
-                    disabled={statusConfirmation.auditTech && true}
-                    style={[
-                      styles.button,
-                      {
-                        backgroundColor: statusConfirmation.softCityGroup
-                          ? 'red'
-                          : !statusConfirmation.auditTech &&
-                            !statusConfirmation.softCityGroup
-                          ? colors.primary
-                          : colors.primary + 50,
-                        elevation: statusConfirmation.auditTech ? 0 : 5,
-                      },
-                    ]}
-                    onPress={() =>
-                      setStatusConfirmation({
-                        ...statusConfirmation,
-                        auditTech: false,
-                        softCityGroup: !statusConfirmation.softCityGroup,
-                      })
-                    }>
-                    <AppText color={'#fff'} text={'Softcity Group'} size={10} />
-                  </TouchableOpacity>
-                </View>
-                <View style={{flex: 0.5}}>
-                  <TouchableOpacity
-                    disabled={statusConfirmation.softCityGroup && true}
-                    style={[
-                      styles.button,
-                      {
-                        backgroundColor: statusConfirmation.auditTech
-                          ? 'red'
-                          : !statusConfirmation.auditTech &&
-                            !statusConfirmation.softCityGroup
-                          ? colors.primary
-                          : colors.primary + 50,
-                        elevation: statusConfirmation.softCityGroup ? 0 : 5,
-                      },
-                    ]}
-                    onPress={() =>
-                      setStatusConfirmation({
-                        ...statusConfirmation,
-                        auditTech: !statusConfirmation.auditTech,
-                        softCityGroup: false,
-                      })
-                    }>
-                    <AppText color={'#fff'} text={'Audit Tech'} size={10} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </>
-          ) : null}
-          {statusConfirmation.softCityGroup || statusConfirmation.auditTech ? (
-            <>
-              <AppText
-                text={'Has this issue being resolved or it is still pending'}
-                color={colors.gray}
-                size={10}
-              />
-              <View style={styles.cardContainer}>
-                <View style={{flex: 0.5, marginEnd: 8}}>
-                  <TouchableOpacity
-                    disabled={statusConfirmation.pending && true}
-                    style={[
-                      styles.button,
-                      {
-                        backgroundColor: statusConfirmation.resolved
-                          ? 'red'
-                          : !statusConfirmation.resolved &&
-                            !statusConfirmation.pending
-                          ? colors.primary
-                          : colors.primary + 50,
-                        elevation: statusConfirmation.pending ? 0 : 5,
-                      },
-                    ]}
-                    onPress={() =>
-                      setStatusConfirmation({
-                        ...statusConfirmation,
-                        resolved: !statusConfirmation.resolved,
-                        pending: false,
-                      })
-                    }>
-                    <AppText color={'#fff'} text={'Its Resolved'} size={10} />
-                  </TouchableOpacity>
-                </View>
-                <View style={{flex: 0.5}}>
-                  <TouchableOpacity
-                    disabled={statusConfirmation.resolved && true}
-                    style={[
-                      styles.button,
-                      {
-                        backgroundColor: statusConfirmation.pending
-                          ? 'red'
-                          : !statusConfirmation.resolved &&
-                            !statusConfirmation.pending
-                          ? colors.primary
-                          : colors.primary + 50,
-                        elevation: statusConfirmation.resolved ? 0 : 5,
-                      },
-                    ]}
-                    onPress={() =>
-                      setStatusConfirmation({
-                        ...statusConfirmation,
-                        pending: !statusConfirmation.pending,
-                        resolved: false,
-                      })
-                    }>
-                    <AppText color={'#fff'} text={'Still Pending'} size={10} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </>
-          ) : null}
-          {statusConfirmation.resolved || statusConfirmation.pending ? (
-            <>
-              <View style={{paddingBottom: 10}}>
-                <AppText
-                  text={
-                    'Is there any further information you will like to share with us about this issue? Enter below'
-                  }
-                  color={colors.gray}
-                  size={10}
-                />
-              </View>
-              <View style={styles.textInput}>
-                <View style={styles.lineCounter}>
-                  <AppText text={'0/100'} />
-                </View>
-                <TextInput
-                  multiline
-                  numberOfLines={100}
-                  onChangeText={text => setDescription(text)}
-                />
-              </View>
-            </>
-          ) : null}
-          {extendView && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 10,
-              }}>
-              <AppText
-                text={'Next Will Load Your Response Above'}
-                size={10}
-                color={colors.gray}
-              />
-              <View style={{flexDirection: 'row', marginTop: 5}}>
-                <View style={{...styles.waitingDot}} />
-                <View
-                  style={{...styles.waitingDot2, backgroundColor: '#cecece'}}
-                />
-                <View
-                  style={{...styles.waitingDot3, backgroundColor: '#d7d7d7'}}
-                />
-              </View>
-            </View>
-          )}
-
-          {input && (
-            <View style={styles.hitView}>
-              <AppText text={'You Can Hit Submit After This'} />
-              <View style={styles.waitingDot} />
-              <View style={styles.waitingDot2} />
-              <View style={styles.waitingDot3} />
-            </View>
-          )}
-        </View>
-
+        <ReportSafetyIssue
+          setFresh={setFresh}
+          fresh={fresh}
+          isDone={isDone}
+          setDone={setDone}
+        />
         <TouchableOpacity
           onPress={() => setShowIndustryInfo(!showIndustryInfo)}
           style={styles.container}>
@@ -543,6 +283,7 @@ const ReportIssue = ({navigation}) => {
           <AppText color={'#fff'} text={'SUBMIT'} />
         )}
       </TouchableOpacity>
+      <IssueReportedModal visible={isDone} setModalVisible={setDone} />
     </SafeAreaView>
   );
 };

@@ -24,6 +24,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-three-dots-loader": "^1.0.1",
     "react-native-vector-icons": "^9.1.0",
     "validator": "^13.7.0"
   },
