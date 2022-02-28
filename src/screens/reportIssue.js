@@ -18,27 +18,17 @@ import {color} from 'react-native-reanimated';
 import {reportIssue} from '../api/reportIssue';
 import ReportSafetyIssue from '../components/safetyReport/ReportSafetyIssue';
 import IssueReportedModal from '../components/IssueReportedModal';
+import IndustryInfoCard from '../components/safetyReport/IndustryInfoCard';
+import OraganizationCard from '../components/safetyReport/OraganizationCard';
+import StateCard from '../components/safetyReport/StateCard';
 const ReportIssue = ({navigation}) => {
-  const [submit, setSubmit] = useState(true);
-  const [extendView, setExtendView] = useState(false);
-  const [existingIssue, setExistingIssue] = useState(false);
-  const [softCity, setSoftCity] = useState(false);
-  const [input, setInput] = useState(false);
-  const [showIndustries, setShowIndustries] = useState(false);
-  const [selectedIndustry, setSelectedIndustry] = useState('Telecomunication');
+  const [selectedIndustry, setSelectedIndustry] = useState('Select Industry');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [fresh, setFresh] = useState(false);
   const [isDone, setDone] = useState(false);
-  console.log('.....IS DONE', isDone);
-  const [statusConfirmation, setStatusConfirmation] = useState({
-    freshIssue: false,
-    existingIssue: false,
-    softCityGroup: false,
-    auditTech: false,
-    resolved: false,
-    pending: false,
-  });
+  const [orgainizationInfo, setOrganizationInfo] = useState('');
+  const [selectState, setSelectState] = useState('Select State');
   const [showIndustryInfo, setShowIndustryInfo] = useState(false);
 
   const status = 'Active';
@@ -80,139 +70,15 @@ const ReportIssue = ({navigation}) => {
           isDone={isDone}
           setDone={setDone}
         />
-        <TouchableOpacity
-          onPress={() => setShowIndustryInfo(!showIndustryInfo)}
-          style={styles.container}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'2'} />
-          </View>
-          {showIndustryInfo ? (
-            <>
-              <AppText
-                color={colors.black}
-                text={'Industry Information'}
-                size={10}
-              />
-
-              <AppText
-                text={
-                  'Select the industry of the organization you are reporting'
-                }
-                color={colors.gray}
-                size={10}
-              />
-              <TouchableOpacity
-                style={styles.industryContainer}
-                onPress={() => setShowIndustries(!showIndustries)}>
-                <AppText color={'white'} text={selectedIndustry} />
-                <FontAwesome name="caret-down" size={20} color={colors.white} />
-              </TouchableOpacity>
-              {showIndustries && (
-                <View style={styles.filter}>
-                  <TouchableOpacity
-                    style={{padding: 2}}
-                    onPress={() => {
-                      setSelectedIndustry('Banking');
-                      setShowIndustries(false);
-                    }}>
-                    <AppText color={'#fff'} size={12} text={'Banking'} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{padding: 3}}
-                    onPress={() => {
-                      setSelectedIndustry('Insurance');
-                      setShowIndustries(false);
-                    }}>
-                    <AppText color={'#fff'} size={12} text={'Insurance'} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{padding: 2}}
-                    onPress={() => {
-                      setSelectedIndustry('Medical');
-                      setShowIndustries(false);
-                    }}>
-                    <AppText color={'#fff'} size={12} text={'Medical'} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{padding: 2}}
-                    onPress={() => {
-                      setSelectedIndustry('Telecomunication');
-                      setShowIndustries(false);
-                    }}>
-                    <AppText
-                      color={'#fff'}
-                      size={12}
-                      text={'Telecomunication'}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginVertical: 10,
-                  borderTopWidth: 0.5,
-                  paddingTop: 10,
-                }}>
-                <AppText
-                  text={'You Can Proceed to Step 3 After This'}
-                  size={10}
-                  color={colors.gray}
-                />
-                <View style={{flexDirection: 'row'}}>
-                  <View style={{...styles.waitingDot}} />
-                  <View
-                    style={{...styles.waitingDot2, backgroundColor: '#cecece'}}
-                  />
-                  <View
-                    style={{...styles.waitingDot3, backgroundColor: '#d7d7d7'}}
-                  />
-                </View>
-              </View>
-            </>
-          ) : (
-            <>
-              <AppText color={colors.black} text={'Industry Information'} />
-              <AppText
-                text={
-                  'We will like to know the industry the organization you are reporting operators'
-                }
-                color={colors.gray}
-                size={10}
-              />
-            </>
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'3'} />
-          </View>
-          <AppText text={'Organization Information'} color={colors.black} />
-          <AppText
-            text={
-              'We will like to get detailed information about the organization you are reporting operates'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'4'} />
-          </View>
-          <AppText
-            text={'Select the State You are Reporting From'}
-            color={colors.black}
-          />
-          <AppText
-            text={
-              'We will like to know the Nigerian State in which the safety issue you are reporting happend'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
+        <IndustryInfoCard
+          selectedIndustry={selectedIndustry}
+          setSelectedIndustry={setSelectedIndustry}
+        />
+        <OraganizationCard
+          setOrganizationInfo={setOrganizationInfo}
+          orgainizationInfo={orgainizationInfo}
+        />
+        <StateCard selectState={selectState} setSelectState={setSelectState} />
         <TouchableOpacity style={styles.container}>
           <View style={styles.counterSticker}>
             <AppText color={'#fff'} text={'5'} />

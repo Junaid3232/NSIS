@@ -18,24 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
-data = [
-  {
-    value: 600,
-    label: 'Banking',
-  },
-  {
-    value: 600,
-    label: 'Industry',
-  },
-  {
-    value: 600,
-    label: 'Telecomunication',
-  },
-  {
-    value: 600,
-    label: 'Banking',
-  },
-];
+
 const Dashboard = ({navigation}) => {
   const windowWidth = Dimensions.get('window').width;
   const [showDetails, setShowDetails] = useState(false);
@@ -338,9 +321,10 @@ const Dashboard = ({navigation}) => {
           <View style={styles.barChartContainer}>
             <BarChart
               data={data}
+              showGradient={true}
+              gradientColor={'#444'}
               labelWidth={100}
               barWidth={20}
-              noOfSections={3}
               barBorderRadius={2}
               frontColor={colors.primary}
               yAxisThickness={0}
@@ -352,6 +336,7 @@ const Dashboard = ({navigation}) => {
               width={windowWidth - 30}
               hideYAxisText
               spacing={6}
+              isAnimated={true}
             />
           </View>
         </View>
@@ -531,7 +516,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

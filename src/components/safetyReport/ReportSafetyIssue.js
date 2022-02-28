@@ -10,12 +10,17 @@ import colors from '../../config/colors';
 import {AppText} from '../AppText';
 import Loader from 'react-native-three-dots-loader';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {AppButton} from '../AppButton';
 const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
   const [extendView, setExtendView] = useState(false);
+  const [extendView2, setExtendView2] = useState(false);
+  const [extendView3, setExtendView3] = useState(false);
+  const [extendView4, setExtendView4] = useState(false);
   const [input, setInput] = useState(false);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [showDots, setShowDots] = useState(false);
+  const [formFilled, setFormFilled] = useState(false);
   const [statusConfirmation, setStatusConfirmation] = useState({
     freshIssue: false,
     existingIssue: false,
@@ -53,7 +58,7 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
       setExtendView(false);
     }, 2000);
   };
-  onPressResolved = () => {
+  const onPressResolved = () => {
     setShowDots(true);
     setTimeout(() => {
       setDone(true);
@@ -69,6 +74,38 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
       setShowDots(false);
     }, 2000);
   };
+  const onPressDone = () => {
+    setShowDots(true);
+    setTimeout(() => {
+      if (description !== '') {
+        setFresh(true);
+        setExtendView(false);
+        setExtendView2(false);
+        setExtendView3(false);
+        setExtendView4(false);
+      } else {
+        setFormFilled(false);
+      }
+      setShowDots(false);
+    }, 2000);
+  };
+  React.useEffect(() => {
+    if (statusConfirmation.existingIssue) {
+      setExtendView2(true);
+    } else {
+      setExtendView2(false);
+    }
+    if (statusConfirmation.auditTech || statusConfirmation.softCityGroup) {
+      setExtendView3(true);
+    } else {
+      setExtendView3(false);
+    }
+    if (statusConfirmation.resolved || statusConfirmation.pending) {
+      setExtendView4(true);
+    } else {
+      setExtendView4(false);
+    }
+  }, [statusConfirmation]);
 
   return (
     <View>
@@ -76,7 +113,7 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
         <AppText color={colors.black} size={14} text={'Report Safety Issue'} />
       </View>
       <View style={[styles.container, {manHeight: 100}]}>
-        {fresh ? (
+        {fresh || formFilled ? (
           <View style={styles.counterSticker}>
             <Entypo name="check" color={'#fff'} size={15} />
           </View>
@@ -119,13 +156,13 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
                 style={[
                   styles.button,
                   {
-                    // backgroundColor: statusConfirmation.freshIssue
-                    //   ? 'red'
-                    //   : !statusConfirmation.existingIssue &&
-                    //     !statusConfirmation.freshIssue
-                    //   ? colors.primary
-                    //   : colors.primary + 50,
-                    backgroundColor: fresh ? 'red' : colors.primary,
+                    backgroundColor: statusConfirmation.freshIssue
+                      ? 'red'
+                      : !statusConfirmation.existingIssue &&
+                        !statusConfirmation.freshIssue
+                      ? colors.primary
+                      : colors.primary + 50,
+
                     elevation: statusConfirmation.existingIssue ? 0 : 5,
                   },
                 ]}
@@ -155,7 +192,7 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
           </View>
         )}
 
-        {statusConfirmation.existingIssue || statusConfirmation.freshIssue ? (
+        {extendView2 ? (
           <>
             <AppText
               text={
@@ -180,13 +217,17 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
                       elevation: statusConfirmation.auditTech ? 0 : 5,
                     },
                   ]}
-                  onPress={() =>
-                    setStatusConfirmation({
-                      ...statusConfirmation,
-                      auditTech: false,
-                      softCityGroup: !statusConfirmation.softCityGroup,
-                    })
-                  }>
+                  onPress={() => {
+                    setShowDots(true);
+                    setTimeout(() => {
+                      setStatusConfirmation({
+                        ...statusConfirmation,
+                        auditTech: false,
+                        softCityGroup: !statusConfirmation.softCityGroup,
+                      });
+                      setShowDots(false);
+                    }, 2000);
+                  }}>
                   <AppText color={'#fff'} text={'Softcity Group'} size={10} />
                 </TouchableOpacity>
               </View>
@@ -205,20 +246,24 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
                       elevation: statusConfirmation.softCityGroup ? 0 : 5,
                     },
                   ]}
-                  onPress={() =>
-                    setStatusConfirmation({
-                      ...statusConfirmation,
-                      auditTech: !statusConfirmation.auditTech,
-                      softCityGroup: false,
-                    })
-                  }>
+                  onPress={() => {
+                    setShowDots(true);
+                    setTimeout(() => {
+                      setStatusConfirmation({
+                        ...statusConfirmation,
+                        auditTech: !statusConfirmation.auditTech,
+                        softCityGroup: false,
+                      });
+                      setShowDots(false);
+                    }, 2000);
+                  }}>
                   <AppText color={'#fff'} text={'Audit Tech'} size={10} />
                 </TouchableOpacity>
               </View>
             </View>
           </>
         ) : null}
-        {statusConfirmation.softCityGroup || statusConfirmation.auditTech ? (
+        {extendView3 ? (
           <>
             <AppText
               text={'Has this issue being resolved or it is still pending'}
@@ -260,20 +305,24 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
                       elevation: statusConfirmation.resolved ? 0 : 5,
                     },
                   ]}
-                  onPress={() =>
-                    setStatusConfirmation({
-                      ...statusConfirmation,
-                      pending: !statusConfirmation.pending,
-                      resolved: false,
-                    })
-                  }>
+                  onPress={() => {
+                    setShowDots(true);
+                    setTimeout(() => {
+                      setStatusConfirmation({
+                        ...statusConfirmation,
+                        pending: !statusConfirmation.pending,
+                        resolved: false,
+                      });
+                      setShowDots(false);
+                    }, 2000);
+                  }}>
                   <AppText color={'#fff'} text={'Still Pending'} size={10} />
                 </TouchableOpacity>
               </View>
             </View>
           </>
         ) : null}
-        {statusConfirmation.resolved || statusConfirmation.pending ? (
+        {extendView4 ? (
           <>
             <View style={{paddingBottom: 10}}>
               <AppText
@@ -286,14 +335,22 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
             </View>
             <View style={styles.textInput}>
               <View style={styles.lineCounter}>
-                <AppText text={'0/100'} />
+                <AppText size={10} color={colors.gray} text={'0/100'} />
               </View>
               <TextInput
                 multiline
+                style={{
+                  fontSize: 10,
+                  fontFamily: 'Raleway-Medium',
+                  padding: 10,
+                }}
                 numberOfLines={100}
                 onChangeText={text => setDescription(text)}
               />
             </View>
+            <TouchableOpacity style={styles.doneButton} onPress={onPressDone}>
+              <AppText color={'white'} text={'Done'} size={10} />
+            </TouchableOpacity>
           </>
         ) : null}
         {showDots && (
@@ -310,15 +367,6 @@ const ReportSafetyIssue = ({setFresh, fresh, setDone}) => {
               color={colors.gray}
             />
             <Loader />
-          </View>
-        )}
-
-        {input && (
-          <View style={styles.hitView}>
-            <AppText text={'You Can Hit Submit After This'} />
-            <View style={styles.waitingDot} />
-            <View style={styles.waitingDot2} />
-            <View style={styles.waitingDot3} />
           </View>
         )}
       </View>
@@ -412,6 +460,24 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  doneButton: {
+    height: 25,
+    width: '20%',
+    marginVertical: 10,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   waitingDot: {height: 8, width: 8, backgroundColor: 'grey', marginLeft: 15},
   waitingDot2: {
     height: 8,
@@ -428,8 +494,9 @@ const styles = StyleSheet.create({
   textInput: {
     height: 60,
     borderWidth: 0.5,
-    borderColor: 'green',
+    borderColor: colors.primary,
     borderRadius: 10,
+    backgroundColor: colors.white,
   },
   cardContainer: {
     flexDirection: 'row',
