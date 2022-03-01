@@ -11,7 +11,7 @@ import {AppText} from '../AppText';
 import {AppTextBox} from '../AppTextBox';
 import Loader from 'react-native-three-dots-loader';
 import Entypo from 'react-native-vector-icons/Entypo';
-const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
+const LocationInfoCard = ({setLocationInfo, locationInfo}) => {
   const [extendView, setExtendView] = useState(false);
   const [industryInfo, setIndustryInfo] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
   const onDone = text => {
     setLoading(true);
     setTimeout(() => {
-      if (orgainizationInfo !== '') {
+      if (locationInfo !== '') {
         setDataValid(true);
       } else {
         setDataValid(false);
@@ -44,10 +44,10 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
           <AppText color={'#fff'} text={'3'} />
         </View>
       )}
-      <AppText text={'Organization Information'} color={colors.black} />
+      <AppText text={'Location of the Safety Issue'} color={colors.black} />
       <AppText
         text={
-          'We will like to get detailed information about the organization you are reporting operates'
+          'We will like to know the location within Nigeria in which the safety issue you are reporting happend'
         }
         color={colors.gray}
         size={10}
@@ -56,10 +56,10 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
         <>
           <TextInput
             style={styles.textBox}
-            value={orgainizationInfo}
-            placeholder={'Company name of organization you are reporting from'}
+            value={locationInfo}
+            placeholder={'Detail address of the safety issue you are reporting'}
             onChangeText={value => {
-              setOrganizationInfo(value);
+              setLocationInfo(value);
             }}
           />
 
@@ -90,7 +90,7 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
   );
 };
 
-export default OraganizationCard;
+export default LocationInfoCard;
 
 const styles = StyleSheet.create({
   mainContainer: {

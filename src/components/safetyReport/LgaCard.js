@@ -8,16 +8,19 @@ import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Loader from 'react-native-three-dots-loader';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {states} from '../../config/constants';
-const StateCard = ({selectState, setSelectState}) => {
+const LgaCard = ({selectLGA, setSelectLGA, selectState}) => {
   const [showIndustries, setShowIndustries] = useState(false);
   const [fresh, setFresh] = useState(false);
-  const [showDot, setShowDots] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showIndustryInfo, setShowIndustryInfo] = useState(false);
+
+  let LGA = states.filter(state => state.name === selectState);
+
   return (
     <TouchableOpacity
       onPress={() => setShowIndustryInfo(!showIndustryInfo)}
       style={styles.container}>
-      {selectState !== 'Select State' ? (
+      {selectLGA !== 'Select LGA' ? (
         <View style={styles.counterSticker}>
           <Entypo name="check" color={'#fff'} size={15} />
         </View>
@@ -30,13 +33,13 @@ const StateCard = ({selectState, setSelectState}) => {
         <>
           <AppText
             color={colors.black}
-            text={'Select the State You are Reporting From'}
+            text={'Select the LGA Yor ar Reporting From'}
             size={10}
           />
 
           <AppText
             text={
-              'We will like to know the Nigerian State in which the safety issue you are reporting happend'
+              'We will like to know the Local Government Area in which the safety issue you are reporting happend'
             }
             color={colors.gray}
             size={10}
@@ -48,22 +51,22 @@ const StateCard = ({selectState, setSelectState}) => {
               borderBottomStartRadius: showIndustries ? 0 : 10,
             }}
             onPress={() => setShowIndustries(!showIndustries)}>
-            <AppText color={'white'} text={selectState} />
+            <AppText color={'white'} text={selectLGA} />
             <FontAwesome name="caret-down" size={20} color={colors.white} />
           </TouchableOpacity>
           {showIndustries && (
             <View style={styles.filter}>
               <FlatList
-                data={states}
+                data={LGA[0]?.LGA}
                 renderItem={({item}) => (
                   <TouchableOpacity
                     style={{padding: 2}}
                     onPress={() => {
-                      setShowDots(true);
+                      setLoading(true);
                       setTimeout(() => {
-                        setSelectState(item?.name);
+                        setSelectLGA(item?.name);
                         setShowIndustries(false);
-                        setShowDots(false);
+                        setLoading(false);
                       }, 2000);
                     }}>
                     <AppText color={'#fff'} size={12} text={item.name} />
@@ -73,7 +76,7 @@ const StateCard = ({selectState, setSelectState}) => {
             </View>
           )}
 
-          {showDot && (
+          {loading && (
             <View
               style={{
                 flexDirection: 'row',
@@ -94,10 +97,13 @@ const StateCard = ({selectState, setSelectState}) => {
         </>
       ) : (
         <>
-          <AppText color={colors.black} text={'Industry Information'} />
+          <AppText
+            color={colors.black}
+            text={'Select the LGA Yor ar Reporting From'}
+          />
           <AppText
             text={
-              'We will like to know the industry the organization you are reporting operators'
+              'We will like to know the Local Government Area in which the safety issue you are reporting happend'
             }
             color={colors.gray}
             size={10}
@@ -107,7 +113,7 @@ const StateCard = ({selectState, setSelectState}) => {
     </TouchableOpacity>
   );
 };
-export default StateCard;
+export default LgaCard;
 
 const styles = StyleSheet.create({
   mainContainer: {

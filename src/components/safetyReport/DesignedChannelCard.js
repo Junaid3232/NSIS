@@ -11,20 +11,22 @@ import {AppText} from '../AppText';
 import {AppTextBox} from '../AppTextBox';
 import Loader from 'react-native-three-dots-loader';
 import Entypo from 'react-native-vector-icons/Entypo';
-const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
+const DesignedChannelCard = ({
+  setResponsiblePersonName,
+  setResponsiblePersonPhone,
+  responsiblePersonName,
+  responsiblePersonPhone,
+  setResponsiblePersonEmail,
+  responsiblePersonEmail,
+}) => {
   const [extendView, setExtendView] = useState(false);
-  const [industryInfo, setIndustryInfo] = useState('');
+  const [extendView2, setExtendView2] = useState(false);
+  const [extendView3, setExtendView3] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isDataValid, setDataValid] = useState(false);
 
   const onDone = text => {
     setLoading(true);
     setTimeout(() => {
-      if (orgainizationInfo !== '') {
-        setDataValid(true);
-      } else {
-        setDataValid(false);
-      }
       setExtendView(false);
       setLoading(false);
     }, 2000);
@@ -35,7 +37,9 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
       onPress={() => {
         setExtendView(!extendView);
       }}>
-      {isDataValid ? (
+      {responsiblePersonName !== '' &&
+      responsiblePersonPhone !== '' &&
+      responsiblePersonEmail !== '' ? (
         <View style={styles.counterSticker}>
           <Entypo name="check" color={'#fff'} size={15} />
         </View>
@@ -44,10 +48,10 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
           <AppText color={'#fff'} text={'3'} />
         </View>
       )}
-      <AppText text={'Organization Information'} color={colors.black} />
+      <AppText text={'Designated Safety Channel'} color={colors.black} />
       <AppText
         text={
-          'We will like to get detailed information about the organization you are reporting operates'
+          'We will like to know if the organization you are reporting have a designated channel to report safety issues'
         }
         color={colors.gray}
         size={10}
@@ -56,17 +60,76 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
         <>
           <TextInput
             style={styles.textBox}
-            value={orgainizationInfo}
-            placeholder={'Company name of organization you are reporting from'}
+            value={responsiblePersonName}
+            placeholder={'Enter Name of Person Responsible for Safety'}
+            onSubmitEditing={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setExtendView2(true);
+                setLoading(false);
+              }, 2000);
+            }}
             onChangeText={value => {
-              setOrganizationInfo(value);
+              setResponsiblePersonName(value);
             }}
           />
-
+          {/* 
           <TouchableOpacity style={styles.doneButton} onPress={onDone}>
             <AppText color={'white'} text={'Done'} size={10} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
+      )}
+      {extendView2 && (
+        <View
+          style={{
+            borderTopWidth: 0.5,
+            marginTop: 15,
+            borderColor: colors.gray,
+          }}>
+          <TextInput
+            style={styles.textBox}
+            value={responsiblePersonPhone}
+            keyboardType="numeric"
+            placeholder={'Enter Phone Number of Person Responsible for Safety'}
+            onSubmitEditing={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setExtendView3(true);
+                setLoading(false);
+              }, 2000);
+            }}
+            onChangeText={value => {
+              setResponsiblePersonPhone(value);
+            }}
+          />
+        </View>
+      )}
+      {extendView3 && (
+        <View
+          style={{
+            borderTopWidth: 0.5,
+            marginTop: 15,
+            borderColor: colors.gray,
+          }}>
+          <TextInput
+            style={styles.textBox}
+            value={responsiblePersonEmail}
+            keyboardType="email-address"
+            placeholder={'Enter Email Address Designed to Report Safety Issues'}
+            onSubmitEditing={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setExtendView(false);
+                setExtendView2(false);
+                setExtendView3(false);
+                setLoading(false);
+              }, 2000);
+            }}
+            onChangeText={value => {
+              setResponsiblePersonEmail(value);
+            }}
+          />
+        </View>
       )}
       {loading && (
         <View
@@ -79,7 +142,7 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
             paddingTop: 10,
           }}>
           <AppText
-            text={'You Can Proceed to Step 3 After This'}
+            text={'Next Question Will Load After Your Response Above'}
             size={10}
             color={colors.gray}
           />
@@ -90,7 +153,7 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
   );
 };
 
-export default OraganizationCard;
+export default DesignedChannelCard;
 
 const styles = StyleSheet.create({
   mainContainer: {

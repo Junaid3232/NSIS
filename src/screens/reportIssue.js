@@ -21,6 +21,9 @@ import IssueReportedModal from '../components/IssueReportedModal';
 import IndustryInfoCard from '../components/safetyReport/IndustryInfoCard';
 import OraganizationCard from '../components/safetyReport/OraganizationCard';
 import StateCard from '../components/safetyReport/StateCard';
+import LgaCard from '../components/safetyReport/LgaCard';
+import LocationInfoCard from '../components/safetyReport/LocationInfoCard';
+import DesignedChannelCard from '../components/safetyReport/DesignedChannelCard';
 const ReportIssue = ({navigation}) => {
   const [selectedIndustry, setSelectedIndustry] = useState('Select Industry');
   const [description, setDescription] = useState('');
@@ -30,11 +33,16 @@ const ReportIssue = ({navigation}) => {
   const [orgainizationInfo, setOrganizationInfo] = useState('');
   const [selectState, setSelectState] = useState('Select State');
   const [showIndustryInfo, setShowIndustryInfo] = useState(false);
+  const [selectLGA, setSelectLGA] = useState('Select LGA');
+  const [locationInfo, setLocationInfo] = useState('');
+  const [responsiblePersonName, setResponsiblePersonName] = useState('');
+  const [responsiblePersonPhone, setResponsiblePersonPhone] = useState('');
+  const [responsiblePersonEmail, setResponsiblePersonEmail] = useState('');
 
-  const status = 'Active';
-  const organization = 'organization';
-  const industry = 'industry';
-  const state = 'state';
+  // const status = 'Active';
+  // const organization = 'organization';
+  // const industry = 'industry';
+  // const state = 'state';
   const onSubmitIssue = async () => {
     try {
       setLoading(true);
@@ -79,51 +87,23 @@ const ReportIssue = ({navigation}) => {
           orgainizationInfo={orgainizationInfo}
         />
         <StateCard selectState={selectState} setSelectState={setSelectState} />
-        <TouchableOpacity style={styles.container}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'5'} />
-          </View>
-          <AppText
-            text={'Select the LGA Yor ar Reporting From'}
-            color={colors.black}
-          />
-          <AppText
-            text={
-              'We will like to know the Local Government Area in which the safety issue you are reporting happend'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.container}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'6'} />
-          </View>
-
-          <AppText text={'Location of the Safety Issue'} color={colors.black} />
-          <AppText
-            text={
-              'We will like to know the location within Nigeria in which the safety issue you are reporting happend'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{...styles.container}}>
-          <View style={styles.counterSticker}>
-            <AppText color={'#fff'} text={'7'} />
-          </View>
-
-          <AppText text={'Designated Safety Channel'} color={colors.black} />
-          <AppText
-            text={
-              'We will like to know if the organization you are reporting have a designated channel to report safety issues'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </TouchableOpacity>
+        <LgaCard
+          setSelectLGA={setSelectLGA}
+          selectLGA={selectLGA}
+          selectState={selectState}
+        />
+        <LocationInfoCard
+          setLocationInfo={setLocationInfo}
+          locationInfo={locationInfo}
+        />
+        <DesignedChannelCard
+          setResponsiblePersonName={setResponsiblePersonName}
+          responsiblePersonName={responsiblePersonName}
+          setResponsiblePersonPhone={setResponsiblePersonPhone}
+          responsiblePersonPhone={responsiblePersonPhone}
+          setResponsiblePersonEmail={setResponsiblePersonEmail}
+          responsiblePersonEmail={responsiblePersonEmail}
+        />
 
         <View style={{marginBottom: '40%'}}>
           <TouchableOpacity style={{...styles.container}}>
