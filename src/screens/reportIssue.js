@@ -24,7 +24,11 @@ import StateCard from '../components/safetyReport/StateCard';
 import LgaCard from '../components/safetyReport/LgaCard';
 import LocationInfoCard from '../components/safetyReport/LocationInfoCard';
 import DesignedChannelCard from '../components/safetyReport/DesignedChannelCard';
+import OtherInformation from '../components/safetyReport/OtherInformation';
+import {useIsFocused} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 const ReportIssue = ({navigation}) => {
+  const isFocused = useIsFocused();
   const [selectedIndustry, setSelectedIndustry] = useState('Select Industry');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,24 +42,54 @@ const ReportIssue = ({navigation}) => {
   const [responsiblePersonName, setResponsiblePersonName] = useState('');
   const [responsiblePersonPhone, setResponsiblePersonPhone] = useState('');
   const [responsiblePersonEmail, setResponsiblePersonEmail] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    console.log('........');
+    setFlag(true);
+    const unsubscribe = navigation.addListener('focus', () => {
+      setTimeout(() => {
+        setFlag(false);
+      }, 1000);
+      // setDescription('');
+      // setSelectedIndustry('Select Industry');
+      // setFresh(false);
+      // setDone(false);
+      // setOrganizationInfo('');
+      // setSelectState('Select State');
+      // setShowIndustryInfo(false);
+      // setSelectLGA('Select LGA');
+      // setLocationInfo('');
+      // setResponsiblePersonName('');
+      // setResponsiblePersonPhone('');
+      // setResponsiblePersonEmail('');
+    });
 
-  // const status = 'Active';
-  // const organization = 'organization';
-  // const industry = 'industry';
-  // const state = 'state';
+    return unsubscribe;
+  }, [navigation, date, flag]);
+
+  const status = 'Active';
+  const body = {
+    status: fresh ? 'Active' : 'NotActive',
+    discription: description,
+    organization: orgainizationInfo,
+    industry: selectedIndustry,
+    state: selectState,
+  };
   const onSubmitIssue = async () => {
     try {
       setLoading(true);
-      const response = await reportIssue({
-        status,
-        description,
-        organization,
-        industry,
-        state,
-      });
+      const response = await reportIssue(body);
       setLoading(false);
       if (response.status) {
         console.log('....RESPONSE', response);
+        setDone(true);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{name: 'Dashboard'}],
+          }),
+        );
       } else {
         Alert.alert('Error', response.message);
       }
@@ -104,8 +138,9 @@ const ReportIssue = ({navigation}) => {
           setResponsiblePersonEmail={setResponsiblePersonEmail}
           responsiblePersonEmail={responsiblePersonEmail}
         />
+        <OtherInformation />
 
-        <View style={{marginBottom: '40%'}}>
+        {/* <View style={{}}>
           <TouchableOpacity style={{...styles.container}}>
             <View style={styles.counterSticker}>
               <AppText color={'#fff'} text={'8'} />
@@ -120,15 +155,16 @@ const ReportIssue = ({navigation}) => {
               size={10}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
+        <TouchableOpacity style={styles.btn} onPress={() => onSubmitIssue()}>
+          {loading ? (
+            <ActivityIndicator size={20} color={colors.white} />
+          ) : (
+            <AppText color={'#fff'} text={'SUBMIT'} />
+          )}
+        </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity style={styles.btn} onPress={() => onSubmitIssue()}>
-        {loading ? (
-          <ActivityIndicator size={20} color={colors.white} />
-        ) : (
-          <AppText color={'#fff'} text={'SUBMIT'} />
-        )}
-      </TouchableOpacity>
+
       <IssueReportedModal visible={isDone} setModalVisible={setDone} />
     </SafeAreaView>
   );
@@ -186,14 +222,13 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 40,
+    marginBottom: '40%',
     backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    position: 'absolute',
-    left: 20,
-    right: 20,
-    bottom: 80,
+    width: '90%',
+    alignSelf: 'center',
     zIndex: 999,
     shadowColor: '#000',
     shadowOffset: {
@@ -203,74 +238,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  button: {
-    height: 25,
-    marginVertical: 10,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  waitingDot: {height: 8, width: 8, backgroundColor: 'grey', marginLeft: 15},
-  waitingDot2: {
-    height: 8,
-    width: 8,
-    backgroundColor: 'grey',
-    marginHorizontal: 8,
-  },
-  waitingDot3: {height: 8, width: 8, backgroundColor: 'grey'},
-  lineCounter: {
-    position: 'absolute',
-    right: 5,
-    bottom: 1,
-  },
-  textInput: {
-    height: 60,
-    borderWidth: 0.5,
-    borderColor: 'green',
-    borderRadius: 10,
-  },
-  cardContainer: {
-    flexDirection: 'row',
-    borderBottomWidth: 0.3,
-    borderColor: colors.gray,
-    marginBottom: 10,
-  },
-  issueHeader: {paddingVertical: 10, paddingHorizontal: 22},
-
-  hitView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  industryContainer: {
-    width: '90%',
-    padding: 8,
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  filter: {
-    height: 100,
-    maxHeight: '50%',
-    width: '90%',
-    backgroundColor: colors.primary,
-    borderBottomEndRadius: 10,
-    borderBottomStartRadius: 10,
-    padding: 15,
-    marginTop: -10,
-    zIndex: 1,
   },
 });

@@ -137,9 +137,9 @@ const Notification = ({navigation}) => {
             </TouchableOpacity>
           )}
         />
-        <TouchableOpacity style={styles.btn} onPress={() => {}}>
+        {/* <TouchableOpacity style={styles.btn} onPress={() => {}}>
           <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );
@@ -182,10 +182,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    position: 'absolute',
-    left: 20,
-    right: 20,
-    bottom: -10,
+    width: '95%',
+    alignSelf: 'center',
+    // position: 'absolute',
+    // left: 20,
+    // right: 20,
+    // bottom: -10,
     zIndex: 1,
+    marginBottom: 40,
+    marginTop: 10,
   },
 });

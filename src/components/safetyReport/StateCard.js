@@ -23,7 +23,7 @@ const StateCard = ({selectState, setSelectState}) => {
         </View>
       ) : (
         <View style={styles.counterSticker}>
-          <AppText color={'#fff'} text={'2'} />
+          <AppText color={'#fff'} text={'4'} />
         </View>
       )}
       {showIndustryInfo ? (
@@ -84,7 +84,7 @@ const StateCard = ({selectState, setSelectState}) => {
                 paddingTop: 10,
               }}>
               <AppText
-                text={'You Can Proceed to Step 3 After This'}
+                text={'Next Question Will Load After Your Response Above'}
                 size={10}
                 color={colors.gray}
               />

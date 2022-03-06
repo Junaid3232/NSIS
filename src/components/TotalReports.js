@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-const TotalReports = ({backgroundColor, totalText, name, counter,icon}) => {
+const TotalReports = ({backgroundColor, totalText, name, counter, icon}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={[styles.container, {backgroundColor: backgroundColor}]}>
@@ -10,7 +10,7 @@ const TotalReports = ({backgroundColor, totalText, name, counter,icon}) => {
       <View style={{justifyContent: 'center', paddingHorizontal: 5}}>
         <Text style={styles.totalTxt}>{totalText}</Text>
         <Text style={styles.totalTxt}>{name}</Text>
-        <Text style={styles.counterTxt}>{counter}</Text>
+        <Text style={styles.counterTxt}>{counter ? counter : 0}</Text>
       </View>
     </View>
   );
@@ -54,19 +54,17 @@ const styles = StyleSheet.create({
     shadowRadius: 1.84,
     elevation: 5,
     // marginVertical:15,
-    
   },
   totalTxt: {
     color: '#000',
     fontSize: 12,
     fontWeight: '400',
-    fontFamily:'Raleway-Medium'
+    fontFamily: 'Raleway-Medium',
   },
   counterTxt: {
     color: '#000',
     fontSize: 16,
- 
-    fontFamily:'Raleway-Medium'
 
+    fontFamily: 'Raleway-Medium',
   },
 });

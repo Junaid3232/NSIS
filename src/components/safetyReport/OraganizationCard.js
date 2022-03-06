@@ -79,7 +79,7 @@ const OraganizationCard = ({setOrganizationInfo, orgainizationInfo}) => {
             paddingTop: 10,
           }}>
           <AppText
-            text={'You Can Proceed to Step 3 After This'}
+            text={'Next Question Will Load After Your Response Above'}
             size={10}
             color={colors.gray}
           />
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 5,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.white,
     fontSize: 10,
     fontFamily: 'Raleway-Medium',
   },

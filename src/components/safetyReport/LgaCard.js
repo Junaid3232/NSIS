@@ -26,7 +26,7 @@ const LgaCard = ({selectLGA, setSelectLGA, selectState}) => {
         </View>
       ) : (
         <View style={styles.counterSticker}>
-          <AppText color={'#fff'} text={'2'} />
+          <AppText color={'#fff'} text={'5'} />
         </View>
       )}
       {showIndustryInfo ? (
@@ -56,23 +56,32 @@ const LgaCard = ({selectLGA, setSelectLGA, selectState}) => {
           </TouchableOpacity>
           {showIndustries && (
             <View style={styles.filter}>
-              <FlatList
-                data={LGA[0]?.LGA}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={{padding: 2}}
-                    onPress={() => {
-                      setLoading(true);
-                      setTimeout(() => {
-                        setSelectLGA(item?.name);
-                        setShowIndustries(false);
-                        setLoading(false);
-                      }, 2000);
-                    }}>
-                    <AppText color={'#fff'} size={12} text={item.name} />
-                  </TouchableOpacity>
-                )}
-              />
+              {selectState !== 'Select State' && (
+                <FlatList
+                  data={LGA[0]?.LGA}
+                  renderItem={({item}) => (
+                    <TouchableOpacity
+                      style={{padding: 2}}
+                      onPress={() => {
+                        setLoading(true);
+                        setTimeout(() => {
+                          setSelectLGA(item?.name);
+                          setShowIndustries(false);
+                          setLoading(false);
+                        }, 2000);
+                      }}>
+                      <AppText color={'#fff'} size={12} text={item.name} />
+                    </TouchableOpacity>
+                  )}
+                />
+              )}
+              {selectState === 'Select State' && (
+                <AppText
+                  color={'#fff'}
+                  size={12}
+                  text={'Please Select State to Load Their LGA'}
+                />
+              )}
             </View>
           )}
 
@@ -87,7 +96,7 @@ const LgaCard = ({selectLGA, setSelectLGA, selectState}) => {
                 paddingTop: 10,
               }}>
               <AppText
-                text={'You Can Proceed to Step 3 After This'}
+                text={'Next Question Will Load After Your Response Above'}
                 size={10}
                 color={colors.gray}
               />
@@ -242,13 +251,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   filter: {
-    height: 150,
-    maxHeight: '60%',
+    maxHeight: 150,
+    // height: 50,
+
     width: '90%',
     backgroundColor: colors.primary,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
     paddingHorizontal: 10,
+    paddingVertical: 5,
     zIndex: 1,
   },
 });

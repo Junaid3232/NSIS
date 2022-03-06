@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import colors from '../../config/colors';
 import {AppButton} from '../AppButton';
 import {AppText} from '../AppText';
@@ -7,12 +7,40 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import Loader from 'react-native-three-dots-loader';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {getIndustryCount} from '../../api/getIssuesCount';
 const IndustryInfoCard = ({setSelectedIndustry, selectedIndustry}) => {
   const [showIndustries, setShowIndustries] = useState(false);
   const [fresh, setFresh] = useState(false);
   const [showDot, setShowDots] = useState(false);
   const [showIndustryInfo, setShowIndustryInfo] = useState(false);
-  const industries = [
+  const [industries, setIndustries] = useState();
+
+  useEffect(() => {
+    getIndustriesCount();
+  }, []);
+  const getIndustriesCount = async () => {
+    try {
+      const response = await getIndustryCount();
+      if (response) {
+        setFormat(response);
+      } else {
+        Alert.alert('Error', response?.message);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+    }
+  };
+  const setFormat = data => {
+    let Arr = [];
+    for (let i = 0; i < data?.length; i++) {
+      console.log('.......', data[i]);
+      Arr.push({
+        name: data[i]?.industryName,
+      });
+    }
+    setIndustries(Arr);
+  };
+  const industriess = [
     {name: 'Agriculture Industry'},
     {name: 'Real Estate'},
     {name: 'Construction'},
@@ -111,7 +139,7 @@ const IndustryInfoCard = ({setSelectedIndustry, selectedIndustry}) => {
                 paddingTop: 10,
               }}>
               <AppText
-                text={'You Can Proceed to Step 3 After This'}
+                text={'Next Question Will Load After Your Response Above'}
                 size={10}
                 color={colors.gray}
               />
@@ -263,8 +291,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   filter: {
-    height: 150,
-    maxHeight: '60%',
+    // height: 150,
+    maxHeight: 150,
     width: '90%',
     backgroundColor: colors.primary,
     borderBottomEndRadius: 10,

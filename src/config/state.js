@@ -1,47 +1,4 @@
-export const BASE_URL = 'https://api-safecity.herokuapp.com';
-export const REPORT_ISSUE = 'Issues';
-export const ISSUE_COUNT = 'issues/stats';
-export const INDUSTRIES_COUNT = 'industries';
-export const ORGANIZATION_COUNT = 'organizations';
-export const DASHBOARD_DATA = 'industries/stats';
-export const STATE_STATS = 'stateSafityIssues';
-export const screens = {
-  Login: 'Login',
-  Register: 'Register',
-  Register2: 'Register2',
-  Register3: 'Register3',
-  CompleteRegistration: 'CompleteRegistration',
-  ForgotPassword: 'ForgotPassword',
-  Dashboard: 'Dashboard',
-};
-
-const reportIssue = {
-  issueType: 'Fresh' || 'Existing',
-  orginaization: 'Softcity Group',
-  issueStatus: 'Resolve' || 'Pending',
-  description: 'description goes here',
-  industry: 'Real Estate',
-  companyName: 'companyName',
-  state: 'Abia State',
-  lga: 'Abak',
-  locationOfIssue: 'Location goes here',
-  reponsiblePersonName: 'Name',
-  reponsiblePersonPhone: 'phoneNo',
-  reponsiblePersonEmail: 'email',
-  natureOfBussiness: 'description of natureOfBussiness',
-  describeIssue: 'description of describeIssue',
-  isOrganizationAndIssueLocationDifferent: true || false,
-  organizationDetails: 'Details goes here',
-  dateOfIssue: 'date',
-  relelationShipWithOrganization:
-    'Former Employee' || 'Current Employee' || 'Respresentative of Employees',
-  authorizeForVerification: true || false,
-  phoneNoOfEmployees: 'multiple phone no goes here',
-  authorizeforContactingYou: true || false,
-  authorizeforReminder: true || false,
-};
-
-export const states = [
+const states = [
   {
     name: 'Abia State',
     LGA: [

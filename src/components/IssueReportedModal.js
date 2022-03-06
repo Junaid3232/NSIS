@@ -25,9 +25,9 @@ const IssueReportedModal = ({visible, setModalVisible}) => {
             <Text style={styles.text}>We will take action immediately</Text>
             <AntDesign
               name="checkcircle"
-              size={130}
+              size={110}
               color={colors.primary}
-              style={{marginTop: 30}}
+              style={{marginTop: 20}}
             />
 
             {/* onPress={() => setModalVisible(!visible)}> */}

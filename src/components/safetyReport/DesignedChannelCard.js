@@ -45,7 +45,7 @@ const DesignedChannelCard = ({
         </View>
       ) : (
         <View style={styles.counterSticker}>
-          <AppText color={'#fff'} text={'3'} />
+          <AppText color={'#fff'} text={'7'} />
         </View>
       )}
       <AppText text={'Designated Safety Channel'} color={colors.black} />

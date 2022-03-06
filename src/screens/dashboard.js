@@ -5,9 +5,11 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Alert,
   FlatList,
   ScrollView,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import TotalReports from '../components/TotalReports';
 import SafetyIndex from '../components/SafetyIndex';
@@ -18,13 +20,111 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
+import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
+import {
+  getIndustryCount,
+  getIssueCount,
+  getOrganizationCount,
+  getAllIssuesCount,
+  dashboardData,
+} from '../api/getIssuesCount';
 
 const Dashboard = ({navigation}) => {
   const windowWidth = Dimensions.get('window').width;
   const [showDetails, setShowDetails] = useState(false);
   const [showMoreIndustryIndex, setShowMoreIndustryIndex] = useState(false);
+  const [issueCounts, SetIssueCounts] = useState({});
+  const [industryIssueCount, setIndustryIssueCount] = useState(0);
+  const [organizationIssueCount, setOrganizationIssueCount] = useState(0);
+  const [allIssues, setAllIssue] = useState();
+  const [allIssueCount, setAllIssueCount] = useState(0);
+  const [allStateforGraph, setAllStateforGraph] = useState();
+  const [graphData, setGraphData] = useState();
+  const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
 
+  const getIssuesCount = async () => {
+    try {
+      const response = await getIssueCount();
+      if (response) {
+        SetIssueCounts(response);
+      } else {
+        Alert.alert('Error', response?.message);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+      console.log('error is: ', err);
+    }
+  };
+  const getIndustriesCount = async () => {
+    try {
+      const response = await getIndustryCount();
+      if (response) {
+        setIndustryIssueCount(response?.length);
+      } else {
+        Alert.alert('Error', response?.message);
+        setIndustryIssueCount(0);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+    }
+  };
+  const getOrganizationsCount = async () => {
+    try {
+      const response = await getOrganizationCount();
+      if (response) {
+        setOrganizationIssueCount(response?.length);
+      } else {
+        Alert.alert('Error', response?.message);
+        setOrganizationIssueCount(0);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+    }
+  };
+  const getAllIssueCount = async () => {
+    try {
+      const response = await getAllIssuesCount();
+      if (response) {
+        setAllIssueCount(response?.length);
+        setAllIssue(response);
+      } else {
+        Alert.alert('Error', response?.message);
+        setAllIssueCount(0);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+    }
+  };
+  const getDashboardData = async () => {
+    try {
+      // setLoading(true);
+      setShowDetails(true);
+      const response = await dashboardData();
+      if (response) {
+        setAllStateforGraph(response);
+        datafun();
+        setShowDetails(false);
+        // setLoading(false);
+      } else {
+        Alert.alert('Error', response?.message);
+        setLoading(false);
+      }
+    } catch (err) {
+      Alert.alert('Error', err?.message);
+    }
+  };
+  useEffect(() => {
+    getDashboardData();
+    getIssuesCount();
+    getIndustriesCount();
+    getOrganizationsCount();
+    getAllIssueCount();
+  }, []);
+  useEffect(() => {
+    datafun();
+  }, [showDetails]);
   const industryIndex = [
     {
       id: 0,
@@ -57,7 +157,61 @@ const Dashboard = ({navigation}) => {
       industryName: 'Civil Engineering ',
     },
   ];
+  const datafun = () => {
+    const dataArr = [];
+    for (let i = 0; i < allStateforGraph?.length; i++) {
+      dataArr.push({
+        value:
+          allStateforGraph[i]?.active +
+          allStateforGraph[i]?.ignored +
+          allStateforGraph[i]?.resolved,
+        label: allStateforGraph[i]?._id,
+        onPress: item => console.log('>>>>>>HI', item.index),
+        labelComponent: () => laber(allStateforGraph[i]),
+        // labelTextStyle: {
+        //   color: '#fff',
+        //   fontFamily: 'Raleway-Medium',
+        //   fontWeight: '500',
+        //   fontSize: 10,
+        //   transform: [{rotate: '-90deg'}],
+        //   position: 'absolute',
+        //   bottom: 40,
+        //   left: -6,
+        // },
+      });
+      setGraphData(dataArr);
+      // console.log('8888888*FORMATED', dataArr);
+    }
+  };
+  const laber = name => {
+    if (showDetails) {
+      return (
+        <View
+          style={{
+            transform: [{rotate: '-90deg'}],
+            position: 'absolute',
+            right: 5,
+            bottom: 35,
+            alignSelf: 'center',
+            left: 5,
 
+            borderRadius: 5,
+          }}>
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: 8,
+              fontFamily: 'Raleway-Medium',
+              color: 'white',
+
+              width: 140,
+            }}>
+            {name._id}
+          </Text>
+        </View>
+      );
+    } else null;
+  };
   const data = [
     {
       value: 540,
@@ -88,7 +242,7 @@ const Dashboard = ({navigation}) => {
       },
     },
     {
-      value: 745,
+      value: 540,
       label: showDetails ? 'Insurance' : null,
       labelTextStyle: {
         color: '#fff',
@@ -98,7 +252,7 @@ const Dashboard = ({navigation}) => {
         transform: [{rotate: '-90deg'}],
         position: 'absolute',
         bottom: 45,
-        left: -10,
+        left: -5,
       },
     },
     {
@@ -315,30 +469,37 @@ const Dashboard = ({navigation}) => {
               <AppText
                 text={'Show Details'}
                 color={showDetails === true ? 'red' : 'black'}
+                size={10}
               />
             </TouchableOpacity>
           </View>
 
           <View style={styles.barChartContainer}>
-            <BarChart
-              data={data}
-              showGradient={true}
-              gradientColor={'#444'}
-              labelWidth={100}
-              barWidth={20}
-              barBorderRadius={2}
-              frontColor={colors.primary}
-              yAxisThickness={0}
-              xAxisThickness={0}
-              hideRules
-              hideOrigin
-              hideYAxisText
-              height={140}
-              width={windowWidth - 30}
-              hideYAxisText
-              spacing={6}
-              isAnimated={true}
-            />
+            {!loading ? (
+              <BarChart
+                data={graphData}
+                showGradient={true}
+                gradientColor={'#444'}
+                // labelWidth={100}
+                barWidth={20}
+                barBorderRadius={2}
+                spacing={12}
+                frontColor={colors.primary}
+                yAxisThickness={0}
+                xAxisThickness={0}
+                hideRules
+                hideOrigin
+                hideYAxisText
+                height={140}
+                width={windowWidth - 30}
+                isAnimated={true}
+                onPress={() => console.log('....HIIIII')}
+                initialSpacing={0}
+                labelr
+              />
+            ) : (
+              <ActivityIndicator size={20} />
+            )}
           </View>
         </View>
         <View style={{flexDirection: 'row', paddingHorizontal: 12}}>
@@ -347,21 +508,26 @@ const Dashboard = ({navigation}) => {
               backgroundColor={'#51BA5B'}
               totalText={'Total'}
               name={'Industries'}
-              counter={'13'}
+              counter={industryIssueCount}
               icon={<Ionicons name="book" color={'#fff'} size={20} />}
             />
             <TotalReports
               backgroundColor={'#383b80'}
               totalText={'Total'}
               name={'Reporters'}
-              counter={'143'}
+              counter={allIssueCount}
               icon={<Fontisto name="world" color={'#fff'} size={20} />}
             />
             <TotalReports
               backgroundColor={'#FF17F5'}
               totalText={'Total'}
               name={'Resolved Issue'}
-              counter={'123'}
+              counter={
+                issueCounts.length > 0
+                  ? issueCounts?.filter(issue => issue?._id === 'Resolved')[0]
+                      ?.sum
+                  : 0
+              }
               icon={<Fontisto name="world" color={'#fff'} size={20} />}
             />
           </View>
@@ -370,21 +536,31 @@ const Dashboard = ({navigation}) => {
               backgroundColor={'#DA2936'}
               totalText={'Total'}
               name={'Organizations'}
-              counter={'98'}
+              counter={organizationIssueCount}
               icon={<Fontisto name="world-o" color={'#fff'} size={20} />}
             />
             <TotalReports
               backgroundColor={'#E97B40'}
               totalText={'Total'}
               name={'Active Issues'}
-              counter={'676'}
+              counter={
+                issueCounts.length > 0
+                  ? issueCounts?.filter(issue => issue?._id === 'Active')[0]
+                      ?.sum
+                  : 0
+              }
               icon={<Feather name="activity" color={'#fff'} size={20} />}
             />
             <TotalReports
               backgroundColor={'#00A863'}
               totalText={'Total'}
               name={'Ignore Issues'}
-              counter={'511'}
+              counter={
+                issueCounts.length > 0
+                  ? issueCounts?.filter(issue => issue?._id === 'Ignored')[0]
+                      ?.sum
+                  : 0
+              }
               icon={<Feather name="activity" color={'#fff'} size={20} />}
             />
           </View>
@@ -432,18 +608,14 @@ const Dashboard = ({navigation}) => {
             </View>
           )}
           <TouchableOpacity
-            onPress={() => setShowMoreIndustryIndex(!showMoreIndustryIndex)}
+            onPress={() => navigation.navigate('IndustrySafety')}
             style={{
               alignItems: 'flex-end',
               marginRight: 15,
               marginBottom: 75,
               marginTop: 5,
             }}>
-            <AppText
-              text={showMoreIndustryIndex ? 'Hide Full List' : 'View Full List'}
-              color={'blue'}
-              size={10}
-            />
+            <AppText text={'View Full List'} color={'blue'} size={10} />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -467,8 +639,9 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     color: '#000',
+
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginVertical: 10,
     width: '100%',
   },

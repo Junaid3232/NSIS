@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -6,12 +6,15 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ActivityIndicator,
   TouchableHighlight,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {industryStats} from '../api/getIssuesCount';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
 import colors from '../config/colors';
+import {states} from '../config/constants';
 
 const nationalSafety = [
   {
@@ -68,6 +71,27 @@ const IndustrySafety = ({navigation}) => {
   const [toolTip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(0);
   const [parentDropdown, setParentDropDown] = useState(false);
+  const [industryIssue, setIndustryIssue] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const getIndustries = async () => {
+    setLoading(true);
+    try {
+      const response = await industryStats();
+      if (response) {
+        setIndustryIssue(response);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        // Alert.alert('Error', response?.message);
+      }
+    } catch (err) {
+      // Alert.alert('Error', err?.message);
+    }
+  };
+  useEffect(() => {
+    getIndustries();
+  }, []);
 
   return (
     <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
@@ -97,7 +121,7 @@ const IndustrySafety = ({navigation}) => {
                 <View
                   style={{
                     ...styles.dropdown,
-                    width: 250,
+                    width: 200,
                     alignSelf: 'center',
                     justifyContent: 'center',
                   }}>
@@ -108,7 +132,8 @@ const IndustrySafety = ({navigation}) => {
                   />
                   <View style={{marginTop: 10}}>
                     <FlatList
-                      data={selectIndustry}
+                      data={states}
+                      showsVerticalScrollIndicator={false}
                       keyExtractor={({index}) => index}
                       renderItem={({item, index}) => {
                         return (
@@ -176,36 +201,58 @@ const IndustrySafety = ({navigation}) => {
           )}
         </View>
         <View style={{flex: 1, zIndex: -1}}>
-          <FlatList
-            data={nationalSafety}
-            keyExtractor={({index}) => index}
-            renderItem={({item, index}) => {
-              return (
-                <View style={styles.container}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={styles.subContainer}>
-                      <Text style={styles.index}>{item.count}</Text>
+          {loading ? (
+            <ActivityIndicator
+              color={colors.primary}
+              size={25}
+              style={{flex: 1}}
+            />
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={industryIssue}
+              keyExtractor={({index}) => index}
+              renderItem={({item, index}) => {
+                return (
+                  <View style={styles.container}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <View style={styles.subContainer}>
+                        <Text style={styles.index}>{index + 1}</Text>
+                      </View>
+                      <Text style={styles.industryN}>{item._id}</Text>
                     </View>
-                    <Text style={styles.industryN}>{item.title}</Text>
-                  </View>
 
-                  <TouchableOpacity
-                    style={styles.QMark}
-                    onPress={() => {
-                      setShowTooltip(!toolTip);
-                      setSelectedTooltip(index);
-                    }}>
-                    <AppText bold={'bold'} color={'#fff'} text={'?'} />
-                  </TouchableOpacity>
-                  {toolTip && index === selectedTooltip && (
-                    <View style={styles.toolTip}>
-                      <Text style={styles.tooltipText}>{item.title}</Text>
-                    </View>
-                  )}
-                </View>
-              );
-            }}
-          />
+                    <TouchableOpacity
+                      style={styles.QMark}
+                      onPress={() => {
+                        setShowTooltip(!toolTip);
+                        setSelectedTooltip(index);
+                      }}>
+                      <AppText bold={'bold'} color={'#fff'} text={'?'} />
+                    </TouchableOpacity>
+                    {toolTip && index === selectedTooltip && (
+                      <View style={styles.toolTip}>
+                        <View style={{flexDirection: 'row'}}>
+                          <Text style={styles.tooltipText}>{'Active:'}</Text>
+                          <Text style={styles.tooltipText}>{item.active}</Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <Text style={styles.tooltipText}>{'Resolved:'}</Text>
+                          <Text style={styles.tooltipText}>
+                            {item.resolved}
+                          </Text>
+                        </View>
+                        <View style={{flexDirection: 'row'}}>
+                          <Text style={styles.tooltipText}>{'Ignored:'}</Text>
+                          <Text style={styles.tooltipText}>{item.ignored}</Text>
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                );
+              }}
+            />
+          )}
         </View>
       </View>
     </SafeAreaView>
@@ -254,7 +301,7 @@ const styles = StyleSheet.create({
   },
   index: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '600',
   },
   filter: {
@@ -278,11 +325,12 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     backgroundColor: colors.primary,
+    maxHeight: 180,
     borderRadius: 15,
     padding: 25,
     position: 'absolute',
     top: 25,
-    left: 50,
+    left: 70,
     zIndex: 15,
     shadowColor: '#000',
     shadowOffset: {
@@ -315,7 +363,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: colors.primary,
     width: '50%',
-    height: 50,
+    height: 60,
     right: 30,
     top: -4,
 
@@ -337,6 +385,7 @@ const styles = StyleSheet.create({
 
     fontSize: 10,
     fontFamily: 'Raleway-Medium',
-    padding: 10,
+    // padding: 2,
+    paddingHorizontal: 10,
   },
 });

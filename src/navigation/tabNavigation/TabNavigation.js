@@ -6,10 +6,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../../screens/dashboard';
 import Drawer from '../drawerNavigation/Drawer';
 import colors from '../../config/colors';
-import ReportIssue from '../../screens/reportIssue'
-import TermsOfUse from '../../screens/termsOfUse'
-import AboutNISCN from '../../screens/aboutNISCN'
-import Notification from '../../screens/notification'
+import ReportIssue from '../../screens/reportIssue';
+import TermsOfUse from '../../screens/termsOfUse';
+import AboutNISCN from '../../screens/aboutNISCN';
+import Notification from '../../screens/notification';
 
 const Tab = createBottomTabNavigator();
 const dashboard = require('../../assets/icons/tabs/dashboard.png');
@@ -20,211 +20,193 @@ const shield = require('../../assets/icons/tabs/shield.png');
 
 const TabNavigation = () => {
   return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: [
+          {
+            position: 'absolute',
+            left: 8,
+            right: 8,
+            borderRadius: 20,
+            elevation: 0,
+            height: 70,
+            backgroundColor: colors.lightGray,
+            ...styles.shadow,
+          },
+        ],
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: 'gray',
+      })}>
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({focused, color, size, icon}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={dashboard}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: focused ? colors.primary : 'gray',
+                }}
+                resizeMode={'contain'}
+              />
+              <Text
+                style={{
+                  color: focused ? colors.primary : 'gray',
+                  fontSize: 10,
+                  marginTop: 10,
+                  fontFamily: 'Raleway-Medium',
+                }}>
+                Dashboard
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About NISCN"
+        component={AboutNISCN}
+        options={{
+          tabBarIcon: ({focused, color, size, icon}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={about}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: focused ? colors.primary : 'gray',
+                }}
+                resizeMode={'contain'}
+              />
+              <Text
+                style={{
+                  color: focused ? colors.primary : 'gray',
+                  fontSize: 10,
+                  marginTop: 10,
+                  fontFamily: 'Raleway-Medium',
+                }}>
+                About NISCN
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Report Issue"
+        component={ReportIssue}
+        options={{
+          tabBarIcon: ({focused, color, size, icon}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={shield}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: focused ? colors.primary : 'gray',
+                }}
+                resizeMode={'contain'}
+              />
+              <Text
+                style={{
+                  color: focused ? colors.primary : 'gray',
+                  fontFamily: 'Raleway-Medium',
+                  fontSize: 10,
+                  marginTop: 10,
+                }}>
+                Report Issue
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Terms of Use"
+        component={TermsOfUse}
+        options={{
+          tabBarIcon: ({focused, color, size, icon}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={lock}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: focused ? colors.primary : 'gray',
+                }}
+                resizeMode={'contain'}
+              />
+              <Text
+                style={{
+                  color: focused ? colors.primary : 'gray',
+                  fontFamily: 'Raleway-Medium',
 
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          headerShown: false,
-         tabBarShowLabel:false,
-          tabBarStyle: [
-              
-            {
-              position: 'absolute',
-            
-              left: 8,
-              right: 8,
-              borderRadius: 20,
-              elevation: 0,
-              height: 70,
-              backgroundColor:colors.lightGray,
-              ...styles.shadow,
-            },
-          ],
-          tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: 'gray',
-        })}>
-        <Tab.Screen
-          name="Dashboard"
-          component={Dashboard}
-          options={{icon: dashboard}}
-          options={{
-            tabBarIcon: ({focused, color, size, icon}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-               top:5
-                  
+                  fontSize: 10,
+                  marginTop: 10,
                 }}>
-                <Image
-                  source={dashboard}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: focused ? colors.primary : 'gray',
-                  }}
-                  resizeMode={'contain'}
-                />
-                <Text
-                  style={{
-                    color: focused ? colors.primary : 'gray',
-                    fontSize: 10,
-                    marginTop: 10,
-                    fontFamily:'Raleway-Medium',
-            
-                  }}>
-                  Dashboard
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="About NISCN"
-          component={AboutNISCN}
-          options={{icon: dashboard}}
-          options={{
-            tabBarIcon: ({focused, color, size, icon}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top:5
-                }}>
-                <Image
-                  source={about}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: focused ? colors.primary : 'gray',
-             
-  
-                  }}
-                  resizeMode={'contain'}
-                />
-                <Text
-                  style={{
-                    color: focused ? colors.primary : 'gray',
-                    fontSize: 10,
-                    marginTop: 10,
-                    fontFamily:'Raleway-Medium',
-     
-                  }}>
-                  About NISCN
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Report Issue"
-          component={ReportIssue}
-          options={{icon: dashboard}}
-          options={{
-            tabBarIcon: ({focused, color, size, icon}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top:5
-                }}>
-                <Image
-                  source={shield}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: focused ? colors.primary : 'gray',
-                
+                Terms of Use
+              </Text>
+            </View>
+          ),
+        }}
+      />
 
-                  }}
-                  resizeMode={'contain'}
-                />
-                <Text
-                  style={{
-                    color: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Medium',
-                    fontSize: 10,
-                    marginTop: 10,
-                  }}>
-                  Report Issue
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Terms of Use"
-          component={TermsOfUse}
-          options={{icon: dashboard}}
-          options={{
-            tabBarIcon: ({focused, color, size, icon}) => (
-              <View
+      <Tab.Screen
+        name="Notifications"
+        component={Notification}
+        options={{
+          tabBarIcon: ({focused, color, size, icon}) => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                top: 5,
+              }}>
+              <Image
+                source={bell}
                 style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top:5
-                }}>
-                <Image
-                  source={lock}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: focused ? colors.primary : 'gray',
-        
-     
-                  }}
-                  resizeMode={'contain'}
-                />
-                <Text
-                  style={{
-                    color: focused ? colors.primary : 'gray',
-                    fontFamily:'Raleway-Medium',
- 
-                    fontSize: 10,
-                    marginTop: 10,
-                  }}>
-                  Terms of Use
-                </Text>
-              </View>
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Notifications"
-          component={Notification}
-          options={{icon: dashboard}}
-          options={{
-            tabBarIcon: ({focused, color, size, icon}) => (
-                <View
+                  width: 20,
+                  height: 20,
+                  tintColor: focused ? colors.primary : 'gray',
+                }}
+                resizeMode={'contain'}
+              />
+              <Text
                 style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top:5
+                  color: focused ? colors.primary : 'gray',
+                  fontSize: 10,
+                  marginTop: 10,
+                  fontFamily: 'Raleway-Medium',
                 }}>
-                <Image
-                  source={bell}
-                  style={{
-                    width: 20,
-                    height: 20,
-                    tintColor: focused ? colors.primary : 'gray',
-                  }}
-                  resizeMode={'contain'}
-                />
-                <Text
-                  style={{
-                    color: focused ? colors.primary : 'gray',
-                    fontSize: 10,
-                    marginTop: 10,
-                    fontFamily:'Raleway-Medium',
-                  }}>
-                 Notifications
-                </Text>
-              </View>
-            ),
-          }}
-        />
-      </Tab.Navigator>
-
+                Notifications
+              </Text>
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 const styles = StyleSheet.create({
