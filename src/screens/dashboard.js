@@ -20,6 +20,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {
@@ -30,7 +32,7 @@ import {
   dashboardData,
 } from '../api/getIssuesCount';
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({navigation, route}) => {
   const windowWidth = Dimensions.get('window').width;
   const [showDetails, setShowDetails] = useState(false);
   const [showMoreIndustryIndex, setShowMoreIndustryIndex] = useState(false);
@@ -44,9 +46,9 @@ const Dashboard = ({navigation}) => {
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
 
-  const getIssuesCount = async () => {
+  const getIssuesCount = async token => {
     try {
-      const response = await getIssueCount();
+      const response = await getIssueCount(token);
       if (response) {
         SetIssueCounts(response);
       } else {
@@ -57,9 +59,9 @@ const Dashboard = ({navigation}) => {
       console.log('error is: ', err);
     }
   };
-  const getIndustriesCount = async () => {
+  const getIndustriesCount = async token => {
     try {
-      const response = await getIndustryCount();
+      const response = await getIndustryCount(token);
       if (response) {
         setIndustryIssueCount(response?.length);
       } else {
@@ -70,9 +72,9 @@ const Dashboard = ({navigation}) => {
       Alert.alert('Error', err?.message);
     }
   };
-  const getOrganizationsCount = async () => {
+  const getOrganizationsCount = async token => {
     try {
-      const response = await getOrganizationCount();
+      const response = await getOrganizationCount(token);
       if (response) {
         setOrganizationIssueCount(response?.length);
       } else {
@@ -83,9 +85,9 @@ const Dashboard = ({navigation}) => {
       Alert.alert('Error', err?.message);
     }
   };
-  const getAllIssueCount = async () => {
+  const getAllIssueCount = async token => {
     try {
-      const response = await getAllIssuesCount();
+      const response = await getAllIssuesCount(token);
       if (response) {
         setAllIssueCount(response?.length);
         setAllIssue(response);
@@ -97,11 +99,11 @@ const Dashboard = ({navigation}) => {
       Alert.alert('Error', err?.message);
     }
   };
-  const getDashboardData = async () => {
+  const getDashboardData = async token => {
     try {
       // setLoading(true);
       setShowDetails(true);
-      const response = await dashboardData();
+      const response = await dashboardData(token);
       if (response) {
         setAllStateforGraph(response);
         datafun();
@@ -115,12 +117,24 @@ const Dashboard = ({navigation}) => {
       Alert.alert('Error', err?.message);
     }
   };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        getDashboardData(value);
+        getIssuesCount(value);
+        getIndustriesCount(value);
+        getOrganizationsCount(value);
+        getAllIssueCount(value);
+      }
+    } catch (e) {
+      console.log('error', e);
+      // error reading value
+    }
+  };
   useEffect(() => {
-    getDashboardData();
-    getIssuesCount();
-    getIndustriesCount();
-    getOrganizationsCount();
-    getAllIssueCount();
+    getData();
   }, []);
   useEffect(() => {
     datafun();
@@ -166,7 +180,6 @@ const Dashboard = ({navigation}) => {
           allStateforGraph[i]?.ignored +
           allStateforGraph[i]?.resolved,
         label: allStateforGraph[i]?._id,
-        onPress: item => console.log('>>>>>>HI', item.index),
         labelComponent: () => laber(allStateforGraph[i]),
         // labelTextStyle: {
         //   color: '#fff',

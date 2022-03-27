@@ -8,22 +8,52 @@ import {AppButton} from '../components/AppButton';
 import {screens} from '../config/constants';
 import colors from '../config/colors';
 import validator from 'validator';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import {BASE_URL} from '../config/constants';
+import {NavigationActions, StackActions} from 'react-navigation';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = () => {
+
+  const login = async () => {
     if (!validator.isEmail(email)) {
       return Alert.alert(
         'Validation Error',
         'Please add a valid email address',
       );
-    }
-    if (validator.isEmpty(password)) {
+    } else if (validator.isEmpty(password)) {
       return Alert.alert('Validation Error', 'Please add password');
+    } else {
+      const body = {
+        email,
+        password,
+      };
+
+      const res = await axios
+        .post(`${BASE_URL}/login`, body)
+        .then(async response => {
+          if (response) {
+            // console.log(response.data.accessToken);?
+            try {
+              await AsyncStorage.setItem(
+                'token',
+                response?.data?.accessToken,
+              ).then(() => {
+                navigation.navigate(screens.Dashboard);
+              });
+            } catch (e) {
+              console.log('errrrrrrr', e);
+              // saving error
+            }
+          }
+        })
+        .catch(error => {
+          console.log('ERORRRRRRR', error.response);
+        });
     }
-    console.log('.........', email);
   };
+
   return (
     <SafeAreaView
       style={{
@@ -68,13 +98,7 @@ const Login = ({navigation}) => {
             setState={setPassword}
           />
           <View style={{marginTop: 10}}>
-            <AppButton
-              title={'LOGIN'}
-              onPress={() => {
-                // login();
-                navigation.navigate(screens.Dashboard);
-              }}
-            />
+            <AppButton title={'LOGIN'} onPress={() => login()} />
           </View>
           <View style={styles.forget}>
             <AppText

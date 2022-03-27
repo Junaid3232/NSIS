@@ -1,10 +1,8 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/login';
 import Register from '../screens/register';
-import CompleteRegistration from '../screens/completeRegistration';
+
 import Register2 from '../screens/register2';
 import Register3 from '../screens/register3';
 import ForgotPassword from '../screens/forgotPassword';
@@ -53,6 +51,7 @@ const StackNavigator = () => {
         component={ForgotPassword}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
         name="Dashboard"
         component={Drawer}

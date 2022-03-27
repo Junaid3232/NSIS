@@ -2,13 +2,21 @@ import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import colors from '../config/colors';
 
-export const AppTextBox = ({placeholder, state, setState, secure = false}) => {
+export const AppTextBox = ({
+  placeholder,
+  state,
+  setState,
+  secure = false,
+  props,
+}) => {
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textBox}
         placeholder={placeholder}
         secureTextEntry={secure}
+        placeholderTextColor={colors.gray}
+        keyboardType={'name-phone-pad'}
         onChangeText={value => {
           setState(value);
         }}

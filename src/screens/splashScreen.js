@@ -2,11 +2,37 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import colors from '../config/colors';
 import Loader from 'react-native-three-dots-loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CommonActions} from '@react-navigation/native';
+
 const SplashScreen = ({navigation}) => {
-  useEffect(() => {
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        nav(value);
+      } else if (value === null) {
+        nav(null);
+      }
+    } catch (e) {
+      console.log('error', e);
+    }
+  };
+  const nav = token => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {name: token ? 'Dashboard' : 'Login', params: {token: 'token'}},
+          ],
+        }),
+      );
     }, 2000);
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
   return (
     <View style={styles.constainer}>

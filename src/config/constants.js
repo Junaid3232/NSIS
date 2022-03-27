@@ -1,10 +1,14 @@
-export const BASE_URL = 'https://api-safecity.herokuapp.com';
+export const BASE_URL = 'https://api.safetyprojecttestserver.com.ng';
 export const REPORT_ISSUE = 'Issues';
 export const ISSUE_COUNT = 'issues/stats';
 export const INDUSTRIES_COUNT = 'industries';
 export const ORGANIZATION_COUNT = 'organizations';
 export const DASHBOARD_DATA = 'industries/stats';
 export const STATE_STATS = 'stateSafityIssues';
+export const REGISTER_EMAIL = 'signup/confirm';
+export const REGISTER = 'signup';
+export const LOGIN = 'login';
+
 export const screens = {
   Login: 'Login',
   Register: 'Register',

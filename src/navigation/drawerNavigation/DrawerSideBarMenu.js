@@ -7,6 +7,8 @@ import {
   Text,
   Platform,
 } from 'react-native';
+import {CommonActions} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   DrawerContentScrollView,
@@ -22,7 +24,12 @@ const DrawerSection = ({title}) => {
         borderTopColor: 'gray',
         marginVertical: -8,
       }}>
-      <Text style={{color: title === 'LOGOUT' ? 'red' : 'gray', fontSize: 12, fontFamily: 'Raleway-Medium'}}>
+      <Text
+        style={{
+          color: title === 'LOGOUT' ? 'red' : 'gray',
+          fontSize: 12,
+          fontFamily: 'Raleway-Medium',
+        }}>
         {title}
       </Text>
     </View>
@@ -30,6 +37,20 @@ const DrawerSection = ({title}) => {
 };
 
 const DrawerSideBarMenu = props => {
+  const onLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+    } catch (e) {
+      // remove error
+    }
+    console.log('DONE');
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{name: 'Login'}],
+      }),
+    );
+  };
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container2}>
@@ -44,7 +65,7 @@ const DrawerSideBarMenu = props => {
         style={{marginTop: Platform.OS === 'ios' ? -50 : 0, height: '100%'}}
         {...props}>
         <DrawerItem
-        labelStyle={{backgroundColor:'red'}}
+          labelStyle={{backgroundColor: 'red'}}
           label={({focused, color}) => (
             <DrawerSection
               focused={focused}
@@ -56,7 +77,7 @@ const DrawerSideBarMenu = props => {
           onPress={() => props.navigation.navigate('Dashboard')}
         />
         <DrawerItem
-        labelStyle
+          labelStyle
           label={({focused, color}) => (
             <DrawerSection
               focused={focused}
@@ -111,7 +132,7 @@ const DrawerSideBarMenu = props => {
           )}
           onPress={() => props.navigation.navigate('NationalSafety')}
         />
-          <DrawerItem
+        <DrawerItem
           label={({focused, color}) => (
             <DrawerSection
               focused={focused}
@@ -121,7 +142,7 @@ const DrawerSideBarMenu = props => {
             />
           )}
           onPress={() => {
-            props.navigation.navigate('StateSafety')
+            props.navigation.navigate('StateSafety');
           }}
         />
         <DrawerItem
@@ -134,7 +155,7 @@ const DrawerSideBarMenu = props => {
             />
           )}
           onPress={() => {
-            props.navigation.navigate('IndustrySafety')
+            props.navigation.navigate('IndustrySafety');
           }}
         />
         <DrawerItem
@@ -147,7 +168,7 @@ const DrawerSideBarMenu = props => {
             />
           )}
           onPress={() => {
-            props.navigation.navigate('Compliance')
+            props.navigation.navigate('Compliance');
           }}
         />
         <DrawerItem
@@ -183,9 +204,7 @@ const DrawerSideBarMenu = props => {
                 <DrawerSection focused={focused} color={color} title="LOGOUT" />
               </View>
             )}
-            onPress={() => {
-              alert('LOGOUT Pressed');
-            }}
+            onPress={onLogout}
           />
 
           <DrawerItem
