@@ -8,22 +8,17 @@ import {
 import React from 'react';
 import colors from '../config/colors';
 
-export const AppText = ({
-  text,
-  disabled = true,
-  size = 12,
-  bold,
-  onPress,
-  color,
-  marginLeft,
-  loading = false,
-}) => {
+export const AppText = (
+  {text, disabled = true, size = 12, bold, onPress, color, marginLeft},
+  props,
+) => {
   return (
     <>
       {disabled ? (
         <View style={{}}>
           <Text
             style={{
+              ...props,
               ...styles.text,
               fontSize: size,
               fontWeight: bold ? 'bold' : 'normal',
@@ -36,20 +31,16 @@ export const AppText = ({
         </View>
       ) : (
         <TouchableOpacity style={{alignItems: 'center'}} onPress={onPress}>
-          {loading ? (
-            <ActivityIndicator size={20} color={colors.white} />
-          ) : (
-            <Text
-              style={{
-                ...styles.text,
-                fontSize: size,
-                fontWeight: bold ? 'bold' : 'normal',
-                fontFamily: bold ? 'Raleway-Black' : 'Raleway-Medium',
-                color: color,
-              }}>
-              {text}
-            </Text>
-          )}
+          <Text
+            style={{
+              ...styles.text,
+              fontSize: size,
+              fontWeight: bold ? 'bold' : 'normal',
+              fontFamily: bold ? 'Raleway-Black' : 'Raleway-Medium',
+              color: color,
+            }}>
+            {text}
+          </Text>
         </TouchableOpacity>
       )}
     </>

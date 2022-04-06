@@ -4,7 +4,7 @@ import {
   ISSUE_COUNT,
   ORGANIZATION_COUNT,
   ORGANIZATION_STATS,
-  REPORT_ISSUE,
+  REGISTER_EMAIL,
   STATE_STATS,
 } from '../config/constants';
 import {sendRequest} from './base';
@@ -55,6 +55,14 @@ export const stateStats = async (token, data) => {
   try {
     return sendRequest(data, 'GET', STATE_STATS, {}, token);
   } catch (err) {
+    return err;
+  }
+};
+export const registerEmail = async data => {
+  try {
+    return sendRequest(data, 'POST', REGISTER_EMAIL, {});
+  } catch (err) {
+    console.log('8888', err);
     return err;
   }
 };

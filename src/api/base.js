@@ -15,9 +15,10 @@ export const sendRequest = async (data, method, url, headers, token) => {
   try {
     const {data} = await axios(options);
     if (data) return data;
-
+    console.log('errrrrr', data);
     throw new Error('Something went wrong please try again');
   } catch (err) {
+    console.log('errrrrr', err);
     throw err;
   }
 };

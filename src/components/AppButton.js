@@ -1,4 +1,10 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import colors from '../config/colors';
 
@@ -9,6 +15,7 @@ export const AppButton = ({
   style,
   height = 35,
   width = '60%',
+  loading = false,
   backgroundColor = colors.primary,
 }) => {
   return (
@@ -21,7 +28,13 @@ export const AppButton = ({
           backgroundColor: backgroundColor,
         }}
         onPress={onPress}>
-        <Text style={{...styles.buttonText, fontSize: fontSize}}>{title}</Text>
+        {loading ? (
+          <ActivityIndicator size={20} color={colors.white} />
+        ) : (
+          <Text style={{...styles.buttonText, fontSize: fontSize}}>
+            {title}
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );

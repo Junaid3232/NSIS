@@ -12,18 +12,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {register} from '../api/register';
 import validator from 'validator';
 import axios from 'axios';
+import ErrorModal from '../components/ErrorModal';
 
 const Register3 = ({navigation, route}) => {
-  console.log('.....PARAMS', route.params.user);
   const {firstName, lastName, phone, email} = route?.params;
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onRegister = async () => {
     console.log('....FUNCTIO CALLED');
+    setLoading(true);
+
     if (password !== confirmPassword) {
-      return Alert.alert('Validation Error', 'Password mismatch');
+      setErrorMessage('Password mismatch');
+      setShowErrorModal(true);
+      setLoading(false);
+      return;
     } else {
       const body = {
         firstName,
@@ -37,8 +45,9 @@ const Register3 = ({navigation, route}) => {
       axios
         .post(`${BASE_URL}/signup`, body)
         .then(async response => {
-          console.log('respooooooooo', response.body);
           if (response) {
+            console.log('response.toke', response?.data?.accessToken);
+            console.log('response.data', response?.data);
             // console.log(response.data.accessToken);?
             try {
               await AsyncStorage.setItem(
@@ -54,7 +63,10 @@ const Register3 = ({navigation, route}) => {
           }
         })
         .catch(error => {
-          console.log('ERORRRRRRR', error.response.data);
+          setLoading(false);
+          setShowErrorModal(true);
+          setErrorMessage(error?.response?.data);
+          console.log('ERORRRRRRR', error?.response?.data);
         });
     }
   };
@@ -107,8 +119,17 @@ const Register3 = ({navigation, route}) => {
             setState={setConfirmPassword}
           />
           <View style={{marginTop: 8}}>
-            <AppButton title={'COMPLETE'} onPress={onRegister} />
+            <AppButton
+              title={'COMPLETE'}
+              onPress={onRegister}
+              loading={loading}
+            />
           </View>
+          <ErrorModal
+            modalVisible={showErrorModal}
+            setModalVisible={setShowErrorModal}
+            message={errorMessage}
+          />
           <View style={styles.forget}>
             <AppText
               text={'Back to Login'}
@@ -120,6 +141,7 @@ const Register3 = ({navigation, route}) => {
           </View>
         </View>
       </View>
+
       <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
         <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'} />
       </View>

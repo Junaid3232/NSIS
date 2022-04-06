@@ -17,7 +17,8 @@ import {AppButton} from '../components/AppButton';
 import {screens} from '../config/constants';
 import colors from '../config/colors';
 import validator from 'validator';
-import {registerEmail} from '../api/register';
+import {registerEmail} from '../api/getIssuesCount';
+import ErrorModal from '../components/ErrorModal';
 
 const Register = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
@@ -25,42 +26,54 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const onPressCreate = async () => {
-    console.log('PRESSED');
     setLoading(true);
     if (!validator.isEmail(email)) {
-      return Alert.alert(
-        'Validation Error',
-        'Please add a valid email address',
-      );
+      setErrorText('Please add a valid email address');
+      setShowModal(true);
+      setLoading(false);
     } else if (validator.isEmpty(firstName)) {
-      return Alert.alert('Validation Error', 'Please add First Name');
+      setErrorText('Please add First Name');
+      setShowModal(true);
+      setLoading(false);
     } else if (validator.isEmpty(lastName)) {
-      return Alert.alert('Validation Error', 'Please Last Name');
+      setErrorText('Please add Lase Name');
+      setShowModal(true);
+      setLoading(false);
     } else if (validator.isEmpty(email)) {
-      return Alert.alert('Validation Error', 'Please add password');
+      setErrorText('Please add password');
+      setShowModal(true);
+      setLoading(false);
     } else if (validator.isEmpty(phone)) {
-      return Alert.alert('Validation Error', 'Please add phone');
+      setErrorText('Please add phone');
+      setShowModal(true);
+      setLoading(false);
     } else if (validator.isLength(phone, 12)) {
-      return Alert.alert('Validation Error', 'Please add phone');
+      setErrorText('Please add phone');
+      setShowModal(true);
+      setLoading(false);
     } else {
       try {
         const response = await registerEmail({email});
-
+        console.log('.....RESPONSE', response);
         if (response) {
           console.log('.....RESPONSE', response);
+          navigation.navigate(screens.Register3, {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+          });
           setLoading(false);
         } else {
         }
-      } catch (err) {}
-
-      navigation.navigate(screens.Register3, {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-      });
+      } catch (err) {
+        setLoading(false);
+      }
+      setLoading(false);
     }
   };
 
@@ -94,11 +107,7 @@ const Register = ({navigation}) => {
             <View style={{alignItems: 'center'}}>
               <AppText text={'Create Account'} size={16} color={colors.black} />
             </View>
-            <AppTextBox
-              placeholder={'First Name'}
-              setState={setFirstName}
-              keyb
-            />
+            <AppTextBox placeholder={'First Name'} setState={setFirstName} />
             <AppTextBox placeholder={'Last Name'} setState={setLastName} />
             <AppTextBox
               placeholder={'Valid Email Address'}
@@ -119,6 +128,11 @@ const Register = ({navigation}) => {
                 size={13}
                 color={colors.black}
                 onPress={() => navigation.goBack()}
+              />
+              <ErrorModal
+                modalVisible={showModal}
+                setModalVisible={setShowModal}
+                message={errorText}
               />
             </View>
           </View>
