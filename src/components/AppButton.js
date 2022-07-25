@@ -13,8 +13,8 @@ export const AppButton = ({
   onPress,
   fontSize = 14,
   style,
-  height = 35,
-  width = '60%',
+  height = 44,
+  width = '90%',
   loading = false,
   backgroundColor = colors.primary,
 }) => {
@@ -42,21 +42,15 @@ export const AppButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 10,
+    borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   buttonText: {
     color: colors.white,
     fontFamily: 'Raleway-Medium',
+    fontWeight: 'bold',
+    fontSize: 16,
     // paddingHorizontal:100
   },
 });

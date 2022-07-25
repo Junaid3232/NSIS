@@ -62,6 +62,7 @@ const DesignedChannelCard = ({
             style={styles.textBox}
             value={responsiblePersonName}
             placeholder={'Enter Name of Person Responsible for Safety'}
+            placeholderTextColor={colors.gray}
             onSubmitEditing={() => {
               setLoading(true);
               setTimeout(() => {
@@ -89,6 +90,7 @@ const DesignedChannelCard = ({
           <TextInput
             style={styles.textBox}
             value={responsiblePersonPhone}
+            placeholderTextColor={colors.gray}
             keyboardType="numeric"
             placeholder={'Enter Phone Number of Person Responsible for Safety'}
             onSubmitEditing={() => {
@@ -114,6 +116,7 @@ const DesignedChannelCard = ({
           <TextInput
             style={styles.textBox}
             value={responsiblePersonEmail}
+            placeholderTextColor={colors.gray}
             keyboardType="email-address"
             placeholder={'Enter Email Address Designed to Report Safety Issues'}
             onSubmitEditing={() => {

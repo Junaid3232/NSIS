@@ -49,17 +49,10 @@ const Register3 = ({navigation, route}) => {
             console.log('response.toke', response?.data?.accessToken);
             console.log('response.data', response?.data);
             // console.log(response.data.accessToken);?
-            try {
-              await AsyncStorage.setItem(
-                'token',
-                response?.data?.accessToken,
-              ).then(() => {
-                navigation.navigate(screens.Dashboard);
-              });
-            } catch (e) {
-              console.log('errrrrrrr', e);
-              // saving error
+            if (response?.data?.accessToken !== undefined) {
+              await AsyncStorage.setItem('token', response?.data?.accessToken);
             }
+            navigation.navigate(screens.Login);
           }
         })
         .catch(error => {

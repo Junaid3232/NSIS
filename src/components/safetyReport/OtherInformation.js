@@ -15,11 +15,24 @@ import DatePicker from 'react-native-date-picker';
 import Moment from 'moment';
 import {AppButton} from '../AppButton';
 const OtherInformation = ({
-  setResponsiblePersonName,
-  setResponsiblePersonPhone,
-  responsiblePersonName,
-  responsiblePersonPhone,
-  setResponsiblePersonEmail,
+  natureOfBussiness,
+  setNatureOfBussiness,
+  describeSafetyIssue,
+  setDescribeSafetyIssue,
+  isAddressDifferent,
+  setIsAddressDifferent,
+  detailsOfOrganization,
+  setDetailsOfOrganization,
+  relationship,
+  setRelationship,
+  otherPhoneNo,
+  setOtherPhoneNo,
+  contactYou,
+  setContactYou,
+  sendReminder,
+  setSendReminder,
+  setDoYouAuthorize,
+  doYouAuthorize,
   responsiblePersonEmail,
 }) => {
   const [parentExtendView, setParentExtendView] = useState(false);
@@ -34,18 +47,10 @@ const OtherInformation = ({
   const [extendView9, setExtendView9] = useState(false);
   const [extendView10, setExtendView10] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [natureOfBussiness, setNatureOfBussiness] = useState('');
-  const [describeSafetyIssue, setDescribeSafetyIssue] = useState('');
-  const [isAddressDifferent, setIsAddressDifferent] = useState();
-  const [detailsOfOrganization, setDetailsOfOrganization] = useState('');
   const [openCalender, setOpenCalender] = useState(false);
   const [isDateSet, setIsDateSet] = useState(false);
-  const [relationship, setRelationship] = useState('');
-  const [otherPhoneNo, setOtherPhoneNo] = useState('');
-  const [contactYou, setContactYou] = useState();
-  const [sendReminder, setSendReminder] = useState();
   const [date, setDate] = useState(new Date());
-  const [doYouAuthorize, setDoYouAuthorize] = useState();
+
   Moment.locale('en');
   console.log(date);
   const onDone = text => {
@@ -118,6 +123,7 @@ const OtherInformation = ({
                 placeholder={
                   'Describe the Safety Issue or Hazard You are Reporting'
                 }
+                placeholderTextColor={colors.gray}
                 onSubmitEditing={() => {
                   setLoading(true);
                   setTimeout(() => {
@@ -196,6 +202,7 @@ const OtherInformation = ({
                 style={{...styles.textBox, height: 35}}
                 value={detailsOfOrganization}
                 placeholder={'Details of ogranization you are reporting'}
+                placeholderTextColor={colors.gray}
                 onSubmitEditing={() => {
                   setLoading(true);
                   setTimeout(() => {
@@ -395,6 +402,7 @@ const OtherInformation = ({
                 style={{...styles.textBox, height: 35, marginTop: 10}}
                 value={otherPhoneNo}
                 placeholder={'Details of ogranization you are reporting'}
+                placeholderTextColor={colors.gray}
                 onSubmitEditing={() => {
                   setLoading(true);
                   setTimeout(() => {

@@ -19,16 +19,12 @@ import validator from 'validator';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
 
-const ForgotPassword = ({navigation, route}) => {
-  const email = route?.params?.email;
+const ForgotPassword0 = ({navigation}) => {
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [code, setCode] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -48,50 +44,37 @@ const ForgotPassword = ({navigation, route}) => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
   const onPressSubmit = async () => {
-    console.log('...inside function');
-    try {
-      setLoading(true);
-      if (password !== confirmPassword) {
-        setErrorMessage('Passwords are not matching');
-        setShowErrorModal(true);
-        setLoading(false);
-      } else if (password == '' || confirmPassword == '' || code == '') {
-        setErrorMessage('Fill all fields');
-        setShowErrorModal(true);
-        setLoading(false);
-      } else {
-        const body = {
-          code,
-          email,
-          password,
-        };
-        console.log(body);
-        const res = await axios
-          .post(`${BASE_URL}/reset/newpassword`, body)
-          .then(async response => {
-            console.log('.....is resp', response);
-            if (response) {
-              console.log('...inside');
-              console.log('....resp', response.data);
-              try {
-                navigation.navigate(screens.Login);
-              } catch (e) {
-                console.log('errrrrrrr', e);
-              }
+    setLoading(true);
+    if (!validator.isEmail(email)) {
+      setErrorMessage('Please add a valid email address');
+      setShowErrorModal(true);
+      setLoading(false);
+    } else {
+      const body = {
+        email,
+      };
+      const res = await axios
+        .post(`${BASE_URL}/reset/req`, body)
+        .then(async response => {
+          if (response) {
+            try {
+              navigation.navigate(screens.ForgotPassword, {email: email});
+            } catch (e) {
+              console.log('errrrrrrr', e);
             }
-          })
-          .then(data => console.log('...wnd res', data))
-          .catch(error => {
-            setErrorMessage(error?.response?.data);
-            setShowErrorModal(true);
-            setLoading(false);
-          });
-      }
-    } catch (e) {
-      console.log('catch erro', e);
+          }
+        })
+        .then(data => console.log('...wnd res', data))
+        .catch(error => {
+          setErrorMessage(error?.response?.data);
+          setShowErrorModal(true);
+          setLoading(false);
+        });
     }
   };
+
   return (
     <SafeAreaView
       style={{
@@ -123,25 +106,13 @@ const ForgotPassword = ({navigation, route}) => {
             <AppText text={'Reset Password'} color={colors.black} size={16} />
           </View>
           <AppTextBox
-            placeholder={'Enter Code Sent to Your Email'}
-            state={code}
-            setState={setCode}
-          />
-          <AppTextBox
-            placeholder={'Enter New Password'}
-            secure={true}
-            state={password}
-            setState={setPassword}
-          />
-          <AppTextBox
-            placeholder={'Confirm Your Password'}
-            state={confirmPassword}
-            secure={true}
-            setState={setConfirmPassword}
+            placeholder={'Enter Your Email'}
+            state={email}
+            setState={setEmail}
           />
           <View style={{marginTop: 8}}>
             <AppButton
-              title={'COMPLETE'}
+              title={'SUBMIT'}
               onPress={onPressSubmit}
               loading={loading}
             />
@@ -157,6 +128,7 @@ const ForgotPassword = ({navigation, route}) => {
           </View>
         </View>
       </View>
+
       <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
         <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'} />
       </View>
@@ -178,4 +150,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-export default ForgotPassword;
+export default ForgotPassword0;

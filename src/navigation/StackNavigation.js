@@ -15,6 +15,7 @@ import ReportIssue from '../screens/reportIssue';
 import IndustrySafety from '../screens/industrySafety';
 import StateSafety from '../screens/stateSafety';
 import SplashScreen from '../screens/splashScreen';
+import ForgotPassword0 from '../screens/fogetPassword0';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,11 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Register3"
         component={Register3}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ForgotPassword0"
+        component={ForgotPassword0}
         options={{headerShown: false}}
       />
       <Stack.Screen

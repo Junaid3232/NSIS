@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,14 +7,18 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import {filterConfig} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppText} from '../components/AppText';
 import {Header} from '../components/Header';
 import colors from '../config/colors';
+import axios from 'axios';
+import {BASE_URL} from '../config/constants';
+import moment from 'moment';
 
-const notifications = [
+const notificationss = [
   //
   {
     id: 1,
@@ -69,6 +73,63 @@ const notifications = [
 
 const Notification = ({navigation}) => {
   const [showFilter, setShowFilter] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [filterBy, setFilterBy] = useState('new');
+
+  useEffect(() => {
+    getAllNotifications();
+  }, [filterBy]);
+  const getAllNotifications = async () => {
+    console.log('....func');
+    setLoading(true);
+    const res = await axios
+      .get(`${BASE_URL}/notifications/getall`)
+      .then(async response => {
+        if (response) {
+          setNotifications(response?.data);
+          setLoading(false);
+          let d1 = new Date();
+          let dummy = [];
+          if (filterBy == 'week') {
+            console.log('....nootifications', notifications);
+
+            for (let i = 0; i < response?.data?.length; i++) {
+              let d2 = new Date(response?.data[i].created.split('T')[0]);
+              let diff = Math.abs(d1 - d2);
+              let di = new moment.duration(diff);
+              let total = di.asDays();
+              console.log('dillll', di);
+              if (total <= 7) {
+                console.log('...in if');
+                dummy.push(response?.data[i]);
+              }
+            }
+            setNotifications(dummy);
+          } else if (filterBy == 'month') {
+            for (let i = 0; i < response?.data?.length; i++) {
+              let d2 = new Date(response?.data[i].created.split('T')[0]);
+              let diff = Math.abs(d1 - d2);
+              let di = new moment.duration(diff);
+              let total = di.asDays();
+              console.log('dillll', di);
+              if (total > 30) {
+                console.log('...in if else');
+                dummy.push(response?.data[i]);
+              }
+            }
+            console.log('.....fummy', dummy);
+            setNotifications(dummy);
+          }
+        }
+      })
+      .catch(error => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    console.log('filte by', filterBy);
+  }, [filterBy]);
   return (
     <SafeAreaView style={{zIndex: -1, backgroundColor: 'white', flex: 1}}>
       <Header navigation={navigation} />
@@ -95,48 +156,78 @@ const Notification = ({navigation}) => {
         </View>
         {showFilter && (
           <View style={styles.filter}>
-            <TouchableOpacity style={{padding: 2}} onPress={() => {}}>
+            <TouchableOpacity
+              style={{padding: 2}}
+              onPress={() => {
+                setFilterBy('new');
+                setShowFilter(false);
+              }}>
+              <AppText color={'#fff'} size={16} text={'New'} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{padding: 2}}
+              onPress={() => {
+                setFilterBy('week');
+                setShowFilter(false);
+              }}>
               <AppText color={'#fff'} size={16} text={'Last 7 Days'} />
             </TouchableOpacity>
-            <TouchableOpacity style={{padding: 3}} onPress={() => {}}>
+            <TouchableOpacity
+              style={{padding: 3}}
+              onPress={() => {
+                setFilterBy('month');
+                setShowFilter(false);
+              }}>
               <AppText color={'#fff'} size={16} text={'Last Month'} />
-            </TouchableOpacity>
-            <TouchableOpacity style={{padding: 2}} onPress={() => {}}>
-              <AppText color={'#fff'} size={16} text={'Calender Range'} />
             </TouchableOpacity>
           </View>
         )}
       </View>
       <View style={{paddingHorizontal: 10, zIndex: -1}}>
-        <FlatList
-          data={notifications}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: 10,
-            paddingBottom: 170,
-            marginBottom: 180,
-          }}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('NotificationDetail')}
-                style={styles.notification}>
-                <AppText size={14} bold={'bold'} text={item.title} />
-                <View
-                  style={{paddingVertical: 5, paddingBottom: 10, zIndex: -1}}>
-                  <AppText size={12} text={item.description} />
-                </View>
-                <AppText size={10} text={item.date} />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={item => item.index}
-          ListFooterComponent={() => (
-            <TouchableOpacity style={styles.btn} onPress={() => {}}>
-              <AppText color={'#fff'} text={'LOAD MORE'} />
-            </TouchableOpacity>
-          )}
-        />
+        {loading && <ActivityIndicator color={colors.primary} size={20} />}
+        {notifications?.length > 0 && (
+          <FlatList
+            data={notifications}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: 10,
+              paddingBottom: 170,
+              marginBottom: 180,
+            }}
+            renderItem={({item}) => {
+              let da = item?.created?.split('T')[0];
+              let date = da.split('-');
+              let arrangeDate = date[0] + date[1] + date[2];
+
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('NotificationDetail')}
+                  style={styles.notification}>
+                  <AppText size={14} bold={'bold'} text={item.title} />
+                  <View
+                    style={{paddingVertical: 5, paddingBottom: 10, zIndex: -1}}>
+                    <AppText size={12} text={item.description} />
+                  </View>
+                  <AppText
+                    size={10}
+                    text={moment(arrangeDate, 'YYYYMMDD').fromNow()}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={item => item.index}
+            // ListFooterComponent={() => (
+            //   <TouchableOpacity style={styles.btn} onPress={() => {}}>
+            //     <AppText color={'#fff'} text={'LOAD MORE'} />
+            //   </TouchableOpacity>
+            // )}
+          />
+        )}
+        {notifications?.length == 0 && !loading && (
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <AppText color={'black'} text={'No Notifications Found'} />
+          </View>
+        )}
         {/* <TouchableOpacity style={styles.btn} onPress={() => {}}>
           <AppText bold={'bold'} color={'#fff'} text={'LOAD MORE'} />
         </TouchableOpacity> */}

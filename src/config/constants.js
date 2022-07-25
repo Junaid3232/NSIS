@@ -17,6 +17,7 @@ export const screens = {
   CompleteRegistration: 'CompleteRegistration',
   ForgotPassword: 'ForgotPassword',
   Dashboard: 'Dashboard',
+  ForgotPassword0: 'ForgotPassword0',
 };
 
 const reportIssue = {

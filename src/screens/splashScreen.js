@@ -9,8 +9,8 @@ const SplashScreen = ({navigation}) => {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('token');
+      nav(value);
       if (value !== null) {
-        nav(value);
       } else if (value === null) {
         nav(null);
       }
@@ -24,7 +24,10 @@ const SplashScreen = ({navigation}) => {
         CommonActions.reset({
           index: 0,
           routes: [
-            {name: token ? 'Dashboard' : 'Login', params: {token: 'token'}},
+            {
+              name: token !== null ? 'Dashboard' : 'Login',
+              params: {token: 'token'},
+            },
           ],
         }),
       );

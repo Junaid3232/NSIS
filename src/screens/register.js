@@ -19,7 +19,9 @@ import colors from '../config/colors';
 import validator from 'validator';
 import {registerEmail} from '../api/getIssuesCount';
 import ErrorModal from '../components/ErrorModal';
-
+import axios from 'axios';
+import {BASE_URL} from '../config/constants';
+import {HeaderText} from '../components/HeaderText';
 const Register = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -56,24 +58,36 @@ const Register = ({navigation}) => {
       setShowModal(true);
       setLoading(false);
     } else {
-      try {
-        const response = await registerEmail({email});
-        console.log('.....RESPONSE', response);
-        if (response) {
-          console.log('.....RESPONSE', response);
-          navigation.navigate(screens.Register3, {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phone: phone,
-          });
+      const body = {
+        email: email,
+      };
+      axios
+        .post(`${BASE_URL}/signup/confirm`, body)
+        .then(async response => {
+          if (response) {
+            console.log('response.toke', response?.data?.accessToken);
+            console.log('response.data', response?.data);
+            // console.log(response.data.accessToken);?
+            try {
+              navigation.navigate(screens.Register3, {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phone,
+              });
+              setLoading(false);
+            } catch (e) {
+              console.log('errrrrrrr', e);
+              // saving error
+            }
+          }
+        })
+        .catch(error => {
           setLoading(false);
-        } else {
-        }
-      } catch (err) {
-        setLoading(false);
-      }
-      setLoading(false);
+          setShowModal(true);
+          setErrorText(error?.response?.data);
+          console.log('ERORRRRRRR', error?.response?.data);
+        });
     }
   };
 
@@ -82,38 +96,72 @@ const Register = ({navigation}) => {
     <SafeAreaView
       style={{
         flex: 1,
-        marginTop: 10,
-        paddingHorizontal: 5,
-        backgroundColor: colors.white,
+
+        backgroundColor: colors.primary,
       }}>
-      <ScrollView>
-        <View style={{flex: 1}}>
-          <View style={{height: 400}}>
-            <AppCarousel />
-          </View>
+      {/* <ScrollView> */}
+
+      <View style={{flex: 1}}>
+        <Image
+          source={require('../assets/images/n1.png')}
+          style={{alignSelf: 'center'}}
+        />
+        <View
+          style={{
+            backgroundColor: 'white',
+            position: 'absolute',
+            bottom: 1,
+            left: 15,
+            right: 15,
+            height: '65%',
+            borderRadius: 10,
+          }}>
+          {/* <AppCarousel /> */}
+
           <View
             style={{
               alignItems: 'center',
               justifyContent: 'flex-start',
-              marginTop: -40,
             }}>
             <Image
               resizeMode="contain"
               source={require('../assets/icons/Logo1.png')}
-              style={{width: 100, height: 50}}
+              style={{width: 150, height: 80}}
             />
           </View>
           <View style={{}}>
-            <View style={{alignItems: 'center'}}>
-              <AppText text={'Create Account'} size={16} color={colors.black} />
+            <View style={{marginLeft: 20, paddingVertical: 10}}>
+              <HeaderText
+                firstText={'Create'}
+                secondText={'Account'}
+                size={16}
+                color={colors.black}
+              />
             </View>
-            <AppTextBox placeholder={'First Name'} setState={setFirstName} />
-            <AppTextBox placeholder={'Last Name'} setState={setLastName} />
             <AppTextBox
+              icon={'user-o'}
+              iconSize={15}
+              placeholder={'First Name'}
+              setState={setFirstName}
+            />
+            <AppTextBox
+              icon={'user-o'}
+              iconSize={15}
+              placeholder={'Last Name'}
+              setState={setLastName}
+            />
+            <AppTextBox
+              icon={'envelope-o'}
+              iconSize={15}
               placeholder={'Valid Email Address'}
               setState={setEmail}
             />
-            <AppTextBox placeholder={'Phone Number'} setState={setPhone} />
+            <AppTextBox
+              icon={'mobile-phone'}
+              iconSize={25}
+              placeholder={'Phone Number'}
+              setState={setPhone}
+            />
             <View style={{marginTop: 8}}>
               <AppButton
                 title={'CREATE'}
@@ -122,13 +170,28 @@ const Register = ({navigation}) => {
               />
             </View>
             <View style={styles.forget}>
-              <AppText
-                text={'Back to Login'}
-                disabled={false}
-                size={13}
-                color={colors.black}
-                onPress={() => navigation.goBack()}
-              />
+              <View style={{width: '100%'}}>
+                <AppText
+                  text={'Back to Login'}
+                  disabled={false}
+                  size={13}
+                  color={colors.primary}
+                  bold={true}
+                  onPress={() => navigation.goBack()}
+                />
+                <View
+                  style={{
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <AppText
+                    text={'Powerd By Softcity Group'}
+                    size={12}
+                    color={'gray'}
+                  />
+                </View>
+              </View>
               <ErrorModal
                 modalVisible={showModal}
                 setModalVisible={setShowModal}
@@ -137,10 +200,7 @@ const Register = ({navigation}) => {
             </View>
           </View>
         </View>
-        <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
-          <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'} />
-        </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

@@ -44,6 +44,19 @@ const ReportIssue = ({navigation}) => {
   const [responsiblePersonEmail, setResponsiblePersonEmail] = useState('');
   const [date, setDate] = useState(new Date());
   const [flag, setFlag] = useState(false);
+
+  const [natureOfBussiness, setNatureOfBussiness] = useState('');
+  const [describeSafetyIssue, setDescribeSafetyIssue] = useState('');
+  const [isAddressDifferent, setIsAddressDifferent] = useState();
+  const [detailsOfOrganization, setDetailsOfOrganization] = useState('');
+  const [openCalender, setOpenCalender] = useState(false);
+  const [isDateSet, setIsDateSet] = useState(false);
+  const [relationship, setRelationship] = useState('');
+  const [otherPhoneNo, setOtherPhoneNo] = useState('');
+  const [contactYou, setContactYou] = useState();
+  const [sendReminder, setSendReminder] = useState();
+  const [doYouAuthorize, setDoYouAuthorize] = useState();
+
   useEffect(() => {
     console.log('........');
     setFlag(true);
@@ -75,7 +88,24 @@ const ReportIssue = ({navigation}) => {
     organization: orgainizationInfo,
     industry: selectedIndustry,
     state: selectState,
+    orgainizationDetails: orgainizationInfo,
+    state: selectState,
+    lga: selectLGA,
+    location: locationInfo,
+    responsiblePersonName: responsiblePersonName,
+    responsiblePersonPhone: responsiblePersonPhone,
+    responsiblePersonEmail: responsiblePersonEmail,
+    natureOfBussiness: natureOfBussiness,
+    describeIssue: describeSafetyIssue,
+    isOrganizationAndIssueLocationDifferent: isAddressDifferent,
+    organizationDetails: detailsOfOrganization,
+    relationShipWithOrganization: relationship,
+    phoneNoOfEmployees: otherPhoneNo,
+    authorizeforContactingYou: contactYou,
+    authorizeforReminder: sendReminder,
+    authorizeForVerification: doYouAuthorize,
   };
+  console.log('....BODY', body);
   const onSubmitIssue = async () => {
     try {
       setLoading(true);
@@ -138,7 +168,26 @@ const ReportIssue = ({navigation}) => {
           setResponsiblePersonEmail={setResponsiblePersonEmail}
           responsiblePersonEmail={responsiblePersonEmail}
         />
-        <OtherInformation />
+        <OtherInformation
+          natureOfBussiness={natureOfBussiness}
+          setNatureOfBussiness={setNatureOfBussiness}
+          describeSafetyIssue={describeSafetyIssue}
+          setDescribeSafetyIssue={setDescribeSafetyIssue}
+          isAddressDifferent={isAddressDifferent}
+          setIsAddressDifferent={setIsAddressDifferent}
+          detailsOfOrganization={detailsOfOrganization}
+          setDetailsOfOrganization={setDetailsOfOrganization}
+          relationship={relationship}
+          setRelationship={setRelationship}
+          otherPhoneNo={otherPhoneNo}
+          setOtherPhoneNo={setOtherPhoneNo}
+          contactYou={contactYou}
+          setContactYou={setContactYou}
+          sendReminder={sendReminder}
+          setSendReminder={setSendReminder}
+          setDoYouAuthorize={setDoYouAuthorize}
+          doYouAuthorize={doYouAuthorize}
+        />
 
         {/* <View style={{}}>
           <TouchableOpacity style={{...styles.container}}>

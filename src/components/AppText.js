@@ -33,6 +33,7 @@ export const AppText = (
         <TouchableOpacity style={{alignItems: 'center'}} onPress={onPress}>
           <Text
             style={{
+              ...props,
               ...styles.text,
               fontSize: size,
               fontWeight: bold ? 'bold' : 'normal',
