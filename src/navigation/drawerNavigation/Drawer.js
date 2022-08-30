@@ -11,14 +11,6 @@ const Drawer = ({navigation}) => {
   return (
     <MainDrawer.Navigator
       drawerStyle={{width: '80%'}}
-      // drawerContentOptions={{
-      //   inactiveTintColor: 'black',
-      //   activeTintColor: '#fff',
-      //   inactiveBackgroundColor: 'white',
-      //   itemStyle: { width: '100%', }
-
-      // }}
-
       drawerContent={props => <DrawerSideBarMenu {...props} />}>
       <MainDrawer.Screen
         name="Home"

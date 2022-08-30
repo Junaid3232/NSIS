@@ -112,9 +112,11 @@ const Login = ({navigation}) => {
             <View style={{paddingVertical: 20}}>
               <AppTextBox
                 placeholder={'Email or Username'}
-                icon={'envelope'}
+                icon={'email'}
                 state={email}
                 setState={setEmail}
+                iconDirectory={'Fontisto'}
+                iconSize={20}
               />
 
               <AppTextBox
@@ -122,6 +124,8 @@ const Login = ({navigation}) => {
                 icon={'lock'}
                 state={password}
                 secure={true}
+                iconDirectory={'EvilIcons'}
+                iconSize={30}
                 setState={setPassword}
               />
             </View>

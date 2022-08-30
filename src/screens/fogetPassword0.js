@@ -18,6 +18,7 @@ import colors from '../config/colors';
 import validator from 'validator';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import {HeaderText} from '../components/HeaderText';
 
 const ForgotPassword0 = ({navigation}) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -81,63 +82,91 @@ const ForgotPassword0 = ({navigation}) => {
         flex: 1,
         marginTop: 10,
         paddingHorizontal: 20,
-        backgroundColor: colors.white,
+        backgroundColor: colors.primary,
       }}>
-      <View style={{flex: 1, marginTop: isKeyboardVisible ? 80 : 0}}>
-        {!isKeyboardVisible && (
-          <View style={{height: 400}}>
-            <AppCarousel />
+      <View style={{flex: 1}}>
+        <Image
+          source={require('../assets/images/n1.png')}
+          style={{alignSelf: 'center'}}
+        />
+        <View
+          style={{
+            backgroundColor: 'white',
+            position: 'absolute',
+            bottom: 1,
+            left: 15,
+            right: 15,
+            height: '65%',
+            borderRadius: 10,
+          }}>
+          {/* <AppCarousel /> */}
+
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <Image
+              resizeMode="contain"
+              source={require('../assets/icons/Logo1.png')}
+              style={{width: 150, height: 80}}
+            />
           </View>
-        )}
+
+          <View style={{marginTop: 5}}>
+            <View style={{marginLeft: 20, paddingVertical: 10}}>
+              <HeaderText
+                firstText={'Reset'}
+                secondText={'Password'}
+                size={16}
+                color={colors.black}
+              />
+            </View>
+            <AppTextBox
+              placeholder={'Email or username'}
+              state={email}
+              setState={setEmail}
+              iconDirectory={'Fontisto'}
+              icon={'email'}
+              iconSize={18}
+            />
+            <View style={{marginTop: 8}}>
+              <AppButton
+                title={'Submit'}
+                onPress={onPressSubmit}
+                loading={loading}
+              />
+            </View>
+            <View style={styles.forget}>
+              <AppText
+                text={'Back to Login'}
+                disabled={false}
+                color={colors.primary}
+                size={13}
+                bold={true}
+                onPress={() => navigation.navigate(screens.Login)}
+              />
+            </View>
+          </View>
+
+          <View>
+            <ErrorModal
+              modalVisible={showErrorModal}
+              setModalVisible={setShowErrorModal}
+              message={errorMessage}
+            />
+          </View>
+        </View>
         <View
           style={{
             alignItems: 'center',
-            justifyContent: 'flex-start',
-            marginTop: -40,
+            marginTop: 10,
+            position: 'absolute',
+            bottom: 40,
+            alignSelf: 'center',
           }}>
-          <Image
-            resizeMode="contain"
-            source={require('../assets/icons/Logo1.png')}
-            style={{width: 100, height: 50}}
-          />
+          <AppText text={'Powerd By Softcity Group'} size={12} color={'gray'} />
         </View>
-        <View style={{marginTop: 5}}>
-          <View style={{alignItems: 'center'}}>
-            <AppText text={'Reset Password'} color={colors.black} size={16} />
-          </View>
-          <AppTextBox
-            placeholder={'Enter Your Email'}
-            state={email}
-            setState={setEmail}
-          />
-          <View style={{marginTop: 8}}>
-            <AppButton
-              title={'SUBMIT'}
-              onPress={onPressSubmit}
-              loading={loading}
-            />
-          </View>
-          <View style={styles.forget}>
-            <AppText
-              text={'Back to Login'}
-              disabled={false}
-              color={colors.black}
-              size={12}
-              onPress={() => navigation.navigate(screens.Login)}
-            />
-          </View>
-        </View>
-      </View>
-
-      <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
-        <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'} />
-      </View>
-      <View>
-        <ErrorModal
-          modalVisible={showErrorModal}
-          setModalVisible={setShowErrorModal}
-          message={errorMessage}
-        />
       </View>
     </SafeAreaView>
   );

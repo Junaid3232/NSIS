@@ -2,6 +2,9 @@ import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
 import colors from '../config/colors';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const AppTextBox = ({
   placeholder,
@@ -9,12 +12,42 @@ export const AppTextBox = ({
   setState,
   secure = false,
   props,
+  iconDirectory,
   icon,
-  iconSize = 25,
+  iconSize = 20,
+  iconColor = 'gray',
 }) => {
   return (
     <View style={styles.container}>
-      <FontAwesome name={icon} size={iconSize} style={{marginLeft: 10}} />
+      {iconDirectory == 'FontAwesome' ? (
+        <FontAwesome
+          name={icon}
+          color={iconColor}
+          size={iconSize}
+          style={{marginLeft: 15}}
+        />
+      ) : iconDirectory == 'Fontisto' ? (
+        <Fontisto
+          name={icon}
+          size={iconSize}
+          color={iconColor}
+          style={{marginLeft: 15}}
+        />
+      ) : iconDirectory == 'EvilIcons' ? (
+        <EvilIcons
+          name={icon}
+          size={iconSize}
+          color={iconColor}
+          style={{marginLeft: 15}}
+        />
+      ) : iconDirectory == 'Ionicons' ? (
+        <Ionicons
+          name={icon}
+          size={iconSize}
+          color={iconColor}
+          style={{marginLeft: 15}}
+        />
+      ) : null}
       <TextInput
         style={styles.textBox}
         placeholder={placeholder}
@@ -43,7 +76,7 @@ const styles = StyleSheet.create({
   },
   textBox: {
     // paddingVertical: 10,
-    // width: '80%',
+    width: '80%',
     // height: 35,
     // borderWidth: 0.5,
     // borderRadius: 4,
@@ -54,6 +87,7 @@ const styles = StyleSheet.create({
     // fontSize: 12,
     fontFamily: 'Raleway-Medium',
     marginLeft: 15,
+    color: colors.black,
     // borderColor: colors.grayBorder,
   },
 });

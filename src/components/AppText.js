@@ -9,7 +9,15 @@ import React from 'react';
 import colors from '../config/colors';
 
 export const AppText = (
-  {text, disabled = true, size = 12, bold, onPress, color, marginLeft},
+  {
+    text,
+    disabled = true,
+    size = 12,
+    bold,
+    onPress,
+    color = 'black',
+    marginLeft,
+  },
   props,
 ) => {
   return (

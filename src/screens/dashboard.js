@@ -21,6 +21,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
@@ -475,9 +477,15 @@ const Dashboard = ({navigation, route}) => {
         </View>
         <View style={styles.graphContainer}>
           <View style={styles.subTitle}>
-            <AppText text={'Reported Safety Issues By Industry'} />
+            <AppText size={10} text={'Reported Safety Issues By Industry'} />
             <TouchableOpacity
-              style={{}}
+              style={{
+                borderRadius: 14,
+                borderWidth: 0.7,
+                padding: 7,
+                backgroundColor: colors.white,
+                borderColor: 'lightgray',
+              }}
               onPress={() => setShowDetails(!showDetails)}>
               <AppText
                 text={'Show Details'}
@@ -495,7 +503,7 @@ const Dashboard = ({navigation, route}) => {
                 gradientColor={'#444'}
                 // labelWidth={100}
                 barWidth={20}
-                barBorderRadius={2}
+                barBorderRadius={10}
                 spacing={12}
                 frontColor={colors.primary}
                 yAxisThickness={0}
@@ -518,21 +526,30 @@ const Dashboard = ({navigation, route}) => {
         <View style={{flexDirection: 'row', paddingHorizontal: 12}}>
           <View style={[styles.totalBadges, {marginEnd: 10}]}>
             <TotalReports
-              backgroundColor={'#51BA5B'}
               totalText={'Total'}
               name={'Industries'}
               counter={industryIssueCount}
-              icon={<Ionicons name="book" color={'#fff'} size={20} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="account-group-outline"
+                  color={'#fff'}
+                  size={20}
+                />
+              }
             />
             <TotalReports
-              backgroundColor={'#383b80'}
               totalText={'Total'}
               name={'Reporters'}
               counter={allIssueCount}
-              icon={<Fontisto name="world" color={'#fff'} size={20} />}
+              icon={
+                <MaterialCommunityIcons
+                  name="clock-in"
+                  color={'#fff'}
+                  size={25}
+                />
+              }
             />
-            <TotalReports
-              backgroundColor={'#FF17F5'}
+            {/* <TotalReports
               totalText={'Total'}
               name={'Resolved Issue'}
               counter={
@@ -542,18 +559,18 @@ const Dashboard = ({navigation, route}) => {
                   : 0
               }
               icon={<Fontisto name="world" color={'#fff'} size={20} />}
-            />
+            /> */}
           </View>
           <View style={styles.totalBadges}>
             <TotalReports
-              backgroundColor={'#DA2936'}
               totalText={'Total'}
               name={'Organizations'}
               counter={organizationIssueCount}
-              icon={<Fontisto name="world-o" color={'#fff'} size={20} />}
+              icon={
+                <Foundation name="clipboard-pencil" color={'#fff'} size={20} />
+              }
             />
             <TotalReports
-              backgroundColor={'#E97B40'}
               totalText={'Total'}
               name={'Active Issues'}
               counter={
@@ -564,8 +581,7 @@ const Dashboard = ({navigation, route}) => {
               }
               icon={<Feather name="activity" color={'#fff'} size={20} />}
             />
-            <TotalReports
-              backgroundColor={'#00A863'}
+            {/* <TotalReports
               totalText={'Total'}
               name={'Ignore Issues'}
               counter={
@@ -575,7 +591,7 @@ const Dashboard = ({navigation, route}) => {
                   : 0
               }
               icon={<Feather name="activity" color={'#fff'} size={20} />}
-            />
+            /> */}
           </View>
         </View>
         <View>
@@ -584,6 +600,10 @@ const Dashboard = ({navigation, route}) => {
               flexDirection: 'row',
               alignItems: 'center',
               paddingHorizontal: 10,
+              borderLeftWidth: 5,
+              marginLeft: 15,
+              marginTop: 10,
+              borderColor: colors.orange,
             }}>
             <Text style={styles.safetyText}>
               {'Industry Safety Index (Jan - March 2022)'}
@@ -592,10 +612,31 @@ const Dashboard = ({navigation, route}) => {
               <AppText color={'#fff'} text={'?'} />
             </View>
           </View>
-          <View style={{paddingHorizontal: 10}}>
+          <View
+            style={{
+              paddingHorizontal: 20,
+              backgroundColor: '#fff5f5',
+              marginTop: 10,
+              width: '93%',
+              alignSelf: 'center',
+              borderRadius: 5,
+              shadowColor: colors.orange,
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+            }}>
             <View style={{flexDirection: 'row'}}>
               <SafetyIndex index={1} industryName={'Telecommunication'} />
               <SafetyIndex index={2} industryName={'Government'} />
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <SafetyIndex index={3} industryName={'Banking'} />
+              <SafetyIndex index={4} industryName={'Telecommunication'} />
             </View>
             <View style={{flexDirection: 'row'}}>
               <SafetyIndex index={3} industryName={'Banking'} />
@@ -626,9 +667,9 @@ const Dashboard = ({navigation, route}) => {
               alignItems: 'flex-end',
               marginRight: 15,
               marginBottom: 75,
-              marginTop: 5,
+              marginTop: 10,
             }}>
-            <AppText text={'View Full List'} color={'blue'} size={10} />
+            <AppText text={'View Full List'} color={'gray'} size={10} />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -649,6 +690,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     fontFamily: 'Raleway-Medium',
+    fontWeight: 'bold',
   },
   subTitle: {
     color: '#000',
@@ -670,17 +712,11 @@ const styles = StyleSheet.create({
     width: '95%',
     marginVertical: 10,
     borderRadius: 10,
-    borderWidth: 0.2,
+
     borderColor: '#dfdfdf',
     alignItems: 'center',
-    backgroundColor: colors.lightGray,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    backgroundColor: '#eefcffd9',
+
     elevation: 5,
     alignSelf: 'center',
   },
@@ -692,7 +728,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     borderRadius: 10,
-    backgroundColor: 'green',
+    backgroundColor: colors.orange,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,

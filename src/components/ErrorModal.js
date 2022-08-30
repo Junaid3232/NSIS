@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     position: 'absolute',
-    bottom: 0,
+    bottom: -20,
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',

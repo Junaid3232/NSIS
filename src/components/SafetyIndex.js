@@ -19,33 +19,21 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 40,
+    // height: 40,
     width: '48%',
-    borderRadius: 3,
-    borderWidth: 0.2,
-    borderColor: '#dfdfdf',
+
     padding: 5,
     marginEnd: 12,
-    marginVertical: 8,
-
-backgroundColor:colors.lightGray
+    // marginVertical: 8,
   },
   subContainer: {
-    backgroundColor: 'green',
+    // backgroundColor: 'green',
     borderRadius: 6,
     height: 25,
     width: 25,
     justifyContent: 'center',
     alignItems: 'center',
     marginEnd: 7,
-    shadowColor: '#000',
-shadowOffset: {
-  width: 0,
-  height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
-elevation: 5,
   },
   industryN: {
     color: '#000',
@@ -53,8 +41,8 @@ elevation: 5,
     fontWeight: '300',
   },
   index: {
-      color: '#fff', 
-      fontSize: 14, 
-      fontWeight: '600'
-    },
+    color: colors.primary,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 });

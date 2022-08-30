@@ -32,7 +32,9 @@ export const Header = ({dashboard = false, navigation}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         {dashboard ? (
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <TouchableOpacity
+            style={styles.hamburger}
+            onPress={() => navigation.openDrawer()}>
             <Entypo name="menu" color={colors.black} size={20} />
           </TouchableOpacity>
         ) : (
@@ -46,7 +48,7 @@ export const Header = ({dashboard = false, navigation}) => {
         <Image
           source={require('../assets/icons/Logo1.png')}
           resizeMode="contain"
-          style={{width: 80, height: 50}}
+          style={{width: 100, height: 70}}
         />
 
         {isLogin ? (
@@ -73,27 +75,24 @@ export const Header = ({dashboard = false, navigation}) => {
 };
 const styles = StyleSheet.create({
   container: {
-    shadowColor: '#000',
-
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-
-    elevation: 5,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.white,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
+    borderBottomWidth: 0.7,
+    borderColor: 'lightgray',
   },
   header: {
     flexDirection: 'row',
     borderColor: colors.primary,
     alignItems: 'center',
-    paddingVertical: 10,
+    // paddingVertical: 10,
     justifyContent: 'space-between',
     paddingHorizontal: 10,
+  },
+  hamburger: {
+    borderRadius: 3,
+    borderWidth: 0.8,
+    padding: 3,
   },
   profilePic: {width: 40, height: 40, borderRadius: 20},
 });

@@ -224,7 +224,7 @@ export default ReportIssue;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: '#f1f1f1',
     // paddingHorizontal: 15,
   },
   container: {

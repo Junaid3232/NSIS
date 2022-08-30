@@ -86,7 +86,7 @@ const Register = ({navigation}) => {
           setLoading(false);
           setShowModal(true);
           setErrorText(error?.response?.data);
-          console.log('ERORRRRRRR', error?.response?.data);
+          console.log('ERORRRRRRR', error);
         });
     }
   };
@@ -143,24 +143,28 @@ const Register = ({navigation}) => {
               iconSize={15}
               placeholder={'First Name'}
               setState={setFirstName}
+              iconDirectory={'FontAwesome'}
             />
             <AppTextBox
               icon={'user-o'}
               iconSize={15}
               placeholder={'Last Name'}
               setState={setLastName}
+              iconDirectory={'FontAwesome'}
             />
             <AppTextBox
-              icon={'envelope-o'}
+              icon={'email'}
               iconSize={15}
-              placeholder={'Valid Email Address'}
+              placeholder={'Email Address'}
               setState={setEmail}
+              iconDirectory={'Fontisto'}
             />
             <AppTextBox
               icon={'mobile-phone'}
               iconSize={25}
               placeholder={'Phone Number'}
               setState={setPhone}
+              iconDirectory={'FontAwesome'}
             />
             <View style={{marginTop: 8}}>
               <AppButton

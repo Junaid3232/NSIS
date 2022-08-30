@@ -5,4 +5,6 @@ export default colors = {
   black: '#000',
   gray: 'gray',
   grayBorder: '#00000040',
+  orange: '#ffba0e',
+  background: '#fbfcffd9',
 };

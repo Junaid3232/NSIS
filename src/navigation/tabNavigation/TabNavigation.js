@@ -10,13 +10,17 @@ import ReportIssue from '../../screens/reportIssue';
 import TermsOfUse from '../../screens/termsOfUse';
 import AboutNISCN from '../../screens/aboutNISCN';
 import Notification from '../../screens/notification';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 const dashboard = require('../../assets/icons/tabs/dashboard.png');
 const bell = require('../../assets/icons/tabs/bell.png');
 const about = require('../../assets/icons/tabs/about.png');
 const lock = require('../../assets/icons/tabs/padlock.png');
-const shield = require('../../assets/icons/tabs/shield.png');
+const shield = require('../../assets/icons/tabs/Vector.png');
+const reception = require('../../assets/icons/tabs/reception.png');
+const notification = require('../../assets/icons/tabs/notification.png');
+const checks = require('../../assets/icons/tabs/checks.png');
 
 const TabNavigation = () => {
   return (
@@ -26,13 +30,16 @@ const TabNavigation = () => {
         tabBarShowLabel: false,
         tabBarStyle: [
           {
-            position: 'absolute',
-            left: 8,
-            right: 8,
-            borderRadius: 20,
-            elevation: 0,
-            height: 70,
-            backgroundColor: colors.lightGray,
+            // position: 'absolute',
+            // left: 8,
+            // right: 8,
+            borderRadius: 30,
+            shadowColor: colors.primary,
+            // paddingTop: 20,
+            elevation: 5,
+            // height: 80,
+            // elevation: 10,
+            backgroundColor: colors.white,
             ...styles.shadow,
           },
         ],
@@ -53,13 +60,13 @@ const TabNavigation = () => {
               <Image
                 source={dashboard}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 45,
+                  height: 45,
                   tintColor: focused ? colors.primary : 'gray',
                 }}
                 resizeMode={'contain'}
               />
-              <Text
+              {/* <Text
                 style={{
                   color: focused ? colors.primary : 'gray',
                   fontSize: 10,
@@ -67,7 +74,7 @@ const TabNavigation = () => {
                   fontFamily: 'Raleway-Medium',
                 }}>
                 Dashboard
-              </Text>
+              </Text> */}
             </View>
           ),
         }}
@@ -84,15 +91,15 @@ const TabNavigation = () => {
                 top: 5,
               }}>
               <Image
-                source={about}
+                source={reception}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 60,
+                  height: 60,
                   tintColor: focused ? colors.primary : 'gray',
                 }}
                 resizeMode={'contain'}
               />
-              <Text
+              {/* <Text
                 style={{
                   color: focused ? colors.primary : 'gray',
                   fontSize: 10,
@@ -100,7 +107,7 @@ const TabNavigation = () => {
                   fontFamily: 'Raleway-Medium',
                 }}>
                 About NISCN
-              </Text>
+              </Text> */}
             </View>
           ),
         }}
@@ -114,25 +121,21 @@ const TabNavigation = () => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                top: 5,
+                // top: 3,
               }}>
-              <Image
-                source={shield}
-                style={{
-                  width: 20,
-                  height: 20,
-                  tintColor: focused ? colors.primary : 'gray',
-                }}
-                resizeMode={'contain'}
+              <MaterialCommunityIcons
+                name="plus-circle"
+                color={colors.orange}
+                size={35}
               />
               <Text
                 style={{
-                  color: focused ? colors.primary : 'gray',
+                  color: 'gray',
                   fontFamily: 'Raleway-Medium',
-                  fontSize: 10,
-                  marginTop: 10,
+                  fontSize: 12,
+                  // marginTop: 2,
                 }}>
-                Report Issue
+                Guest
               </Text>
             </View>
           ),
@@ -150,15 +153,15 @@ const TabNavigation = () => {
                 top: 5,
               }}>
               <Image
-                source={lock}
+                source={checks}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 50,
+                  height: 50,
                   tintColor: focused ? colors.primary : 'gray',
                 }}
                 resizeMode={'contain'}
               />
-              <Text
+              {/* <Text
                 style={{
                   color: focused ? colors.primary : 'gray',
                   fontFamily: 'Raleway-Medium',
@@ -167,7 +170,7 @@ const TabNavigation = () => {
                   marginTop: 10,
                 }}>
                 Terms of Use
-              </Text>
+              </Text> */}
             </View>
           ),
         }}
@@ -185,15 +188,15 @@ const TabNavigation = () => {
                 top: 5,
               }}>
               <Image
-                source={bell}
+                source={notification}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 60,
+                  height: 60,
                   tintColor: focused ? colors.primary : 'gray',
                 }}
                 resizeMode={'contain'}
               />
-              <Text
+              {/* <Text
                 style={{
                   color: focused ? colors.primary : 'gray',
                   fontSize: 10,
@@ -201,7 +204,7 @@ const TabNavigation = () => {
                   fontFamily: 'Raleway-Medium',
                 }}>
                 Notifications
-              </Text>
+              </Text> */}
             </View>
           ),
         }}
@@ -211,15 +214,15 @@ const TabNavigation = () => {
 };
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#000',
+    shadowColor: colors.orange,
+
     shadowOffset: {
       width: 0,
       height: 10,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-
-    elevation: 5,
+    elevation: 10,
   },
 });
 export default TabNavigation;

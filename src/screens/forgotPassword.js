@@ -18,6 +18,7 @@ import colors from '../config/colors';
 import validator from 'validator';
 import axios from 'axios';
 import ErrorModal from '../components/ErrorModal';
+import {HeaderText} from '../components/HeaderText';
 
 const ForgotPassword = ({navigation, route}) => {
   const email = route?.params?.email;
@@ -96,52 +97,72 @@ const ForgotPassword = ({navigation, route}) => {
     <SafeAreaView
       style={{
         flex: 1,
-        marginTop: 10,
+
         paddingHorizontal: 20,
-        backgroundColor: colors.white,
+        backgroundColor: colors.primary,
       }}>
-      <View style={{flex: 1, marginTop: isKeyboardVisible ? 80 : 0}}>
-        {!isKeyboardVisible && (
-          <View style={{height: 400}}>
-            <AppCarousel />
-          </View>
-        )}
+      <Image
+        source={require('../assets/images/n2.png')}
+        style={{alignSelf: 'center'}}
+      />
+      <View
+        style={{
+          backgroundColor: 'white',
+          position: 'absolute',
+          bottom: 20,
+          left: 15,
+          right: 15,
+          height: '65%',
+          borderRadius: 10,
+        }}>
+        {/* <AppCarousel /> */}
+
         <View
           style={{
             alignItems: 'center',
             justifyContent: 'flex-start',
-            marginTop: -40,
           }}>
           <Image
             resizeMode="contain"
             source={require('../assets/icons/Logo1.png')}
-            style={{width: 100, height: 50}}
+            style={{width: 150, height: 80}}
           />
         </View>
         <View style={{marginTop: 5}}>
-          <View style={{alignItems: 'center'}}>
-            <AppText text={'Reset Password'} color={colors.black} size={16} />
+          <View style={{marginLeft: 20, paddingVertical: 10}}>
+            <HeaderText
+              firstText={'Reset'}
+              secondText={'Password'}
+              size={16}
+              color={colors.black}
+            />
           </View>
           <AppTextBox
             placeholder={'Enter Code Sent to Your Email'}
             state={code}
             setState={setCode}
+            icon={'key-outline'}
+            iconDirectory={'Ionicons'}
           />
           <AppTextBox
             placeholder={'Enter New Password'}
             secure={true}
             state={password}
             setState={setPassword}
+            iconDirectory={'Fontisto'}
+            icon={'email'}
           />
           <AppTextBox
             placeholder={'Confirm Your Password'}
             state={confirmPassword}
             secure={true}
             setState={setConfirmPassword}
+            icon={'key-outline'}
+            iconDirectory={'Ionicons'}
           />
           <View style={{marginTop: 8}}>
             <AppButton
-              title={'COMPLETE'}
+              title={'Complete'}
               onPress={onPressSubmit}
               loading={loading}
             />
@@ -150,15 +171,23 @@ const ForgotPassword = ({navigation, route}) => {
             <AppText
               text={'Back to Login'}
               disabled={false}
-              color={colors.black}
+              color={colors.primary}
               size={12}
+              bold={true}
               onPress={() => navigation.navigate(screens.Login)}
             />
           </View>
         </View>
       </View>
-      <View style={{justifyContent: 'flex-end', alignItems: 'center'}}>
-        <AppText text={'Powerd By Softcity Group'} size={8} color={'gray'} />
+      <View
+        style={{
+          alignItems: 'center',
+          marginTop: 10,
+          position: 'absolute',
+          bottom: 40,
+          alignSelf: 'center',
+        }}>
+        <AppText text={'Powerd By Softcity Group'} size={12} color={'gray'} />
       </View>
       <View>
         <ErrorModal

@@ -71,95 +71,98 @@ const IndustryInfoCard = ({setSelectedIndustry, selectedIndustry}) => {
     {name: 'Government'},
   ];
   return (
-    <TouchableOpacity
-      onPress={() => setShowIndustryInfo(!showIndustryInfo)}
-      style={styles.container}>
+    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
       {selectedIndustry !== 'Select Industry' ? (
         <View style={styles.counterSticker}>
           <Entypo name="check" color={'#fff'} size={15} />
         </View>
       ) : (
         <View style={styles.counterSticker}>
-          <AppText color={'#fff'} text={'2'} />
+          <AppText color={'#fff'} text={'2'} bold={true} />
         </View>
       )}
-      {showIndustryInfo ? (
-        <>
-          <AppText
-            color={colors.black}
-            text={'Industry Information'}
-            size={10}
-          />
 
-          <AppText
-            text={'Select the industry of the organization you are reporting'}
-            color={colors.gray}
-            size={10}
-          />
-          <TouchableOpacity
-            style={{
-              ...styles.industryContainer,
-              borderBottomEndRadius: showIndustries ? 0 : 10,
-              borderBottomStartRadius: showIndustries ? 0 : 10,
-            }}
-            onPress={() => setShowIndustries(!showIndustries)}>
-            <AppText color={'white'} text={selectedIndustry} />
-            <FontAwesome name="caret-down" size={20} color={colors.white} />
-          </TouchableOpacity>
-          {showIndustries && (
-            <View style={styles.filter}>
-              <FlatList
-                data={industries}
-                renderItem={({item}) => (
-                  <TouchableOpacity
-                    style={{padding: 2}}
-                    onPress={() => {
-                      setShowDots(true);
-                      setTimeout(() => {
-                        setSelectedIndustry(item.name);
-                        setShowIndustries(false);
-                        setShowDots(false);
-                      }, 2000);
-                    }}>
-                    <AppText color={'#fff'} size={12} text={item.name} />
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          )}
+      <TouchableOpacity
+        onPress={() => setShowIndustryInfo(!showIndustryInfo)}
+        style={styles.container}>
+        {showIndustryInfo ? (
+          <>
+            <AppText
+              color={colors.black}
+              text={'Industry Information'}
+              size={10}
+            />
 
-          {showDot && (
-            <View
+            <AppText
+              text={'Select the industry of the organization you are reporting'}
+              color={colors.gray}
+              size={10}
+            />
+            <TouchableOpacity
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                marginVertical: 10,
-                borderTopWidth: 0.5,
-                paddingTop: 10,
-              }}>
-              <AppText
-                text={'Next Question Will Load After Your Response Above'}
-                size={10}
-                color={colors.gray}
-              />
-              <Loader />
-            </View>
-          )}
-        </>
-      ) : (
-        <>
-          <AppText color={colors.black} text={'Industry Information'} />
-          <AppText
-            text={
-              'We will like to know the industry the organization you are reporting operators'
-            }
-            color={colors.gray}
-            size={10}
-          />
-        </>
-      )}
-    </TouchableOpacity>
+                ...styles.industryContainer,
+                borderBottomEndRadius: showIndustries ? 0 : 10,
+                borderBottomStartRadius: showIndustries ? 0 : 10,
+              }}
+              onPress={() => setShowIndustries(!showIndustries)}>
+              <AppText color={'white'} text={selectedIndustry} />
+              <FontAwesome name="caret-down" size={20} color={colors.white} />
+            </TouchableOpacity>
+            {showIndustries && (
+              <View style={styles.filter}>
+                <FlatList
+                  data={industries}
+                  renderItem={({item}) => (
+                    <TouchableOpacity
+                      style={{padding: 2}}
+                      onPress={() => {
+                        setShowDots(true);
+                        setTimeout(() => {
+                          setSelectedIndustry(item.name);
+                          setShowIndustries(false);
+                          setShowDots(false);
+                        }, 2000);
+                      }}>
+                      <AppText color={'#fff'} size={12} text={item.name} />
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            )}
+
+            {showDot && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  marginVertical: 10,
+                  borderTopWidth: 0.5,
+                  paddingTop: 10,
+                }}>
+                <AppText
+                  text={'Next Question Will Load After Your Response Above'}
+                  size={10}
+                  color={colors.gray}
+                />
+                <Loader />
+              </View>
+            )}
+          </>
+        ) : (
+          <>
+            <AppText color={colors.black} text={'Industry Information'} />
+            <AppText
+              text={
+                'We will like to know the industry the organization you are reporting operators'
+              }
+              color={colors.gray}
+              size={10}
+            />
+          </>
+        )}
+      </TouchableOpacity>
+    </View>
   );
 };
 export default IndustryInfoCard;
@@ -172,36 +175,37 @@ const styles = StyleSheet.create({
   },
   container: {
     // height: 120,
-    width: '90%',
-    backgroundColor: colors.lightGray,
+    width: '80%',
+    backgroundColor: colors.background,
     borderWidth: 0,
-    borderColor: 'green',
     marginVertical: 8,
     borderRadius: 10,
     zIndex: -999,
     alignSelf: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    shadowColor: '#000',
-
+    paddingVertical: 20,
+    shadowColor: colors.orange,
+    marginLeft: -10,
     shadowOffset: {
       width: 0,
       height: 4,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 3,
   },
   counterSticker: {
-    backgroundColor: 'green',
+    backgroundColor: colors.orange,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
     height: 30,
     width: 30,
-    position: 'absolute',
-    left: -15,
-    top: 15,
+    alignSelf: 'center',
+
+    // position: 'absolute',
+    // left: -15,
+    // top: 15,
     zIndex: 999,
     shadowColor: '#000',
     shadowOffset: {

@@ -50,6 +50,7 @@ const Register2 = ({navigation, route}) => {
               size={16}
             />
           </View>
+
           <AppTextBox placeholder={'Email or Username'} />
           <View style={{marginTop: 8}}>
             <AppButton
